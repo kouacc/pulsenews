@@ -24,6 +24,8 @@ p {
 
 a {
     font-family: "Acumin Pro";
+    text-decoration: none;
+    color: #000;
 }
 
 body {
@@ -34,7 +36,7 @@ body {
 main {
     margin: auto;
     padding: 2.5rem 1rem 1rem 1rem;
-    width: 1000px;
+    width: 62.5rem;
     max-width: calc(100% - 2rem);
     position: relative;
     z-index: 3;
@@ -52,4 +54,23 @@ main {
     z-index: 2;
     position: absolute;
     right: -150px;
+    
+}
+
+.color__line2 {
+    width: 110rem;
+    height: 27rem;
+    background-color: #3493b0;
+    transform: rotate(-20deg);
+    z-index: 2;
+    position: absolute;
+    right: -150px;
+}
+
+#line1 {
+    top: 50rem;
+}
+
+#line2 {
+    top: 90rem;
 }

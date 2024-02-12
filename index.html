@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pulse | Votre veille centralisée</title>
     <link rel="stylesheet" href="/src/css/pages/styles.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body>
     <header>
@@ -27,12 +28,12 @@
                     <p>Insérer animation ici</p>
                 </div>
             </div>
-            <div class="hero__bottom">
+            <a href="#moreinfo" class="hero__bottom">
                 <p>En savoir plus</p>
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
-            </div>
+            </a>
         </div>
-        <section>
+        <section id="moreinfo">
             <h2>Pourquoi Pulse ?</h2>
             <div class="info__cards">
                 <div class="info__card">
@@ -62,10 +63,10 @@
                         domaines.</p>
                 </div>
             </div>
-            
         </section>
     </main>
-    <div class="color__line"></div>
+    <div class="color__line" id="line1"></div>
+    <div class="color__line2" id="line2"></div>
     <footer></footer>
 </body>
 </html>
