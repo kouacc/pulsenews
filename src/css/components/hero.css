@@ -21,6 +21,7 @@
     padding: 1.8125rem 3.4375rem;
     box-shadow: var(--shadow);
     display: flex;
+    width: 21rem;
 }
 
 .hero__bottom {
