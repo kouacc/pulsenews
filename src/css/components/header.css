@@ -1,0 +1,13 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.875rem 1.375rem;
+}
+
+header a {
+    text-decoration: none;
+    color: #000;
+    
+}

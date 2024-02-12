@@ -1,8 +1,14 @@
+@import url("https://use.typekit.net/anh0dbq.css");
+
+
 @import url("/src/css/base/main.css");
 @import url("/src/css/base/media.css");
 
 @import url("/src/css/components/header.css");
 @import url("/src/css/components/footer.css");
+@import url("/src/css/components/hero.css");
+@import url("/src/css/components/card.css");
+@import url("/src/css/components/button.css");
 
 @import url("/src/css/layouts/home.css");
 

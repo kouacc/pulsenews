@@ -1,0 +1,55 @@
+h1 {
+    font-family: "Forma DJR Display";
+    font-size: 4.5rem;
+    margin: 0;
+}
+
+h2 {
+    font-family: "Forma DJR Display";
+    font-size: var(--heading2);
+    margin: 0;
+}
+
+h3 {
+    font-family: "Forma DJR Display";
+    font-weight: 500;
+    font-size: var(--heading3);
+}
+
+p {
+    font-family: "Acumin Pro";
+    font-size: var(--paragraph);
+    margin: 0;
+}
+
+a {
+    font-family: "Acumin Pro";
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+main {
+    margin: auto;
+    padding: 2.5rem 1rem 1rem 1rem;
+    width: 1000px;
+    max-width: calc(100% - 2rem);
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 7rem;
+}
+
+.color__line {
+    width: 110rem;
+    height: 27rem;
+    background-color: #52BEE0;
+    transform: rotate(20deg);
+    z-index: 2;
+    position: absolute;
+    right: -150px;
+}
