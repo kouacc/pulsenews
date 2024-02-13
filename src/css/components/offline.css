@@ -17,7 +17,7 @@
 #offline__message section {
     display: flex;
     gap: 0.625rem;
-    align-items: center;
+    align-items: flex-end;
 }
 
 #offline__message h6 {
@@ -32,10 +32,6 @@
         margin: 0;
 }
 
-#offline__message i {
-    color: #000;
-    font-size: 2rem;
-}
 
 #offline__message div {
     display: flex;
