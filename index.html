@@ -109,18 +109,18 @@
 <script>
     // Vérifiez l'état initial de la connexion
         if (navigator.onLine) {
-            document.getElementById('offline__message').style.display = 'flex';
-        } else {
             document.getElementById('offline__message').style.display = 'none';
+        } else {
+            document.getElementById('offline__message').style.display = 'flex';
         }
 
         // Écoutez les changements d'état de la connexion
         window.addEventListener('online', function (e) {
-            console.log("Vous êtes passé en ligne");
+           document.getElementById('offline__message').style.display = 'none';
         });
 
         window.addEventListener('offline', function (e) {
-            console.log("Vous êtes passé hors ligne");
+            document.getElementById('offline__message').style.display = 'flex';
         });
         
         function closeWindow() {
