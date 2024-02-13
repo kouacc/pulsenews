@@ -6,6 +6,7 @@
     <title>Pulse | Votre veille centralisée</title>
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -33,40 +34,97 @@
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
-        <section id="moreinfo">
+        <section id="moreinfo" x-data="{display1: false, display2: false, display3: false}">
             <h2>Pourquoi Pulse ?</h2>
             <div class="info__cards">
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="display1 = ! display1"><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux domaines.</p>
+                    <div x-show="display1" x-transition.duration.400ms>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque? Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.</p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/IFPstde6RHY?si=ePbSsAelMRXoZKle"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
                 </div>
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="display2 = ! display2"><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
                         domaines.</p>
+                    <div x-show="display2" x-transition.duration.400ms>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
+                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
+                        </p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/IFPstde6RHY?si=ePbSsAelMRXoZKle"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
                 </div>
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="display3 = ! display3"><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
                         domaines.</p>
+                    <div x-show="display3" x-transition.duration.400ms>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
+                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
+                        </p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/IFPstde6RHY?si=ePbSsAelMRXoZKle"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
+    <div id="offline__message" onclick="closeWindow()">
+        <div>
+            <section>
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h6>Vous êtes hors ligne</h6>
+            </section>
+            <button><img src="/public//icons/Croix.svg" alt="Croix"></button>
+        </div>
+        <p>Pour continuer à utiliser Pulse, reconnectez-vous à Internet.</p>
+    </div>
     <div class="color__line" id="line1"></div>
     <div class="color__line2" id="line2"></div>
     <footer></footer>
 </body>
+
+<script>
+    // Vérifiez l'état initial de la connexion
+        if (navigator.onLine) {
+            document.getElementById('offline__message').style.display = 'flex';
+        } else {
+            document.getElementById('offline__message').style.display = 'none';
+        }
+
+        // Écoutez les changements d'état de la connexion
+        window.addEventListener('online', function (e) {
+            console.log("Vous êtes passé en ligne");
+        });
+
+        window.addEventListener('offline', function (e) {
+            console.log("Vous êtes passé hors ligne");
+        });
+        
+        function closeWindow() {
+            document.getElementById('offline__message').style.display = 'none';
+        }
+</script>
 </html>
