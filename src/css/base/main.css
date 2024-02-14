@@ -51,10 +51,10 @@ main {
 }
 
 .color__line {
-    width: 110rem;
-    height: 27rem;
-    background-color: #52BEE0;
-    transform: rotate(20deg);
+    width: 210rem;
+    height: 7.625rem;
+    background-color: #CA9B21;
+    transform: rotate(6.750deg);
     z-index: 2;
     position: absolute;
     right: -150px;
@@ -62,19 +62,28 @@ main {
 }
 
 .color__line2 {
-    width: 110rem;
-    height: 27rem;
-    background-color: #3493b0;
-    transform: rotate(-20deg);
+    width: 220rem;
+    height: 13rem;
+    background-color: #F7BD2A;
+    transform: rotate(-10deg);
     z-index: 2;
     position: absolute;
     right: -150px;
 }
 
 #line1 {
-    top: 50rem;
+    top: 52rem;
 }
 
 #line2 {
-    top: 90rem;
+    top: 82rem;
+}
+
+canvas {
+    width: 100vw;
+    height: 80vh;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    transform: rotate(180deg);
 }

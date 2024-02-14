@@ -6,6 +6,9 @@
     border-radius: 0.9375rem;
     box-shadow: 4px 4px 5px 1px rgba(71, 112, 255, 0.25);
     transition: 0.25s;
+    height: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 .sub__button:hover {
