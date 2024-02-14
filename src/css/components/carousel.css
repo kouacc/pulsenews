@@ -48,7 +48,7 @@
 .carousel_child span {
     font-size: 1.5rem;
     font-weight: 500;
-    font-family: Forma DJR Display;
+    font-family: forma-djr-display, sans-serif;
 }
 
 .carousel_child i {

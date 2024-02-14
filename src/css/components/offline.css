@@ -22,7 +22,7 @@
 
 #offline__message h6 {
     color: #000;
-        font-family: "Acumin Pro";
+        font-family: acumin-pro, sans-serif;
         font-size: 1.4rem;
         font-style: normal;
         font-weight: 500;

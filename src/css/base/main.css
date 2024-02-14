@@ -1,29 +1,29 @@
 h1 {
-    font-family: "Forma DJR Display";
+    font-family: forma-djr-display, sans-serif;
     font-size: 4.5rem;
     margin: 0;
 }
 
 h2 {
-    font-family: "Forma DJR Display";
+    font-family: forma-djr-display, sans-serif;
     font-size: var(--heading2);
     margin: 0;
 }
 
 h3 {
-    font-family: "Forma DJR Display";
+    font-family: forma-djr-display, sans-serif;
     font-weight: 500;
     font-size: var(--heading3);
 }
 
 p {
-    font-family: "Acumin Pro";
+    font-family: acumin-pro, sans-serif;
     font-size: var(--paragraph);
     margin: 0;
 }
 
 a {
-    font-family: "Acumin Pro";
+    font-family: acumin-pro, sans-serif;
     text-decoration: none;
     color: #000;
 }
