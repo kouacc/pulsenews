@@ -53,7 +53,7 @@ main {
 .color__line {
     width: 210rem;
     height: 7.625rem;
-    background-color: #CA9B21;
+    background: linear-gradient(45deg, #7cd99e, #caca87, #8dc9c9);
     transform: rotate(6.750deg);
     z-index: 2;
     position: absolute;
@@ -64,7 +64,7 @@ main {
 .color__line2 {
     width: 220rem;
     height: 13rem;
-    background-color: #F7BD2A;
+    background: linear-gradient(-45deg, #a1fec3, #ffffaa, #b2ffff);
     transform: rotate(-10deg);
     z-index: 2;
     position: absolute;
