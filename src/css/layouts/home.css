@@ -33,3 +33,7 @@
     transform: translateY(-0.3rem);
     transition: 0.3s ease-in-out;
 }
+
+.animate__scroll {
+    animation: var(--enter-left);
+}
