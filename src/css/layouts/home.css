@@ -3,3 +3,33 @@
     flex-direction: column;
     gap: 3rem;
 }
+
+
+
+.hero__contentsources {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.sourcesicons {
+    display: flex;
+    justify-content: center;
+    gap: 4.5rem;
+    
+}
+
+.hero__contentsources i {
+    font-size: 5rem;
+}
+
+.sourcesicons > * {
+    transition: 0.3s ease-in-out;
+}
+
+.sourcesicons > *:hover {
+    /* monte chaque élément de quelques px */
+    transform: translateY(-0.3rem);
+    transition: 0.3s ease-in-out;
+}

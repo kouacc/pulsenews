@@ -25,11 +25,21 @@
                         magna aliqua.</p>
                     <a href="#" class="sub__button">S'abonner</a>
             </section>
+            <section class="hero__contentsources">
+                <h3>Fonctionne avec</h3>
+                <div class="sourcesicons">
+                    <i class="fa-brands fa-dribbble"></i>
+                    <i class="fa-brands fa-behance"></i>
+                    <i class="fa-brands fa-medium"></i>
+                    <i class="fa-brands fa-codepen"></i>
+                </div>
+            </section>
             <a href="#moreinfo" class="hero__bottom">
                 <p>En savoir plus</p>
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
+        
         <section id="moreinfo" x-data="{display1: false, display2: false, display3: false, cardopen:false}">
             <h2>Pourquoi Pulse ?</h2>
             <div class="info__cards">
@@ -47,7 +57,7 @@
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button @click="display2 = ! display2"><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="display2 = ! display2"><img :class="display2 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
@@ -61,7 +71,7 @@
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button @click="display3 = ! display3"><img src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="display3 = ! display3"><img :class="display3 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
@@ -88,6 +98,74 @@
     <div class="color__line" id="line1"></div>
     <div class="color__line2" id="line2"></div>
     <script type="module" src="/src/js/app.js"></script>
+    <div class="carousel">
+        <section>
+            <i class="fa-brands fa-dribbble"></i>
+            <h2>Dribbble</h2>
+        </section>
+        <div class="carousel_parent">
+            <div class="carousel_child">
+                <img src="/public/images/example1.webp" alt="Example 1">
+                <section>
+                    <h3>Masuc - Logo Designer</h3>
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-heart"></i>
+                            <span>33</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="carousel_child">
+                <img src="/public/images/example2.webp" alt="Example 2">
+                <section>
+                    <h3>MishaX</h3>
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-heart"></i>
+                            <span>81</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="carousel_child">
+                <img src="/public/images/example3.webp" alt="Example 3">
+                <section>
+                    <h3>Orizon</h3>
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-heart"></i>
+                            <span>33</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="carousel_child">
+                <img src="/public/images/example4.webp" alt="Example 4">
+                <section>
+                    <h3>Ramy Wafaa</h3>
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-heart"></i>
+                            <span>57</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
     <footer></footer>
 </body>
 

@@ -5,4 +5,44 @@
     --paragraph: 1.375rem;
     --heading2: 3rem;
     --heading3: 1.5rem;
+
+    --open-shadow: open 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    --gradient-anim: gradient 80s ease infinite;
+    --scroll: scroll 20s linear infinite;
+    --gradient1: linear-gradient(45deg, #7cd99e, #caca87, #8dc9c9);
+    --gradient2: linear-gradient(-45deg, #a1fec3, #ffffaa, #b2ffff);
+}
+
+@keyframes open {
+    0% {
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        box-shadow: var(--shadow);
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-250px * 7))
+    }
 }

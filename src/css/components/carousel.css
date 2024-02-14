@@ -1,0 +1,66 @@
+.carousel {
+    display: flex;
+    transform: rotate(-4.5deg);
+    z-index: 3;
+    position: relative;
+    left: -120px; 
+    width: 100vw;
+    background-color: #1E1E1E;
+    padding: 1rem 10rem;
+    flex-direction: column;
+    color: #fff;
+}
+
+.carousel_parent {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.carousel_child {
+    display: flex;
+    flex-direction: column;
+    width: 23rem;
+    gap: 0.6rem;
+}
+
+.carousel_child h3 {
+    margin: 0;
+}
+
+.carousel_child > section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.carousel_child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel_child > section > div {
+    display: flex;
+    gap: 1rem;
+}
+
+.carousel_child span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: Forma DJR Display;
+}
+
+.carousel_child i {
+    font-size: 1.5rem;
+}
+
+.carousel > section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carousel > section i {
+    font-size: 2.5rem;
+}
