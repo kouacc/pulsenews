@@ -7,15 +7,23 @@
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
-    <script type="module" src="/src/js/app.js"></script>
+    <script rel="preload" type="module" src="/src/js/app.js" async></script>
 </head>
 <body>
     <header>
-        <a href="index.html"><img src="/public/icons/Logo.svg" alt="Logo Pulse"></a>
-        <div class="header__right">
+        <div class="header__left">
+            <a href="index.html"><img src="/public/icons/Logo.svg" alt="Logo Pulse"></a>
+            <nav>
+                <a href="">Accueil</a>
+                <a href="">Fonctionnalités</a>
+                <a href="">Tarifs</a>
+                <a href="">Contact</a>
+            </nav>
+        </div>
+        <nav class="header__right">
             <a href="">Connexion</a>
             <a href="">S'inscrire</a>
-        </div>
+        </nav>
     </header>
     <main>
         <div class="hero">
@@ -85,7 +93,7 @@
         </section>
         <section class="imgcarousel">
             <h2>De nombreuses inspirations</h2>
-            
+   
         </section>
         <div class="slider">
             <section>

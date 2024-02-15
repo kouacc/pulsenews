@@ -1,13 +1,28 @@
 header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 1.875rem 1.375rem;
 }
 
 header a {
     text-decoration: none;
     color: #000;
-    
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header__left nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.header__right {
+    display: flex;
+    gap: 1.25rem;
 }
