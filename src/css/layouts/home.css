@@ -1,7 +1,7 @@
 #moreinfo {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 3rem;
+    margin: auto;
 }
 
 

@@ -8,7 +8,6 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
     <script type="module" src="/src/js/app.js"></script>
-    <script src="/src/js/observer.js"></script>
 </head>
 <body>
     <header>
@@ -84,88 +83,93 @@
                 </div>
             </div>
         </section>
-    </main>
-    <div id="offline__message">
-        <div>
+        <section class="imgcarousel">
+            <h2>De nombreuses inspirations</h2>
+            
+        </section>
+        <div class="slider">
             <section>
-                <img src="/public/icons/Warning.svg" alt="Icone attention">
-                <h6>Vous êtes hors ligne</h6>
+                <i class="fa-brands fa-dribbble"></i>
+                <h2>Dribbble</h2>
             </section>
-            <button onclick="closeWindow()" aria-label="Fermer la fenêtre"><img src="/public//icons/Croix.svg" alt="Croix"></button>
+            <div class="slider_parent">
+                <div class="slider_child">
+                    <img src="/public/images/example1.webp" alt="Example 1">
+                    <section>
+                        <h3>Masuc - Logo Designer</h3>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-heart"></i>
+                                <span>33</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="slider_child">
+                    <img src="/public/images/example2.webp" alt="Example 2">
+                    <section>
+                        <h3>MishaX</h3>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-heart"></i>
+                                <span>81</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="slider_child">
+                    <img src="/public/images/example3.webp" alt="Example 3">
+                    <section>
+                        <h3>Orizon</h3>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-heart"></i>
+                                <span>33</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="slider_child">
+                    <img src="/public/images/example4.webp" alt="Example 4">
+                    <section>
+                        <h3>Ramy Wafaa</h3>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-heart"></i>
+                                <span>57</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-        <p>Pour continuer à utiliser Pulse, reconnectez-vous à Internet.</p>
-    </div>
+        <div id="offline__message">
+            <div>
+                <section>
+                    <img src="/public/icons/Warning.svg" alt="Icone attention">
+                    <h6>Vous êtes hors ligne</h6>
+                </section>
+                <button onclick="closeWindow()" aria-label="Fermer la fenêtre"><img src="/public//icons/Croix.svg"
+                        alt="Croix"></button>
+            </div>
+            <p>Pour continuer à utiliser Pulse, reconnectez-vous à Internet.</p>
+        </div>
+    </main>
     <div class="color__line" id="line1"></div>
     <div class="color__line2" id="line2"></div>
     
-    <div class="carousel">
-        <section>
-            <i class="fa-brands fa-dribbble"></i>
-            <h2>Dribbble</h2>
-        </section>
-        <div class="carousel_parent">
-            <div class="carousel_child">
-                <img src="/public/images/example1.webp" alt="Example 1">
-                <section>
-                    <h3>Masuc - Logo Designer</h3>
-                    <div>
-                        <div>
-                            <i class="fa-solid fa-heart"></i>
-                            <span>33</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="carousel_child">
-                <img src="/public/images/example2.webp" alt="Example 2">
-                <section>
-                    <h3>MishaX</h3>
-                    <div>
-                        <div>
-                            <i class="fa-solid fa-heart"></i>
-                            <span>81</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="carousel_child">
-                <img src="/public/images/example3.webp" alt="Example 3">
-                <section>
-                    <h3>Orizon</h3>
-                    <div>
-                        <div>
-                            <i class="fa-solid fa-heart"></i>
-                            <span>33</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="carousel_child">
-                <img src="/public/images/example4.webp" alt="Example 4">
-                <section>
-                    <h3>Ramy Wafaa</h3>
-                    <div>
-                        <div>
-                            <i class="fa-solid fa-heart"></i>
-                            <span>57</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
     <footer></footer>
 </body>
 

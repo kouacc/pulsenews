@@ -38,15 +38,12 @@ body {
 }
 
 main {
-    margin: auto;
     padding: 5.8rem 1rem 1rem 1rem;
-    width: 64rem;
-    max-width: calc(100% - 2rem);
     position: relative;
     z-index: 3;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
     gap: 7rem;
 }
 
@@ -90,4 +87,8 @@ canvas {
     z-index: -1;
     top: 0;
     transform: rotate(180deg);
+}
+
+.noshow {
+    display: none;
 }
