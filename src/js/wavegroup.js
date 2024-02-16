@@ -8,27 +8,14 @@ export class Wavegroup {
         this.color = ['rgba(161, 254, 195, 0.4)', 'rgba(255, 255, 0, 0.4)', 'rgba(0, 255, 255, 0.4)'];
         this.waves = [];
 
-        for (let i = 0; i < this.totalWaves; i++) {
-            const wave = new Wave(
-                i,
-                this.totalPoints,
-                this.color[i],
-            );
-            this.waves[i] = wave;
-        }
+        this.waves = Array(this.totalWaves).fill().map((_, i) => new Wave(i, this.totalPoints, this.color[i]));
     }
 
     resize(stageWidth, stageHeight) {
-        for (let i = 0; i < this.totalWaves; i++) {
-            const wave = this.waves[i];
-            wave.resize(stageWidth, stageHeight);
-        }
+        this.waves.forEach(wave => wave.resize(stageWidth, stageHeight));
     }
 
     draw(ctx) {
-        for (let i = 0; i < this.totalWaves; i++) {
-            const wave = this.waves[i];
-            wave.draw(ctx);
-        }
+        this.waves.forEach(wave => wave.draw(ctx));
     }
 }

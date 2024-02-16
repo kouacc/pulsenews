@@ -1,15 +1,25 @@
 .slider {
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 0;
+    margin: auto;
+    width: 1000px;
+}
+
+
+.slider__band {
+    display: flex;
     transform: rotate(-4.5deg);
     z-index: 3;
-    position: absolute;
-    left: -120px; 
-    width: 100vw;
+    position: relative;
+    left: -300px; 
+    width: 200vw;
     background-color: #1E1E1E;
     padding: 1rem 10rem;
     flex-direction: column;
     color: #fff;
-    bottom: 0;
+
 }
 
 .slider_parent {
@@ -59,12 +69,12 @@
     font-size: 1.5rem;
 }
 
-.slider > section {
+.slider__band > section {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.slider > section i {
+.slider__band > section i {
     font-size: 2.5rem;
 }

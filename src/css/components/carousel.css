@@ -1,1 +1,16 @@
-.imgcarousel {}
+.imgcarousel {
+    margin: auto;
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+}
+
+.imgcarousel__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.8125rem 1.875rem;
+}

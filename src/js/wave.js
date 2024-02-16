@@ -21,16 +21,11 @@ export class Wave {
     }
 
     init() {
-        this.points = [];
-
-        for (let i = 0; i < this.totalPoints; i++) {
-            const point = new Point(
-                this.index + i,
-                this.pointGap * i,
-                this.centerY,
-            );
-            this.points[i] = point;
-        }
+        this.points = Array(this.totalPoints).fill().map((_, i) => new Point(
+        this.index + i,
+        this.pointGap * i,
+        this.centerY,
+    ));
     }
 
     draw(ctx) {

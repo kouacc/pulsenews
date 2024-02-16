@@ -5,7 +5,7 @@
 
 .info__card {
     padding: 1.8125rem 1.875rem;
-    background: #F9F9F9;
+    background: var(--gris);
     box-shadow: var(--shadow);
     border-radius: var(--radius);
     display: flex;
@@ -47,4 +47,26 @@
 .info__card_open::after {
     transform: rotate(45deg);
     transition: 0.25s ease-in-out;
+}
+
+.abocards {
+    display: flex;
+    flex-direction: row;
+    width: 1000px;
+    margin: auto;
+    gap: 5rem;
+}
+
+.abocards > div:first-child {
+    background-color: var(--gris);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.abocards > div:last-child {
+    background-color: var(--gris);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
 }

@@ -6,7 +6,7 @@
 }
 
 .hero__content h1 {
-    background: #F9F9F9;
+    background: var(--gris);
     border-radius: var(--radius);
     padding: 1.8125rem 3.4375rem;
     box-shadow: var(--shadow);
