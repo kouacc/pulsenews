@@ -164,12 +164,21 @@
             </div>
         </div>
         <section class="imgcarousel">
-            <div>
-                <h2>De nombreuses inspirations</h2>
-                <div class="info__card_line"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates doloribus quibusdam totam blanditiis atque
-                    dolorem quae nobis, necessitatibus voluptate vitae voluptatem, maiores, sequi natus modi? Aliquam debitis cumque
-                    sunt quos?</p>
+            <div class="carousel">
+                <input type="radio" name="slider" id="item-1" checked>
+                <input type="radio" name="slider" id="item-2">
+                <input type="radio" name="slider" id="item-3">
+                <div class="carousel__cards">
+                    <label class="carousel__card" for="item-1" id="song-1">
+                        <img src="/public/images/carousel1.webp" alt="Image carousel 1">
+                    </label>
+                    <label class="carousel__card" for="item-2" id="song-2">
+                        <img src="/public/images/carousel2.webp" alt="Image carousel 2">
+                    </label>
+                    <label class="carousel__card" for="item-3" id="song-3">
+                        <img src="/public/images/carousel3.webp" alt="Image carousel 3">
+                    </label>
+                </div>
             </div>
             <div class="imgcarousel__card">
                 <h2>De nombreuses inspirations</h2>
@@ -177,6 +186,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates doloribus quibusdam totam blanditiis atque dolorem quae nobis, necessitatibus voluptate vitae voluptatem, maiores, sequi natus modi? Aliquam debitis cumque sunt quos?</p>
             </div>
         </section>
+        
         <div class="abocards">
             <div>
                 <h2>Standard</h2>
@@ -185,24 +195,25 @@
                 <h2>4,95€/mois</h2>
                 <a href="#" class="sub__button">S'abonner</a>
                 <ul>
-                    <li>Accès aux 500 designers présents sur notre site</li>
-                    <li>Fonctions et contenus exclusifs aux abonnés</li>
-                    <li>Accès supplémentaires à d'autres plateformes</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès aux 500 designers présents sur notre site</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Fonctions et contenus exclusifs aux abonnés</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
                 </ul>
             </div>
             <div>
-                <h2>Standard + Newsletter</h2>
+                <h2>Standard <span>+ newsletter</span></h2>
                 <div class="info__card_line"></div>
                 <h2>Accès au format numérique et newsletter mensuelle</h2>
                 <h2>9,95€/mois</h2>
                 <a href="#" class="sub__button">S'abonner</a>
                 <ul>
-                    <li>Accès aux 500 designers présents sur notre site</li>
-                    <li>Fonctions et contenus exclusifs aux abonnés</li>
-                    <li>Accès supplémentaires à d'autres plateformes</li>
-                    <li>Accès supplémentaires à d'autres plateformes</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès aux 500 designers présents sur notre site</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Fonctions et contenus exclusifs aux abonnés</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
+                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
                 </ul>
             </div>
+            <span class="abocards__bubble">Populaire</span>
         </div>
         <div id="offline__message">
             <div>
