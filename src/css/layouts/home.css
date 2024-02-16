@@ -37,3 +37,12 @@
 .animate__scroll {
     animation: var(--enter-left);
 }
+
+.secondhero {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url(/public/images/hero.webp), lightgray 50% / cover no-repeat;
+    padding: 12rem 12rem;
+}
+
+.secondhero p {
+    color: #fff;
+}
