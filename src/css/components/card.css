@@ -89,7 +89,12 @@
     padding: 0.5rem 1rem; 
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    position: absolute;
-    right: 11.5rem;
+    position: relative;
+    right: -10rem;
+    bottom: 53rem;
     transform: rotate(8deg);
+}
+
+#abocards__ul {
+    margin-bottom: 4rem;
 }
