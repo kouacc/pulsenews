@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
-    <script rel="preload" type="module" src="/src/js/app.js" defer></script>
+    <!-- <script rel="preload" type="module" src="/src/js/app.js" defer></script> -->
 </head>
 <body>
     <header>
@@ -242,6 +242,19 @@
     </main>
     <div class="color__line" id="line1"></div>
     <div class="color__line2" id="line2"></div>
+    <div class="wave">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(161, 254, 195, 0.4)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 255, 0, 0.4)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0, 255, 255, 0.4)" />
+            </g>
+        </svg>
+    </div>
     
     <footer>
         <div class="footer__brand">
