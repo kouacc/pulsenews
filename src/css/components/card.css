@@ -85,7 +85,7 @@
 
 .abocards__bubble {
     font-weight: 600;
-    background-color: #7CD99E;
+    background-color: var(--rouge-accent);
     padding: 0.5rem 1rem; 
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -93,6 +93,7 @@
     right: -10rem;
     bottom: 53rem;
     transform: rotate(8deg);
+    color: #fff;
 }
 
 #abocards__ul {

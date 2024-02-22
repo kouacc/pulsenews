@@ -1,19 +1,26 @@
 :root {
-    --shadow: 0px 10px 41.8px 0px rgba(0, 0, 0, 0.25);
-    --radius: 1.9375rem;
+    /* Color styles */
+     --gris: rgba(249, 249, 249, 1);
+    --rouge-accent: rgba(161, 0, 0, 1);
+    --orange-accent: rgba(255, 138, 0, 1);
+    --jaune-accent: rgba(255, 229, 0, 1);
+    --jaune-bandes: rgba(242, 205, 12, 1);
+    
+    /* Font styles */
+    --heading-2: 48px;
+    --heading-1: 72px;
+    --paragraph: 22px;
+    --heading-3: 24px;
 
-    --paragraph: 1.375rem;
-    --heading2: 3rem;
-    --heading3: 1.5rem;
-
-    --gris: #f9f9f9;
-
+    /* animations */
     --open-shadow: open 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     --gradient-anim: gradient 80s ease infinite;
     --scroll: scroll 20s linear infinite;
-    --enter-left: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;   
-    --gradient1: linear-gradient(45deg, #7cd99e, #caca87, #8dc9c9);
-    --gradient2: linear-gradient(-45deg, #a1fec3, #ffffaa, #b2ffff);
+    --enter-left: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+    /* ombre portée */
+    --shadow: 0px 10px 41.8px 0px rgba(0, 0, 0, 0.25);
+    --radius: 1.9375rem;
 }
 
 @keyframes open {
