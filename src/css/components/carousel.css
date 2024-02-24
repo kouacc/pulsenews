@@ -5,6 +5,7 @@
     flex-direction: row;
     gap: 3rem;
     align-items: center;
+    
 }
 
 .imgcarousel__card {
@@ -15,6 +16,7 @@
     box-shadow: var(--shadow);
     padding: 1.8125rem 1.875rem;
     width: calc(1000px / 2);
+    background-color: var(--gris);
 }
 
 
