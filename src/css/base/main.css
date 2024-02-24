@@ -71,7 +71,6 @@ main {
     z-index: 2;
     position: absolute;
     right: -150px;
-    animation: var(--gradient-anim);
     
 }
 
@@ -84,7 +83,6 @@ main {
     z-index: 2;
     position: absolute;
     right: -150px;
-    animation: var(--gradient-anim);
 }
 
 #line1 {

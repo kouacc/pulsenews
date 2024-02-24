@@ -36,7 +36,7 @@
 }
 
 .animate__scroll {
-    animation: var(--enter-left);
+    animation: var(--enter);
 }
 
 .secondhero {

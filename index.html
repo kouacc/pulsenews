@@ -47,13 +47,13 @@
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
-        <section id="moreinfo" x-data="{display1: false, display2: false, display3: false, scrolled:false}">
+        <section id="moreinfo" x-data="{openCard: null}">
             <h2>Pourquoi Pulse ?</h2>
             <div class="info__cards">
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button @click="display1 = ! display1"><img :class="display1 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="openCard = openCard === 1 ? null : 1"><img :class="openCard === 1 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux domaines.</p>
@@ -64,7 +64,7 @@
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button @click="display2 = ! display2"><img :class="display2 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="openCard = openCard === 2 ? null : 2"><img :class="openCard === 2 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
@@ -78,7 +78,7 @@
                 <div class="info__card">
                     <section>
                         <h3>Restez à jour</h3>
-                        <button @click="display3 = ! display3"><img :class="display3 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
+                        <button @click="openCard = openCard === 3 ? null : 3"><img :class="openCard === 3 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
@@ -165,6 +165,7 @@
                             </div>
                         </section>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -320,5 +321,8 @@
             });
 
             observer.observe(document.querySelector('.info__cards'));
+            observer.observe(document.querySelector('.slider'));
+            observer.observe(document.querySelector('.imgcarousel'));
+            observer.observe(document.querySelector('.abocards'));
 </script>
 </html>
