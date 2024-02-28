@@ -54,6 +54,7 @@
     flex-direction: row;
     width: 1000px;
     margin: auto;
+    padding: 0 3rem 0 3rem;
     gap: 5rem;
     align-items: flex-start;
 }
@@ -85,7 +86,7 @@
 
 .abocards__bubble {
     font-weight: 600;
-    background-color: var(--rouge-accent);
+    background-color: var(--accents---rouge);
     padding: 0.5rem 1rem; 
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -98,4 +99,12 @@
 
 #abocards__ul {
     margin-bottom: 4rem;
+}
+
+.abocards__content li {
+    align-items: center;
+}
+
+.abocards__content i {
+    font-size: 2rem;
 }

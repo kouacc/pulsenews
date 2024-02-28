@@ -6,10 +6,19 @@ footer {
     justify-content: space-between;
 }
 
+footer li {
+    font-size: var(--desktop---footer--body);
+}
+
 .footer__brand {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.footer__brand p {
+    font-size: var(--desktop---footer--body);
+
 }
 
 .footer__brand img {

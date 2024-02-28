@@ -8,6 +8,7 @@
 .slider__text {
     margin: auto;
     width: 62.5rem;
+    padding: 0 3rem 0 3rem;
 }
 
 .slider__band {
@@ -40,8 +41,8 @@
     flex-direction: column;
     width: 25rem;
     gap: 0.6rem;
-    animation: var(--scroll);
-    
+    float: left;
+    /*animation: var(--scroll);*/
 }
 
 .slider_child h3 {
@@ -63,6 +64,7 @@
 .slider_child > section > div {
     display: flex;
     gap: 1rem;
+    
 }
 
 .slider_child span {
