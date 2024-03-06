@@ -1,12 +1,18 @@
+.home {
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    padding-top: 3.7rem;
+}
+
 #moreinfo {
     display: grid;
     gap: 3rem;
-    margin: auto;
-    width: 1000px;
     padding: 0 3rem 0 3rem;
 }
-
-
 
 .hero__contentsources {
     display: flex;
@@ -47,4 +53,8 @@
 
 .secondhero p {
     color: #fff;
+}
+
+#footerhome {
+    margin-top: 0;
 }

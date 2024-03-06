@@ -4,6 +4,7 @@ footer {
     padding: 2.5rem 6.25rem;
     display: flex;
     justify-content: space-between;
+    margin-top: 6.25rem;
 }
 
 footer li {

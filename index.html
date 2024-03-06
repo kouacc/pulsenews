@@ -7,26 +7,24 @@
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
-    <!-- <script rel="preload" type="module" src="/src/js/app.js" defer></script> -->
 </head>
 <body>
     <header>
         <div class="header__left">
             <a href="index.html"><img src="/public/icons/Logo_white.svg" alt="Logo Pulse"></a>
             <nav>
-                <a href="">Fonctionnalités</a>
-                <a href="">Tarifs</a>
-                <a href="">Contact</a>
+                <a href="features.html">Fonctionnalités</a>
+                <a href="prices.html">Tarifs</a>
             </nav>
         </div>
         <nav class="header__right">
-            <a href="">Connexion</a>
-            <a href="">S'inscrire</a>
+            <a href="#">Connexion</a>
+            <a href="#">S'inscrire</a>
         </nav>
     </header>
-    <main>
+    <main class="home">
         <div class="hero">
-            <section class="hero__content">
+            <section class="hero__content content">
                     <h1>Vivez sous pulsations</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua.</p>
@@ -46,21 +44,21 @@
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
-        <section id="moreinfo" x-data="{card1: true, card2: true, card3: true, card1content: false, card2content: false, card3content: false}">
+        <section id="moreinfo" class="content" x-data="{card1: true, card2: true, card3: true, card1content: false, card2content: false, card3content: false}">
             <h2>Pourquoi Pulse ?</h2>
             <ul class="info__cards">
-                <li class="info__card" x-show="card1" x-transition.duration.700ms>
+                <li class="info__card" x-show="card1">
                     <section>
                         <h3>Restez à jour</h3>
                         <button @click="card1content = ! card1content; card2 = ! card2; card3 = ! card3"><img :class="card1content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
                     </section>
                     <div class="info__card_line"></div>
                     <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux domaines.</p>
-                    <div x-show="card1content" x-transition.duration.400ms>
+                    <div x-show="card1content" x-transition.duration.200ms>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque? Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.</p>
                     </div>
                 </li>
-                <li class="info__card" x-show="card2" x-transition.duration.700ms>
+                <li class="info__card" x-show="card2">
                     <section>
                         <h3>Restez à jour</h3>
                         <button @click="card2content = ! card2content; card1 = ! card1; card3 = ! card3"><img :class="card2content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
@@ -74,7 +72,7 @@
                         </p>
                     </div>
                 </li>
-                <li class="info__card" x-show="card3" x-transition.duration.700ms>
+                <li class="info__card" x-show="card3">
                     <section>
                         <h3>Restez à jour</h3>
                         <button @click="card3content = ! card3content; card1 = ! card1; card2 = ! card2"><img :class="card3content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
@@ -91,7 +89,7 @@
             </ul>
         </section>
         <div class="slider">
-            <section class="slider__text">
+            <section class="slider__text content">
                 <h2>Du contenu infini</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, at minima nostrum alias ducimus dolorem
                     repellat delectus modi voluptate, possimus quasi necessitatibus vel repellendus officiis nesciunt mollitia
@@ -209,7 +207,7 @@
                     </li>
                 </div>
             </div>
-        <section class="imgcarousel">
+        <section class="imgcarousel content">
             <div class="carousel">
                 <input type="radio" name="slider" id="item-1" checked>
                 <input type="radio" name="slider" id="item-2">
@@ -233,7 +231,7 @@
             </div>
         </section>
         
-        <div class="abocards">
+        <div class="abocards content">
             <div>
                 <h2>Standard</h2>
                 <div class="info__card_line"></div>
@@ -281,10 +279,14 @@
             </section>
         </div>
     </main>
-    <div class="color__line" id="line1"></div>
-    <div class="color__line2" id="line2"></div>
-    <div class="color__line2" id="line3"></div>
-    <div class="color__line" id="line4"></div>
+    <div>
+        <div class="color__line" id="line1"></div>
+        <div class="color__line2" id="line2"></div>
+    </div>
+    <div>
+        <div class="color__line2" id="line3"></div>
+        <div class="color__line" id="line4"></div>
+    </div>
     <div class="wave">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -298,8 +300,7 @@
             </g>
         </svg>
     </div>
-    
-    <footer>
+    <footer id="footerhome">
         <div class="footer__brand">
             <img src="/public/icons/Logo.svg" alt="Logo Pulse News">
             <p>© 2024 Pulse News SARL</p>

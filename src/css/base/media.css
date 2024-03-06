@@ -2,3 +2,9 @@
     width: 400px;
     height: auto;
 }
+
+.teamcard img {
+    width: auto;
+    height: 150px;
+    border-radius: 100%;
+}

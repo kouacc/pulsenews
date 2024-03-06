@@ -1,7 +1,5 @@
 .imgcarousel {
-    margin: auto;
     padding: 0 3rem 0 3rem;
-    width: 1000px;
     display: flex;
     flex-direction: row;
     gap: 3rem;
