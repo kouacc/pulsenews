@@ -1,7 +1,4 @@
 .home {
-    position: relative;
-    z-index: 3;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 10rem;
@@ -57,4 +54,20 @@
 
 #footerhome {
     margin-top: 0;
+}
+
+#home_line1 {
+    top: 52rem;
+}
+
+#home_line2 {
+    top: 82rem;
+}
+
+#home_line3 {
+    top: 150rem;
+}
+
+#home_line4 {
+    top: 165rem;
 }

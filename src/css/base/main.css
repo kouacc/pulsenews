@@ -52,6 +52,12 @@ body {
     overflow-x: hidden;
 }
 
+main {
+    position: relative;
+    z-index: 3;
+    overflow: hidden;
+}
+
 .color__line {
     width: 210rem;
     height: 7.625rem;
@@ -73,22 +79,6 @@ body {
     z-index: 2;
     position: absolute;
     right: -150px;
-}
-
-#line1 {
-    top: 52rem;
-}
-
-#line2 {
-    top: 82rem;
-}
-
-#line3 {
-    top: 150rem;
-}
-
-#line4 {
-    top: 165rem;
 }
 
 .noshow {
