@@ -8,25 +8,7 @@
 #moreinfo {
     display: grid;
     gap: 3rem;
-    padding: 0 3rem 0 3rem;
-}
-
-.hero__contentsources {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
-.sourcesicons {
-    display: flex;
-    justify-content: center;
-    gap: 4.5rem;
     
-}
-
-.hero__contentsources i {
-    font-size: 5rem;
 }
 
 .sourcesicons > * {

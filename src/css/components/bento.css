@@ -1,0 +1,62 @@
+.info__bento {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.94rem;
+    
+}
+
+.info__bento > ul > li {
+    background-color: var(--gris);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+}
+
+.info__bento > ul > li > section {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.info__bento > ul {
+    display: flex;
+    gap: 0.94rem;
+}
+
+.info__bento >ul:first-child >li:first-child {
+    width: 40%;
+    overflow: hidden;
+    padding-bottom: 0;
+}
+
+.info__bento > ul:first-child > li:first-child > div > ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.69rem;
+    overflow: hidden;
+    position: relative;
+    right: 0.6rem;
+    padding: 1.8rem 0 3rem 0;
+    width: 27rem;
+}
+
+.info__bento>ul:first-child>li:first-child>div>ul>li {
+    background-color: var(--gris);
+    box-shadow: var(--shadow);
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.info__bento > ul:first-child > li:last-child {
+    display: flex;
+    flex-direction: row;
+    width: 60%
+}
+
+.info__bento>ul:first-child>li:last-child>section {
+    width: 100%;
+}
+
+.info__bento>ul:first-child>li:last-child>div {
+    padding: 0rem 1.5rem 0 1.5rem;
+    display: flex;
+    align-items: center;
+}

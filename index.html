@@ -30,63 +30,59 @@
                         magna aliqua.</p>
                     <a href="#" class="sub__button">S'abonner</a>
             </section>
-            <section class="hero__contentsources">
-                <h3>Fonctionne avec</h3>
-                <ul class="sourcesicons">
-                    <li><i class="fa-brands fa-dribbble"></i></li>
-                    <li><i class="fa-brands fa-behance"></i></li>
-                    <li><i class="fa-brands fa-medium"></i></li>
-                    <li><i class="fa-brands fa-codepen"></i></li>
-                </ul>
-            </section>
             <a href="#moreinfo" class="hero__bottom">
                 <p>En savoir plus</p>
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
-        <section id="moreinfo" class="content" x-data="{card1: true, card2: true, card3: true, card1content: false, card2content: false, card3content: false}">
+        <section id="moreinfo" class="content">
             <h2>Pourquoi Pulse ?</h2>
-            <ul class="info__cards">
-                <li class="info__card" x-show="card1">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="card1content = ! card1content; card2 = ! card2; card3 = ! card3"><img :class="card1content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux domaines.</p>
-                    <div x-show="card1content" x-transition.duration.200ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque? Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.</p>
-                    </div>
-                </li>
-                <li class="info__card" x-show="card2">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="card2content = ! card2content; card1 = ! card1; card3 = ! card3"><img :class="card2content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
-                        domaines.</p>
-                    <div x-show="card2content" x-transition.duration.400ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
-                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
-                        </p>
-                    </div>
-                </li>
-                <li class="info__card" x-show="card3">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="card3content = ! card3content; card1 = ! card1; card2 = ! card2"><img :class="card3content === true && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
-                        domaines.</p>
-                    <div x-show="card3content" x-transition.duration.400ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
-                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
-                        </p>
-                    </div>
-                </li>
-            </ul>
+            <div class="info__bento">
+                <ul>
+                    <li>
+                        <section>
+                            <h3>Restez organisé</h3>
+                            <p>Organisez votre veille sous forme de collections, et devenez plus efficace.</p>
+                        </section>
+                        <div>
+                            <ul>
+                                <li><i class="fa-regular fa-heart"></i></li>
+                                <li><i class="fa-regular fa-bookmark"></i></li>
+                                <li><i class="fa-regular fa-folder"></i></li>
+                                <li><i class="fa-regular fa-copy"></i></li>
+                                <li><i class="fa-regular fa-circle-up"></i></li>
+                                <li><i class="fa-regular fa-user"></i></li>
+                                <li><i class="fa-regular fa-heart"></i></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <section>
+                            <h3>Découvrez des artistes</h3>
+                            <p>Avec un réseau important de créateurs, trouvez vos inspirations pour vos futurs projets.</p>
+                        </section>
+                        <div>
+                            <img src="/public/images/bento-example.webp" alt="Exemple bento">
+                        </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <section>
+                            <h3>Personnalisez votre présence</h3>
+                            <p>Votre profil Pulse vous permet d’affirmer votre personnalité, en plus de vos collections et créateurs préférés.</p>
+                        </section>
+                        <div></div>
+                    </li>
+                    <li>
+                        <section>
+                            <h3>Choississez vos inspirations</h3>
+                            <p>Pulse utilise des sources réputées pour vous accompagner chaque jour dans votre veille.</p>
+                        </section>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
         </section>
         <div class="slider">
             <section class="slider__text content">
@@ -369,7 +365,7 @@
                 });
             });
 
-            observer.observe(document.querySelector('.info__cards'));
+            observer.observe(document.querySelector('.info__bento'));
             observer.observe(document.querySelector('.slider'));
             observer.observe(document.querySelector('.imgcarousel'));
             observer.observe(document.querySelector('.abocards'));
