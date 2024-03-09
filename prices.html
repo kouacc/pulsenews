@@ -9,9 +9,9 @@
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
+    <header id="header_black">
         <div class="header__left">
-            <a href="index.html"><img src="/public/icons/Logo_white.svg" alt="Logo Pulse"></a>
+            <a href="index.html"><img src="/public/icons/Logo.svg" alt="Logo Pulse"></a>
             <nav>
                 <a href="features.html">Fonctionnalités</a>
                 <a href="prices.html">Tarifs</a>
@@ -22,7 +22,75 @@
             <a href="#">S'inscrire</a>
         </nav>
     </header>
-
+    <main>
+        <section class="header_tarif content">
+            <h1>Tarification et abonnement</h1>
+            <section>
+                <h2>4,99€ par mois<br>ou 60€ par an</h2>
+                <h3>avec 14 jours d'essai gratuit</h3>
+                <a href="#" class="sub__button">S'abonner</a>
+            </section>
+        </section>
+        <section class="tarif_included content">
+            <h3>Qu’est-ce qui est inclus dans votre abonnement ?</h3>
+            <ul>
+                <li>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Gestion de votre veille</li>
+                        <li><i class="fa-solid fa-check"></i>Recommendation de contenus</li>
+                        <li><i class="fa-solid fa-check"></i>Communauté libre et créative</li>
+                    </ul>  
+                </li>
+                <li>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Possibilité de publier vos créations</li>
+                        <li><i class="fa-solid fa-check"></i>Accès à des sources réputées</li>
+                        <li><i class="fa-solid fa-check"></i>Newsletter chaque mois</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section class="tarif_dropdowns content" x-data="{drop1: false, drop2: false, drop3: false}">
+            <h2>Foire aux questions</h2>
+            <div>
+                <div class="tarif_dropdown" @click="drop1 = ! drop1">
+                    <section>
+                        <h3>Quelles méthodes de paiement sont acceptéss ?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </section>
+                    <div x-show="drop1">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
+                            repellat
+                            eveniet consequatur ipsa, dignissimos repudiandae corporis quod veritatis inventore necessitatibus vitae,
+                            repellendus adipisci deserunt nobis quo?</p>
+                    </div>
+                </div>
+                <div class="tarif_dropdown" @click="drop2 = ! drop2">
+                    <section>
+                        <h3>Peut-on obtenir l’abonnement à prix réduit ?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </section>
+                    <div x-show="drop2">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
+                            repellat
+                            eveniet consequatur ipsa, dignissimos repudiandae corporis quod veritatis inventore necessitatibus vitae,
+                            repellendus adipisci deserunt nobis quo?</p>
+                    </div>
+                </div>
+                <div class="tarif_dropdown" @click="drop3 = ! drop3">
+                    <section>
+                        <h3>Est-il possible de résilier après la période d’essai ?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </section>
+                    <div x-show="drop3">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
+                            repellat eveniet consequatur ipsa, dignissimos repudiandae corporis quod veritatis inventore necessitatibus
+                            vitae, repellendus adipisci deserunt nobis quo?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
     <footer>
         <div class="footer__brand">
             <img src="/public/icons/Logo.svg" alt="Logo Pulse News">

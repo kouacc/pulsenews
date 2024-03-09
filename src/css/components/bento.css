@@ -1,6 +1,6 @@
 .info__bento {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-columns: 4fr;
     gap: 0.94rem;
     
 }
@@ -8,8 +8,9 @@
 .info__bento > ul > li {
     background-color: var(--gris);
     border-radius: var(--radius);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    box-shadow: var(--shadow);
+    grid-auto-columns: 1fr 3fr;
 }
 
 .info__bento > ul > li > section {
@@ -22,9 +23,10 @@
 }
 
 .info__bento >ul:first-child >li:first-child {
-    width: 40%;
     overflow: hidden;
     padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .info__bento > ul:first-child > li:first-child > div > ul {
@@ -48,7 +50,6 @@
 .info__bento > ul:first-child > li:last-child {
     display: flex;
     flex-direction: row;
-    width: 60%
 }
 
 .info__bento>ul:first-child>li:last-child>section {

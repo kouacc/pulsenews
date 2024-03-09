@@ -14,8 +14,10 @@
 @import url("/src/css/components/carousel.css");
 @import url("/src/css/components/wave.css");
 @import url("/src/css/components/bento.css");
+@import url("/src/css/components/dropdown.css");
 
 @import url("/src/css/layouts/home.css");
 @import url("/src/css/layouts/team.css");
+@import url("/src/css/layouts/tarif.css");
 
 @import url("/src/css/utils/variables.css");

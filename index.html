@@ -83,6 +83,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="features.html">Voir toutes les fonctionnalités</a>
         </section>
         <div class="slider">
             <section class="slider__text content">
@@ -204,10 +205,14 @@
                 </div>
             </div>
         <section class="imgcarousel content">
-            <div class="carousel">
-                <input type="radio" name="slider" id="item-1" checked>
-                <input type="radio" name="slider" id="item-2">
-                <input type="radio" name="slider" id="item-3">
+            <div class="carousel" x-data="{selected: 1}">
+                <div class="carousel__buttons">
+                    <button class="carousel__button" @click="selected = selected > 1 ? selected - 1 : 3"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carousel__button" @click="selected = selected < 3 ? selected + 1 : 1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <input type="radio" name="carousel" id="item-1" :checked="selected === 1">
+                <input type="radio" name="carousel" id="item-2" :checked="selected === 2">
+                <input type="radio" name="carousel" id="item-3" :checked="selected === 3">
                 <div class="carousel__cards">
                     <label class="carousel__card" for="item-1" id="song-1">
                         <img src="/public/images/carousel1.webp" alt="Image carousel 1">
