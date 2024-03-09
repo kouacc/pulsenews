@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tarifs | Pulse</title>
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
@@ -22,8 +22,8 @@
             <a href="#">S'inscrire</a>
         </nav>
     </header>
-    <main>
-        <section class="header_tarif content">
+    <main class="tarif content">
+        <section class="header_tarif">
             <h1>Tarification et abonnement</h1>
             <section>
                 <h2>4,99€ par mois<br>ou 60€ par an</h2>
@@ -31,7 +31,7 @@
                 <a href="#" class="sub__button">S'abonner</a>
             </section>
         </section>
-        <section class="tarif_included content">
+        <section class="tarif_included">
             <h3>Qu’est-ce qui est inclus dans votre abonnement ?</h3>
             <ul>
                 <li>
@@ -50,13 +50,13 @@
                 </li>
             </ul>
         </section>
-        <section class="tarif_dropdowns content" x-data="{drop1: false, drop2: false, drop3: false}">
+        <section class="tarif_dropdowns" x-data="{drop1: false, drop2: false, drop3: false}">
             <h2>Foire aux questions</h2>
             <div>
                 <div class="tarif_dropdown" @click="drop1 = ! drop1">
                     <section>
                         <h3>Quelles méthodes de paiement sont acceptéss ?</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i :class="drop1 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop1 = ! drop1"></i>
                     </section>
                     <div x-show="drop1">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
@@ -68,7 +68,7 @@
                 <div class="tarif_dropdown" @click="drop2 = ! drop2">
                     <section>
                         <h3>Peut-on obtenir l’abonnement à prix réduit ?</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i :class="drop2 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop2 = ! drop2"></i>
                     </section>
                     <div x-show="drop2">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
@@ -80,7 +80,7 @@
                 <div class="tarif_dropdown" @click="drop3 = ! drop3">
                     <section>
                         <h3>Est-il possible de résilier après la période d’essai ?</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i :class="drop3 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop3 = ! drop3"></i>
                     </section>
                     <div x-show="drop3">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus cupiditate reprehenderit harum dolorem
