@@ -176,7 +176,7 @@
 .features_bento__grid1>ul>li {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 9rem 0rem;
+    padding: 1.5rem 1.5rem;
     display: block;
     background-color: var(--gris);
 }
@@ -200,8 +200,52 @@
 }
 
 .features_bento__grid1 #bento_4 {
-    width: 50%;
+    width: 60%;
     height: auto;
+}
+
+.features_bento__grid1 #bento_4 h3{
+    margin-bottom: 1rem;
+}
+
+.features_bento__grid1 #bento_4>div {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.features_bento__grid1 #bento_4>div>div:first-child {
+    background-color: var(--gris);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    width: 35%;
+}
+
+.features_bento__grid1 #bento_4>div>div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.features_bento__grid1 #bento_4>div>div:last-child>div:first-child {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%), url(/public/images/bento2_4-1.webp) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
+
+.features_bento__grid1 #bento_4>div>div:last-child>div:last-child {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.70) 100%), url(/public/images/bento2_4-2.webp) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
+
+.features_bento__grid1 #bento_4 > div > div:last-child span{
+    font-size: var(--desktop---number);
+    font-weight: 700;
 }
 
 .features_bento__grid1 #bento_5 {
