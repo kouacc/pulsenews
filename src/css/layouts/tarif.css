@@ -37,6 +37,7 @@
 
 .tarif_included>ul>li>ul>li {
     align-items: center;
+    width: 100%;
 }
 
 .tarif_dropdowns h2 {

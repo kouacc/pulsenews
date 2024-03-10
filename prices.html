@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarifs | Pulse</title>
     <link rel="stylesheet" href="/src/css/pages/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
 </head>
@@ -58,7 +59,7 @@
                         <h3>Quelles méthodes de paiement sont acceptéss ?</h3>
                         <i :class="drop1 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop1 = ! drop1"></i>
                     </section>
-                    <div x-show="drop1">
+                    <div x-show="drop1" x-collapse>
                         <p>Les cartes bancaires sont acceptées, en plus du paiement par PayPal, Google Pay et Apple Pay (disponibles que sur certains appareils et navigateurs)</p>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                         <h3>Peut-on obtenir l’abonnement à prix réduit ?</h3>
                         <i :class="drop2 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop2 = ! drop2"></i>
                     </section>
-                    <div x-show="drop2">
+                    <div x-show="drop2" x-collapse>
                         <p>Non, Pulse fait tout pour garantir le prix le plus bas possible pour ses utilisateurs.</p>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                         <h3>Est-il possible de résilier après la période d’essai ?</h3>
                         <i :class="drop3 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop3 = ! drop3"></i>
                     </section>
-                    <div x-show="drop3">
+                    <div x-show="drop3" x-collapse>
                         <p>Bien sûr ! Si jamais Pulse ne vous plaît pas, vous pouvez annuler votre période d'essai à tout moment depuis les paramètres de votre compte.</p>
                     </div>
                 </div>
@@ -125,4 +126,19 @@
         </ul>
     </footer>
 </body>
+<script>
+    const observer = new IntersectionObserver(entries => {
+            // Loop over the entries
+            entries.forEach(entry => {
+                // If the element is visible
+                if (entry.isIntersecting) {
+                    // Add the animation class
+                    entry.target.classList.add('animate__scroll');
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.tarif_included'));
+        observer.observe(document.querySelector('.tarif_dropdowns'));
+</script>
 </html>

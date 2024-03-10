@@ -24,3 +24,7 @@
     flex-direction: column;
     gap: 3.5rem;
 }
+
+.features__spacing {
+    margin-bottom: 2rem;
+}

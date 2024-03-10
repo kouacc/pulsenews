@@ -11,16 +11,20 @@
     /* Text-size styles */
     /* base size: mobile---body---body (16px) */
     --desktop---label: 1.75rem;
-    --desktop---button: 1.5rem;
     --desktop---footnote: 1.12rem;
     --desktop---caption: 1.25rem;
     --desktop---number: 2rem;
+    --desktop---subtitle: 2rem;
     --desktop---headings---heading-2: 3rem;
     --desktop---headings---heading-1: 4.5rem;
     --desktop---headings---heading-3: 2rem;
     --desktop---headings---heading-4: 1.5rem;
+    --desktop---body---link: 1.38rem;
     --desktop---body---body: 1.38rem;
     --desktop---body---emphasized: 1.38rem;
+    --desktop---footer---emphasized: 1rem;
+    --desktop---footer---body: 1rem;
+    --desktop---button: 1.5rem;
     --mobile---button: 0.88rem;
     --mobile---headings---heading-1: 2.5rem;
     --mobile---headings---heading-3: 1.25rem;
