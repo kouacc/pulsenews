@@ -5,6 +5,12 @@
     padding-top: 3.7rem;
 }
 
+.info__section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: end;
+}
 
 .sourcesicons > * {
     transition: 0.3s ease-in-out;
