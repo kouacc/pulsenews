@@ -61,3 +61,59 @@
     display: flex;
     align-items: center;
 }
+
+.features_bento__grid {
+    display: grid;  
+    grid-template-rows: 1fr 1fr;
+    gap: 0.94rem;
+}
+
+.features_bento__grid > ul {
+    display: flex;
+    gap: 0.94rem;
+    justify-content: center;
+}
+
+.features_bento__grid > ul > li {
+    border-radius: var(--radius);
+    display: grid;
+    box-shadow: var(--shadow);
+    grid-auto-columns: 1fr 3fr;
+    padding: 9rem 0rem;
+}
+
+#bento_1 {
+    background: url(/public/images/grid1.webp) no-repeat center center;
+    width: 16.1875rem;
+    height: auto;
+}
+
+#bento_2 {
+    background: url(/public/images/grid2.webp) no-repeat center center;
+    width: 31.9375rem;
+    height: auto;
+}
+
+#bento_3 {
+    background: url(/public/images/grid3.webp) no-repeat center center;
+    width: 12.5rem;
+    height: auto;
+}
+
+#bento_4 {
+    background: url(/public/images/grid4.webp) no-repeat center center;
+    width: 13.1875rem;
+    height: auto;
+}
+
+#bento_5 {
+    background: url(/public/images/grid5.webp) no-repeat center center;
+    width: 23.5rem;
+    height: auto;
+}
+
+#bento_6 {
+    background: url(/public/images/grid6.webp) no-repeat center center;
+    width: 23.9375rem;
+    height: auto;
+}
