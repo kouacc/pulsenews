@@ -32,7 +32,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+}
 
+.teamcard__top > section h2 {
+    margin: 0;
 }
 
 .teamcard__social {
@@ -46,6 +49,10 @@
 
 .teamcard__social i {
     font-size: 2.3rem;
+}
+
+.teamcard img {
+    object-fit: cover;
 }
 
 .features__card {
