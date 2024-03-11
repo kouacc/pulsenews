@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs | Pulse</title>
+    <link rel="stylesheet" href="/src/css/pages/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header id="header_black">
+        <div class="header__left">
+            <a href="index.html"><img src="/public/icons/Logo.svg" alt="Logo Pulse"></a>
+            <nav>
+                <a href="features.html">Fonctionnalités</a>
+                <a href="prices.html">Tarifs</a>
+            </nav>
+        </div>
+        <nav class="header__right">
+            <a href="#">Connexion</a>
+            <a href="#">S'inscrire</a>
+        </nav>
+    </header>
+    <main class="tarif content">
+        <section class="header_tarif">
+            <h1>Tarification et abonnement</h1>
+            <section>
+                <h2>4,99€ par mois<br>ou 60€ par an</h2>
+                <h3>avec 14 jours d'essai gratuit</h3>
+                <a href="#" class="sub__button">S'abonner</a>
+            </section>
+        </section>
+        <section class="tarif_included">
+            <h3>Qu’est-ce qui est inclus dans votre abonnement ?</h3>
+            <ul>
+                <li>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Gestion de votre veille</li>
+                        <li><i class="fa-solid fa-check"></i>Recommandations de contenus</li>
+                        <li><i class="fa-solid fa-check"></i>Communauté libre et créative</li>
+                    </ul>  
+                </li>
+                <li>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Possibilité de publier vos créations</li>
+                        <li><i class="fa-solid fa-check"></i>Accès à des sources réputées</li>
+                        <li><i class="fa-solid fa-check"></i>Newsletter chaque mois</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section class="tarif_dropdowns" x-data="{drop1: false, drop2: false, drop3: false}">
+            <h2>Foire aux questions</h2>
+            <div>
+                <div class="tarif_dropdown" @click="drop1 = ! drop1">
+                    <section>
+                        <h3>Quelles méthodes de paiement sont acceptéss ?</h3>
+                        <i :class="drop1 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop1 = ! drop1"></i>
+                    </section>
+                    <div x-show="drop1" x-collapse>
+                        <p>Les cartes bancaires sont acceptées, en plus du paiement par PayPal, Google Pay et Apple Pay (disponibles que sur certains appareils et navigateurs)</p>
+                    </div>
+                </div>
+                <div class="tarif_dropdown" @click="drop2 = ! drop2">
+                    <section>
+                        <h3>Peut-on obtenir l’abonnement à prix réduit ?</h3>
+                        <i :class="drop2 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop2 = ! drop2"></i>
+                    </section>
+                    <div x-show="drop2" x-collapse>
+                        <p>Non, Pulse fait tout pour garantir le prix le plus bas possible pour ses utilisateurs.</p>
+                    </div>
+                </div>
+                <div class="tarif_dropdown" @click="drop3 = ! drop3">
+                    <section>
+                        <h3>Est-il possible de résilier après la période d’essai ?</h3>
+                        <i :class="drop3 ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" @click="drop3 = ! drop3"></i>
+                    </section>
+                    <div x-show="drop3" x-collapse>
+                        <p>Bien sûr ! Si jamais Pulse ne vous plaît pas, vous pouvez annuler votre période d'essai à tout moment depuis les paramètres de votre compte.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div>
+        <div class="color__line" id="home_line1"></div>
+        <div class="color__line2" id="home_line2"></div>
+    </div>
+    <footer>
+        <div class="footer__brand">
+            <img src="/public/icons/Logo.svg" alt="Logo Pulse News">
+            <p>© 2024 Pulse News SARL</p>
+            <ul class="footer__socials">
+                <li><i class="fa-brands fa-facebook"></i></li>
+                <li><i class="fa-brands fa-twitter"></i></li>
+                <li><i class="fa-brands fa-instagram"></i></li>
+            </ul>
+        </div>
+        <ul>
+            <li>
+                <p><b>Pulse</b></p>
+            </li>
+            <li><a href="team.html">Équipe</a></li>
+            <li><a href="about.html">À propos</a></li>
+        </ul>
+        <ul>
+            <li>
+                <p><b>Produit</b></p>
+            </li>
+            <li><a href="features.html">Fonctionnalités</a></li>
+            <li><a href="prices.html">Tarifs</a></li>
+        </ul>
+        <ul>
+            <li>
+                <p><b>Support</b></p>
+            </li>
+            <li><a href="">Centre d'aide</a></li>
+            <li><a href="">FAQ</a></li>
+            <li><a href="">Contacter le support</a></li>
+        </ul>
+        <ul>
+            <li>
+                <p><b>Légal</b></p>
+            </li>
+            <li><a href="">Conditions générales d'utilisation</a></li>
+            <li><a href="">Conditions générales de vente</a></li>
+            <li><a href="">Politique de confidentialité</a></li>
+        </ul>
+    </footer>
+</body>
+<script>
+    const observer = new IntersectionObserver(entries => {
+            // Loop over the entries
+            entries.forEach(entry => {
+                // If the element is visible
+                if (entry.isIntersecting) {
+                    // Add the animation class
+                    entry.target.classList.add('animate__scroll');
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.tarif_included'));
+        observer.observe(document.querySelector('.tarif_dropdowns'));
+</script>
+</html>

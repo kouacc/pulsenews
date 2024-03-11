@@ -1,24 +1,33 @@
 h1 {
     font-family: forma-djr-display, sans-serif;
-    font-size: 4.5rem;
+    font-size: var(--desktop---headings---heading-1);
     margin: 0;
 }
 
 h2 {
     font-family: forma-djr-display, sans-serif;
-    font-size: var(--heading2);
+    font-size: var(--desktop---headings---heading-2);
     margin: 0;
+    margin-bottom: 1.5rem;
 }
 
 h3 {
     font-family: forma-djr-display, sans-serif;
     font-weight: 500;
-    font-size: var(--heading3);
+    font-size: var(--desktop---headings---heading-3);
+    margin: 0
+}
+
+h4 {
+    font-family: forma-djr-display, sans-serif;
+    font-size: var(--desktop---headings---heading-4);
+    margin: 0;
+
 }
 
 p {
     font-family: acumin-pro, sans-serif;
-    font-size: var(--paragraph);
+    font-size: var(--desktop---body---body);
     margin: 0;
 }
 
@@ -30,11 +39,10 @@ a {
 
 li {
     font-family: acumin-pro, sans-serif;
-    font-size: var(--paragraph);
+    font-size: var(--desktop---body---body);
     margin: 0;
     list-style: none;
     display: flex;
-    align-items: center;
     gap: 1rem;
 }
 
@@ -53,57 +61,56 @@ body {
 }
 
 main {
-    padding-top: 3.7rem;
     position: relative;
     z-index: 3;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 10rem;
 }
 
 .color__line {
     width: 210rem;
     height: 7.625rem;
-    background: var(--gradient1);
+    background: var(--accents---jaune-bandes);
     transform: rotate(6.750deg);
     background-size: 200% 200%;
     z-index: 2;
     position: absolute;
     right: -150px;
-    animation: var(--gradient-anim);
     
 }
 
 .color__line2 {
     width: 220rem;
     height: 13rem;
-    background: var(--gradient2);
+    background: var(--accents---jaune-bandes);;
     background-size: 200% 200%;
     transform: rotate(-10deg);
     z-index: 2;
     position: absolute;
     right: -150px;
-    animation: var(--gradient-anim);
-}
-
-#line1 {
-    top: 52rem;
-}
-
-#line2 {
-    top: 82rem;
-}
-
-canvas {
-    width: 100vw;
-    height: 80vh;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    transform: rotate(180deg);
 }
 
 .noshow {
     display: none;
+}
+
+.content {
+    width: 70%;
+    margin: auto;
+    padding: 0 3rem;
+}
+
+.page_title {
+    margin-top: 3.13rem;
+    margin-bottom: 3.13rem;
+}
+
+.link__underline {
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+}
+
+.link__underline i {
+    font-size: 1.3rem;
+    text-decoration: none;
 }

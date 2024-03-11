@@ -1,0 +1,17 @@
+.tarif_dropdown {
+    background-color: var(--gris);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 20px 30px;
+}
+
+.tarif_dropdown section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tarif_dropdown i {
+    font-size: 2rem;
+    
+}

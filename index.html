@@ -7,105 +7,107 @@
     <link rel="stylesheet" href="/src/css/pages/styles.css">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script rel=preload src="https://kit.fontawesome.com/b0ac94d361.js" crossorigin="anonymous"></script>
-    <script rel="preload" type="module" src="/src/js/app.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header__left">
-            <a href="index.html"><img src="/public/icons/Logo.svg" alt="Logo Pulse"></a>
+            <a href="index.html"><img src="/public/icons/Logo_white.svg" alt="Logo Pulse"></a>
             <nav>
-                <a href="">Accueil</a>
-                <a href="">Fonctionnalités</a>
-                <a href="">Tarifs</a>
-                <a href="">Contact</a>
+                <a href="features.html">Fonctionnalités</a>
+                <a href="prices.html">Tarifs</a>
             </nav>
         </div>
         <nav class="header__right">
-            <a href="">Connexion</a>
-            <a href="">S'inscrire</a>
+            <a href="#">Connexion</a>
+            <a href="#">S'inscrire</a>
         </nav>
     </header>
-    <main>
+    <main class="home">
         <div class="hero">
-            <section class="hero__content">
+            <section class="hero__content content">
                     <h1>Vivez sous pulsations</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.</p>
+                    <p>Le site de veille pour tous, qui facilite vos recherches dans de nombreux domaines.</p>
                     <a href="#" class="sub__button">S'abonner</a>
-            </section>
-            <section class="hero__contentsources">
-                <h3>Fonctionne avec</h3>
-                <div class="sourcesicons">
-                    <i class="fa-brands fa-dribbble"></i>
-                    <i class="fa-brands fa-behance"></i>
-                    <i class="fa-brands fa-medium"></i>
-                    <i class="fa-brands fa-codepen"></i>
-                </div>
             </section>
             <a href="#moreinfo" class="hero__bottom">
                 <p>En savoir plus</p>
                 <img src="/public/icons/Arrow.svg" alt="Flèche en savoir plus">
             </a>
         </div>
-        <section id="moreinfo" x-data="{display1: false, display2: false, display3: false, scrolled:false}">
+        <section id="moreinfo" class="content">
             <h2>Pourquoi Pulse ?</h2>
-            <div class="info__cards">
-                <div class="info__card">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="display1 = ! display1"><img :class="display1 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux domaines.</p>
-                    <div x-show="display1" x-transition.duration.400ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque? Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.</p>
-                    </div>
+            <div class="info__section">
+                <div class="info__bento">
+                    <ul>
+                        <li>
+                            <section>
+                                <h3>Restez organisé</h3>
+                                <p>Organisez votre veille sous forme de collections, et devenez plus efficace.</p>
+                            </section>
+                            <div>
+                                <ul>
+                                    <li><i class="fa-regular fa-heart"></i></li>
+                                    <li><i class="fa-regular fa-bookmark"></i></li>
+                                    <li><i class="fa-regular fa-folder"></i></li>
+                                    <li><i class="fa-regular fa-copy"></i></li>
+                                    <li><i class="fa-regular fa-circle-up"></i></li>
+                                    <li><i class="fa-regular fa-user"></i></li>
+                                    <li><i class="fa-regular fa-heart"></i></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <section>
+                                <h3>Découvrez des artistes</h3>
+                                <p>Avec un réseau important de créateurs, trouvez vos inspirations pour vos futurs projets.</p>
+                            </section>
+                            <div>
+                                <img src="/public/images/bento-example.webp" alt="Exemple bento">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <section>
+                                <h3>Personnalisez votre présence</h3>
+                                <p>Votre profil Pulse vous permet d’affirmer votre personnalité, en plus de vos collections et créateurs
+                                    préférés.</p>
+                            </section>
+                            <div>
+                                <ul>
+                                    <li>Créations</li>
+                                    <li>Collections</li>
+                                    <li>Abonnements</li>
+                                </ul>
+                                <div class="navbar__actif"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <section>
+                                <h3>Choississez vos inspirations</h3>
+                                <p>Pulse utilise des sources réputées pour vous accompagner chaque jour dans votre veille.</p>
+                            </section>
+                            <div>
+                                <img src="/public/images/Bento_accueil4.webp" alt="Mockup Pulse">
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="info__card">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="display2 = ! display2"><img :class="display2 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
-                        domaines.</p>
-                    <div x-show="display2" x-transition.duration.400ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
-                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
-                        </p>
-                    </div>
-                </div>
-                <div class="info__card">
-                    <section>
-                        <h3>Restez à jour</h3>
-                        <button @click="display3 = ! display3"><img :class="display3 && 'info__card_open'" src="/public/icons/Plus_card.svg" alt="Bouton plus"></button>
-                    </section>
-                    <div class="info__card_line"></div>
-                    <p class="info__card_smalldesc">Pulse vous permet de rester à jour sur l’actualité numérique dans de nombreux
-                        domaines.</p>
-                    <div x-show="display3" x-transition.duration.400ms>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ex corporis eius debitis alias dolores itaque?
-                            Minus quod error necessitatibus saepe, alias consectetur eaque molestiae, iste, placeat laborum expedita sit.
-                        </p>
-                    </div>
-                </div>
+                <a class="link__underline" href="features.html">Voir toutes les fonctionnalités <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </section>
         <div class="slider">
-            <section class="slider__text">
+            <section class="slider__text content">
                 <h2>Du contenu infini</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, at minima nostrum alias ducimus dolorem
-                    repellat delectus modi voluptate, possimus quasi necessitatibus vel repellendus officiis nesciunt mollitia
-                    temporibus qui rem!</p>
+                <p>Avec des nombreux créateurs ainsi que des abonnés qui enrichissent notre site, le contenu disponible en devient infini, de toute inspiration et dans tous les domaines. L’animation, l’illustration, le branding, de nombreux thèmes sont là pour vous aider dans votre veille.</p>
             </section>
-            
             <div class="slider__band">
                 <section>
                     <i class="fa-brands fa-dribbble"></i>
                     <h2>Dribbble</h2>
                 </section>
-                <div class="slider_parent">
-                    <div class="slider_child">
+                <ul class="slider_parent">
+                    <li class="slider_child">
                         <img src="/public/images/example1.webp" alt="Example 1">
                         <section>
                             <h3>Masuc - Logo Designer</h3>
@@ -114,13 +116,11 @@
                                     <i class="fa-solid fa-heart"></i>
                                     <span>33</span>
                                 </div>
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <i class="fa-solid fa-user"></i>
                             </div>
                         </section>
-                    </div>
-                    <div class="slider_child">
+                    </li>
+                    <li class="slider_child">
                         <img src="/public/images/example2.webp" alt="Example 2">
                         <section>
                             <h3>MishaX</h3>
@@ -129,13 +129,11 @@
                                     <i class="fa-solid fa-heart"></i>
                                     <span>81</span>
                                 </div>
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <i class="fa-solid fa-user"></i>
                             </div>
                         </section>
-                    </div>
-                    <div class="slider_child">
+                    </li>
+                    <li class="slider_child">
                         <img src="/public/images/example3.webp" alt="Example 3">
                         <section>
                             <h3>Orizon</h3>
@@ -144,13 +142,11 @@
                                     <i class="fa-solid fa-heart"></i>
                                     <span>33</span>
                                 </div>
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <i class="fa-solid fa-user"></i>
                             </div>
                         </section>
-                    </div>
-                    <div class="slider_child">
+                    </li>
+                    <li class="slider_child">
                         <img src="/public/images/example4.webp" alt="Example 4">
                         <section>
                             <h3>Ramy Wafaa</h3>
@@ -159,28 +155,81 @@
                                     <i class="fa-solid fa-heart"></i>
                                     <span>57</span>
                                 </div>
-                                <div>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <i class="fa-solid fa-user"></i>
                             </div>
                         </section>
-                    </div>
+                    </li>
+                    <li class="slider_child">
+                        <img src="/public/images/example1.webp" alt="Example 1">
+                        <section>
+                            <h3>Masuc - Logo Designer</h3>
+                            <div>
+                                <div>
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span>33</span>
+                                </div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </section>
+                    </li>
+                    <li class="slider_child">
+                        <img src="/public/images/example2.webp" alt="Example 2">
+                        <section>
+                            <h3>MishaX</h3>
+                            <div>
+                                <div>
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span>81</span>
+                                </div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </section>
+                    </li>
+                    <li class="slider_child">
+                        <img src="/public/images/example3.webp" alt="Example 3">
+                        <section>
+                            <h3>Orizon</h3>
+                            <div>
+                                <div>
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span>33</span>
+                                </div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </section>
+                    </li>
+                    <li class="slider_child">
+                        <img src="/public/images/example4.webp" alt="Example 4">
+                        <section>
+                            <h3>Ramy Wafaa</h3>
+                            <div>
+                                <div>
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span>57</span>
+                                </div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </section>
+                    </li>
                 </div>
             </div>
-        </div>
-        <section class="imgcarousel">
-            <div class="carousel">
-                <input type="radio" name="slider" id="item-1" checked>
-                <input type="radio" name="slider" id="item-2">
-                <input type="radio" name="slider" id="item-3">
+        <section class="imgcarousel content">
+            <div class="carousel" x-data="{selected: 1}">
+                <div class="carousel__buttons">
+                    <button class="carousel__button" @click="selected = selected > 1 ? selected - 1 : 3"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carousel__button" @click="selected = selected < 3 ? selected + 1 : 1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <input type="radio" name="carousel" id="item-1" @click="selected = 1" :checked="selected === 1">
+                <input type="radio" name="carousel" id="item-2" @click="selected = 2" :checked="selected === 2">
+                <input type="radio" name="carousel" id="item-3" @click="selected = 3" :checked="selected === 3">
                 <div class="carousel__cards">
-                    <label class="carousel__card" for="item-1" id="song-1">
+                    <label class="carousel__card" for="item-1" id="exemple-1">
                         <img src="/public/images/carousel1.webp" alt="Image carousel 1">
                     </label>
-                    <label class="carousel__card" for="item-2" id="song-2">
+                    <label class="carousel__card" for="item-2" id="exemple-2">
                         <img src="/public/images/carousel2.webp" alt="Image carousel 2">
                     </label>
-                    <label class="carousel__card" for="item-3" id="song-3">
+                    <label class="carousel__card" for="item-3" id="exemple-3">
                         <img src="/public/images/carousel3.webp" alt="Image carousel 3">
                     </label>
                 </div>
@@ -188,38 +237,9 @@
             <div class="imgcarousel__card">
                 <h2>De nombreuses inspirations</h2>
                 <div class="info__card_line"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates doloribus quibusdam totam blanditiis atque dolorem quae nobis, necessitatibus voluptate vitae voluptatem, maiores, sequi natus modi? Aliquam debitis cumque sunt quos?</p>
+                <p>Grâce à Pulse, vous avez toutes vos chances de trouver le contenu dont vous avez besoin en très peu de temps. Vous pouvez également trouver des créateurs qui vous inspirent ou qui peuvent vous aidez dans vos recherches.</p>
             </div>
         </section>
-        
-        <div class="abocards">
-            <div>
-                <h2>Standard</h2>
-                <div class="info__card_line"></div>
-                <h2>Accès au format numérique</h2>
-                <h2>4,95€/mois</h2>
-                <a href="#" class="sub__button">S'abonner</a>
-                <ul id="abocards__ul">
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès aux 500 designers présents sur notre site</li>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Fonctions et contenus exclusifs aux abonnés</li>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
-                </ul>
-            </div>
-            <div>
-                <h2>Standard <span>+ newsletter</span></h2>
-                <div class="info__card_line"></div>
-                <h2>Accès au format numérique et newsletter mensuelle</h2>
-                <h2>9,95€/mois</h2>
-                <a href="#" class="sub__button">S'abonner</a>
-                <ul>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès aux 500 designers présents sur notre site</li>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Fonctions et contenus exclusifs aux abonnés</li>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
-                    <li><img src="/public/icons/checkmark.svg" alt="Checkmark">Accès supplémentaires à d'autres plateformes</li>
-                </ul>
-                <span class="abocards__bubble">Populaire</span>
-            </div>
-        </div>
         <div id="offline__message">
             <div>
                 <section>
@@ -234,16 +254,33 @@
         <div class="secondhero">
             <section class="hero__content">
                 <h1>Vivez sous pulsations</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.</p>
+                <p>Le site de veille pour tous, qui facilite vos recherches dans de nombreux domaines.</p>
                 <a href="#" class="sub__button">S'abonner</a>
             </section>
         </div>
     </main>
-    <div class="color__line" id="line1"></div>
-    <div class="color__line2" id="line2"></div>
-    
-    <footer>
+    <div>
+        <div class="color__line" id="home_line1"></div>
+        <div class="color__line2" id="home_line2"></div>
+    </div>
+    <div>
+        <div class="color__line2" id="home_line3"></div>
+        <div class="color__line" id="home_line4"></div>
+    </div>
+    <div class="wave">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill=var(--accents---jaune) />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--accents---orange)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--accents---rouge)" />
+            </g>
+        </svg>
+    </div>
+    <footer id="footerhome">
         <div class="footer__brand">
             <img src="/public/icons/Logo.svg" alt="Logo Pulse News">
             <p>© 2024 Pulse News SARL</p>
@@ -254,22 +291,28 @@
             </ul>
         </div>
         <ul>
+            <li>
+                <p><b>Pulse</b></p>
+            </li>
+            <li><a href="team.html">Équipe</a></li>
+            <li><a href="about.html">À propos</a></li>
+        </ul>
+        <ul>
             <li><p><b>Produit</b></p></li>
-            <li><a href="">Fonctionnalités</a></li>
-            <li><a href="">Sources</a></li>
-            <li><a href="">Tarifs</a></li>
+            <li><a href="features.html">Fonctionnalités</a></li>
+            <li><a href="prices.html">Tarifs</a></li>
         </ul>
         <ul>
             <li><p><b>Support</b></p></li>
             <li><a href="">Centre d'aide</a></li>
-            <li><a href="">Contact</a></li>
             <li><a href="">FAQ</a></li>
+            <li><a href="">Contacter le support</a></li>
         </ul>
         <ul>
             <li><p><b>Légal</b></p></li>
-            <li><a href="">Conditions d'utilisation</a></li>
+            <li><a href="">Conditions générales d'utilisation</a></li>
+            <li><a href="">Conditions générales de vente</a></li>
             <li><a href="">Politique de confidentialité</a></li>
-            <li><a href="">Cookies</a></li>
         </ul>
     </footer>
 </body>
@@ -306,6 +349,9 @@
                 });
             });
 
-            observer.observe(document.querySelector('.info__cards'));
+            observer.observe(document.querySelector('.info__bento'));
+            observer.observe(document.querySelector('.slider'));
+            observer.observe(document.querySelector('.imgcarousel'));
+            observer.observe(document.querySelector('.abocards'));
 </script>
 </html>

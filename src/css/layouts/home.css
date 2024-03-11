@@ -1,28 +1,15 @@
-#moreinfo {
-    display: grid;
-    gap: 3rem;
-    margin: auto;
-    width: 1000px;
-}
-
-
-
-.hero__contentsources {
+.home {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    gap: 10rem;
+    padding-top: 3.7rem;
 }
 
-.sourcesicons {
+.info__section {
     display: flex;
-    justify-content: center;
-    gap: 4.5rem;
-    
-}
-
-.hero__contentsources i {
-    font-size: 5rem;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: end;
 }
 
 .sourcesicons > * {
@@ -36,7 +23,7 @@
 }
 
 .animate__scroll {
-    animation: var(--enter-left);
+    animation: var(--enter);
 }
 
 .secondhero {
@@ -46,4 +33,24 @@
 
 .secondhero p {
     color: #fff;
+}
+
+#footerhome {
+    margin-top: 0;
+}
+
+#home_line1 {
+    top: 52rem;
+}
+
+#home_line2 {
+    top: 82rem;
+}
+
+#home_line3 {
+    top: 150rem;
+}
+
+#home_line4 {
+    top: 165rem;
 }
