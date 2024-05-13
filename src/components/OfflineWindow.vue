@@ -2,6 +2,25 @@
 import Croix from './icons/IconCroix.vue'
 import Warning from './icons/IconWarning.vue'
 
+if (navigator.onLine) {
+            document.getElementById('offline__message').style.display = 'none';
+        } else {
+            document.getElementById('offline__message').style.display = 'flex';
+        }
+
+        // Écoutez les changements d'état de la connexion
+        window.addEventListener('online', function (e) {
+           document.getElementById('offline__message').style.display = 'none';
+        });
+
+        window.addEventListener('offline', function (e) {
+            document.getElementById('offline__message').style.display = 'flex';
+        });
+        
+        function closeWindow() {
+            document.getElementById('offline__message').style.display = 'none';
+        }
+
 </script>
 
 <template>
@@ -14,7 +33,7 @@ import Warning from './icons/IconWarning.vue'
         <Warning />
         <h6 class="underline text-2xl">Vous êtes hors ligne</h6>
       </section>
-      <button onclick="closeWindow()" aria-label="Fermer la fenêtre"><Croix /></button>
+      <button @click="closeWindow()" aria-label="Fermer la fenêtre"><Croix /></button>
     </div>
     <p>Pour continuer à utiliser Pulse, reconnectez-vous à Internet.</p>
   </div>
