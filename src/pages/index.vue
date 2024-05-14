@@ -36,7 +36,8 @@ const getData = async (): Promise<{ artist_id: number, title: string, image_id: 
     artData.value = data;
     return artData.value;
   } catch (error) {
-    console.error(error);
+    console.error(error)
+    return Promise.reject(error);
   }
 }
 
