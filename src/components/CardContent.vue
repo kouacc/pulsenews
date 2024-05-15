@@ -5,8 +5,8 @@ defineProps<ContentType>()
 </script>
 
 <template>
-    <div class="flex flex-col gap-2">
-        <img class="w-1/3 h-auto" :src="'https://www.artic.edu/iiif/2/'+image_id+'/full/843,/0/default.jpg'" :alt="alt_text" />
-        <h3>{{ title }}</h3>
-    </div>
+    <li class="flex flex-col gap-2 flex-none flex-shrink-0">
+        <img class="w-full h-1/3" :src="'https://www.artic.edu/iiif/2/'+image_id+'/full/843,/0/default.jpg'" :alt="alt_text" />
+        <h3 class="line-clamp-1">{{ title }}</h3>
+    </li>
 </template>

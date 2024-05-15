@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import OfflineWindow from '@/components/OfflineWindow.vue';
 import CardContent from '@/components/CardContent.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import Pocketbase from 'pocketbase';
 
 import axios from 'axios';
 
@@ -43,12 +44,52 @@ const getData = async (): Promise<{ artist_id: number, title: string, image_id: 
 
 getData();
 console.log(artData.value);
+
+let pb = null
+const currentuser = ref()
+onMounted(async () => {
+  pb = new Pocketbase('http://127.0.0.1:8090')
+
+  currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+});
 </script>
 
 <template>
-  <main>
-    <div class="flex">
-      <CardContent v-for="art in artData" v-bind="art" :key="artData.title" />
+  <main class="container mx-auto">
+    <h1 v-if="currentuser">Bonjour, {{ currentuser.prenom }} !</h1>
+    <div class="flex flex-col">
+      <section>
+        <h2>Pour vous</h2>
+        <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
+          <CardContent v-for="art in artData.slice(0, 10)" v-bind="art" :key="artData.title" />
+        </ul>
+      </section>
+      <section>
+        <h2>Pour vous</h2>
+        <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
+          <CardContent v-for="art in artData.slice(11, 21)" v-bind="art" :key="artData.title" />
+        </ul>
+      </section>
+      <section>
+        <h2>Pour vous</h2>
+        <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
+          <CardContent v-for="art in artData.slice(22, 32)" v-bind="art" :key="artData.title" />
+        </ul>
+      </section>
+      <section>
+        <h2>Pour vous</h2>
+        <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
+          <CardContent v-for="art in artData.slice(33, 43)" v-bind="art" :key="artData.title" />
+        </ul>
+      </section>
+      <section>
+        <h2>Pour vous</h2>
+        <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
+          <CardContent v-for="art in artData.slice(44, 54)" v-bind="art" :key="artData.title" />
+        </ul>
+      </section>
+      
     </div>
     
   </main>

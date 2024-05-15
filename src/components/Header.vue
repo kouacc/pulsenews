@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import LogoBlack from './icons/LogoBlack.vue'
+
+import Pocketbase from 'pocketbase'
+import { onMounted, ref } from 'vue'
+
 </script>
 
 <template>
@@ -13,6 +17,7 @@ import LogoBlack from './icons/LogoBlack.vue'
       </nav>
     </div>
     <nav class="flex gap-2 font-serif">
+      <RouterLink to="/profile">Profil</RouterLink>
       <RouterLink to="/login">Connexion</RouterLink>
       <RouterLink to="/register">S'inscrire</RouterLink>
     </nav>
