@@ -27,6 +27,12 @@ coverage
 *.sln
 *.sw?
 
+
 *.tsbuildinfo
 .env
-.db
+
+typed-router.d.ts
+
+# PocketBase
+/pocketbase/*
+!/pocketbase/pb_migrations
