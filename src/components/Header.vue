@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import LogoBlack from './icons/LogoBlack.vue'
-
-import Pocketbase from 'pocketbase'
-import { onMounted, ref } from 'vue'
-
 </script>
 
 <template>
