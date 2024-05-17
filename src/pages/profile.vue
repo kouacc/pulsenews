@@ -87,7 +87,7 @@ let editwindow = ref(false)
             </div>
             <div class="flex flex-col">
               <label>Site web</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.website" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.siteweb" />
             </div>
           </div>
         </section>

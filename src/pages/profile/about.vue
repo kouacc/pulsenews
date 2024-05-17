@@ -44,6 +44,7 @@ onMounted(async () => {
                     <li v-if="currentuser.instagram"><a :href="currentuser.instagram"><IconInstagram /></a></li>
                     <li v-if="currentuser.linkedin"><a :href="currentuser.linkedin"><IconLinkedin /></a></li>
                     <li v-if="currentuser.github"><a :href="currentuser.github"><IconGithub /></a></li>
+                    <li v-if="currentuser.siteweb"><a :href="currentuser.siteweb"><IconGithub /></a></li>
                 </ul>
             </div>
         </div>

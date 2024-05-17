@@ -23,7 +23,8 @@ onMounted(async () => {
 const doLogin = async () => {
   const authData = await pb.collection('users').authWithPassword(email.value, password.value);
 
-  currentuser.value = pb.authStore.model.prenom
+  currentuser.value = pb.authStore.model
+  console.log(currentuser.value)
 }
 
 //Déconnexion TODO: déplacer vers un composant
@@ -53,6 +54,7 @@ const doLoginWebauthn = async () => {
     body: assertion
   })
 
+  console.log(finalResult)
   pb.authStore.save(finalResult.token, finalResult.user)
   currentuser.value = finalResult.user
   return finalResult

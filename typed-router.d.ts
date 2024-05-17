@@ -22,6 +22,7 @@ declare module 'vue-router/auto-routes' {
     '/auth/confirm-email-change': RouteRecordInfo<'/auth/confirm-email-change', '/auth/confirm-email-change', Record<never, never>, Record<never, never>>,
     '/auth/confirm-password-reset': RouteRecordInfo<'/auth/confirm-password-reset', '/auth/confirm-password-reset', Record<never, never>, Record<never, never>>,
     '/auth/confirm-verification': RouteRecordInfo<'/auth/confirm-verification', '/auth/confirm-verification', Record<never, never>, Record<never, never>>,
+    '/content/[id]': RouteRecordInfo<'/content/[id]', '/content/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/forgot-password': RouteRecordInfo<'/forgot-password', '/forgot-password', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
     '/profile': RouteRecordInfo<'/profile', '/profile', Record<never, never>, Record<never, never>>,
