@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import Pocketbase from 'pocketbase'
+import { create as createCredential, parseCreationOptionsFromJSON, get as getCredential, parseRequestOptionsFromJSON } from "@github/webauthn-json/browser-ponyfill"
+
 
 let pb = null
 const currentuser = ref()
@@ -17,27 +19,43 @@ onMounted(async () => {
 
 });
 
+//Connexion standard avec email et mot de passe
 const doLogin = async () => {
   const authData = await pb.collection('users').authWithPassword(email.value, password.value);
 
-  console.log(pb.authStore.isValid)
-  console.log(pb.authStore.token)
-  console.log(pb.authStore.model)
   currentuser.value = pb.authStore.model.prenom
 }
 
+//Déconnexion TODO: déplacer vers un composant
 const doLogout = async () => {
   pb.authStore.clear()
   currentuser.value = null
 }
 
+//Connexion avec Google
 const doLoginOauth = async () => {
   const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
 
-  console.log(pb.authStore.isValid)
-  console.log(pb.authStore.token)
-  console.log(pb.authStore.model)
   currentuser.value = pb.authStore.model
+}
+
+//Connexion avec Webauthn
+const doLoginWebauthn = async () => {
+  const publicKeyCredentialRequestOptions = await pb.send(`/webauthn-begin-login/${btoa(email.value)}`, {
+    method: "POST"
+  })
+  
+  const assertion = await getCredential(parseRequestOptionsFromJSON(publicKeyCredentialRequestOptions))
+
+  const finalResult = await pb.send(`/webauthn-finish-login/${btoa(email.value)}`, {
+    method: "POST",
+    //query: data,
+    body: assertion
+  })
+
+  pb.authStore.save(finalResult.token, finalResult.user)
+  currentuser.value = finalResult.user
+  return finalResult
 }
 
 </script>
@@ -46,11 +64,11 @@ const doLoginOauth = async () => {
   <div class="container mx-auto">
     <h1>Connexion</h1>
     <h3>Content de vous revoir !</h3>
-    <h4 v-if="currentuser">Bien connecté, bonjour {{ currentuser.prenom }}</h4>
+    <h4 v-if="currentuser">Bien connecté, bonjour {{ currentuser.surname }}</h4>
     <button v-if="currentuser" type="button" @click="doLogout">Déconnexion</button>
     <div class="flex flex-col gap-10 mx-1/2">
       <div class="bg-slate-300/20 rounded-lg p-10 shadow">
-        <div class="flex flex-col gap-2" action="/login" method="post">
+        <div class="flex flex-col gap-2">
           <label for="">Adresse e-mail / Nom d'utilisateur</label>
           <input v-model="email" class="px-3 py-3 rounded-lg shadow" type="email" />
           <label for="">Mot de passe</label>
@@ -64,7 +82,7 @@ const doLoginOauth = async () => {
         </div>
       </div>
       <div class="flex">
-        <button class="p-3 bg-slate-300/20 rounded-lg shadow">Connexion en 1-clic</button>
+        <button class="p-3 bg-slate-300/20 rounded-lg shadow" @click="doLoginWebauthn">Connexion en 1-clic</button>
         <button class="p-3 bg-slate-300/20 rounded-lg shadow" type="button" @click="doLoginOauth">Connexion par Google</button>
       </div>
       <section class="text-center">
@@ -73,6 +91,7 @@ const doLoginOauth = async () => {
       </section>
     </div>
   </div>
+  
 </template>
 
 

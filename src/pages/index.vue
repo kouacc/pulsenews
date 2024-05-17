@@ -57,7 +57,7 @@ onMounted(async () => {
 
 <template>
   <main class="container mx-auto">
-    <h1 v-if="currentuser">Bonjour, {{ currentuser.prenom }} !</h1>
+    <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
     <div class="flex flex-col">
       <section>
         <h2>Pour vous</h2>
