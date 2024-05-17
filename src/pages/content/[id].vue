@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router/auto'
 import axios from 'axios';
 
 import ContentTag from '@/components/ContentTag.vue';
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue';
 
 const route = useRoute('/offres/[id]')
 console.log('id : ', route.params.id)
@@ -10,7 +11,7 @@ import { onMounted, ref } from 'vue';
 
 const artData = ref<any>(null);
 
-const getData = async (): Promise<{ title: string, image_id: string, description: string, category_titles: string[]}> => {
+const getData = async (): Promise<{ title: string, artist_title: string, image_id: string, description: string, category_titles: string[]}> => {
   try {
     const response = await axios.get(`https://api.artic.edu/api/v1/artworks/${route.params.id}`);
     const { data } = response.data;
@@ -26,12 +27,20 @@ console.log('getData : ', getData())
 
 <template>
   <div class="container mx-auto">
+    <RouterLink class="inline-flex gap-4 items-center" to="/"><IconChevronLeft class="scale-75"/>Retour</RouterLink>
     <h1>{{ artData.title }}</h1>
+    <h2>par {{ artData.artist_title }}</h2>
     <img class="w-full h-auto" :src="'https://www.artic.edu/iiif/2/'+artData.image_id+'/full/843,/0/default.jpg'" :alt="artData.alt_text" />
     <p v-if="artData.description" v-html="artData.description"></p>
     <section>
-        <h2>Tags</h2>
+        <h3>Tags</h3>
         <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag"/>
+    </section>
+    <section>
+      <h3>Du même artiste</h3>
+    </section>
+    <section>
+      <h3>Contenus similaires</h3>
     </section>
   </div>
 </template>

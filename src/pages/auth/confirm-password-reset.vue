@@ -11,7 +11,13 @@ const route = useRoute()
 onMounted(async () => {
   pb = new Pocketbase('http://127.0.0.1:8090')
   Token.value = route.query.token as string
-})
+  console.log(Token.value)
+
+    if (!Token.value && pb.authStore.isValid) {
+        window.location.href = '/'
+    } else if (!Token.value && !pb.authStore.isValid) {
+        window.location.href = '/login'
+}})
 
 let pb = null
 let NewPassword = ref('')
@@ -35,6 +41,7 @@ const resetPassword = async () => {
         }, 5000)
       }
 }
+
 </script>
 
 <template>

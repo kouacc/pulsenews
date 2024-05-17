@@ -1,21 +1,35 @@
 <script setup lang="ts">
 import Pocketbase from 'pocketbase'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 
 import IconEdit from '../components/icons/IconEdit.vue'
 import ActionWindow from '../components/ActionWindow.vue'
 import IconCroix from '../components/icons/IconCroix.vue'
+import { updateUser } from '@/backend'
 
 let pb: Pocketbase | null = null
 const currentuser = ref()
+let tempUser = ref(null)
+let keydownHandler = null
+
 
 onMounted(async () => {
   pb = new Pocketbase('http://127.0.0.1:8090')
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+  tempUser.value = {...currentuser.value}
 
+  keydownHandler = (event) => {
+    if (event.key === 'Echap') {
+      editwindow.value = false
+    }
+  }
 })
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', keydownHandler)
+})
+
 const avatarUrl = ref<string>('')
 
 watch(currentuser, (newVal, oldVal) => {
@@ -23,6 +37,13 @@ watch(currentuser, (newVal, oldVal) => {
     avatarUrl.value = pb.getFileUrl(newVal,newVal.avatar, {'thumb': '100x250'});
   }
 });
+
+function updateProfile() {
+  updateUser(tempUser.value, currentuser.value)
+  editwindow.value = false
+  //refresh la page
+  location.reload()
+}
 
 let editwindow = ref(false)
 </script>
@@ -40,26 +61,26 @@ let editwindow = ref(false)
           <div class="flex flex-col gap-3 grow">
             <div class="flex flex-col gap-2">
               <label>Prénom</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.surname" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.surname" />
             </div>
             <div class="flex flex-col gap-2">
               <label>Nom</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.name" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.name" />
             </div>
             <div class="flex flex-col gap-2">
               <label>Localisation</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.localisation" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.localisation" />
             </div>
           </div>
           <div class="flex flex-col gap-2">
             <label>Avatar</label>
             <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar">
-            <input type="file" @change="currentuser.avatar = $event.target.files[0]" />
+            <input type="file" @change="tempUser.avatar = $event.target.files[0]" />
           </div>
         </div>
         <div class="flex flex-col gap-2">
               <label>Biographie</label>
-              <textarea class="rounded-lg px-4 py-2" v-model="currentuser.biographie"></textarea>
+              <textarea class="rounded-lg px-4 py-2" v-model="tempUser.biographie"></textarea>
             </div>
       </section> 
         <section>
@@ -67,31 +88,31 @@ let editwindow = ref(false)
           <div class="grid grid-cols-2 grid-rows-2 gap-5">
             <div class="flex flex-col">
               <label>Facebook</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.facebook" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.facebook" />
             </div>
             <div class="flex flex-col">
               <label>Instagram</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.instagram" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.instagram" />
             </div>
             <div class="flex flex-col">
               <label>Twitter</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.twitter" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.twitter" />
             </div>
             <div class="flex flex-col">
               <label>Github</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.github" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.github" />
             </div>
             <div class="flex flex-col">
               <label>Linkedin</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.linkedin" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.linkedin" />
             </div>
             <div class="flex flex-col">
               <label>Site web</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="currentuser.siteweb" />
+              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.siteweb" />
             </div>
           </div>
         </section>
-        <button class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit">Enregistrer</button>
+        <button @click="updateProfile()" class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit">Enregistrer</button>
        
     </ActionWindow>
   </Transition>

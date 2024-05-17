@@ -19,7 +19,7 @@ const isOffline = ref(false)
         <Warning />
         <h6 class="underline text-2xl">Vous êtes hors ligne</h6>
       </section>
-      <button @click="is" aria-label="Fermer la fenêtre"><Croix /></button>
+      <button aria-label="Fermer la fenêtre"><Croix /></button>
     </div>
     <p>Pour continuer à utiliser Pulse, reconnectez-vous à Internet.</p>
   </div>

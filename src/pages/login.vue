@@ -27,12 +27,6 @@ const doLogin = async () => {
   console.log(currentuser.value)
 }
 
-//Déconnexion TODO: déplacer vers un composant
-const doLogout = async () => {
-  pb.authStore.clear()
-  currentuser.value = null
-}
-
 //Connexion avec Google
 const doLoginOauth = async () => {
   const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });

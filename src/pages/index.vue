@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import OfflineWindow from '@/components/OfflineWindow.vue';
+import SearchInput from '@/components/SearchInput.vue';
 import CardContent from '@/components/CardContent.vue';
 import { onMounted, ref } from 'vue';
 import Pocketbase from 'pocketbase';
@@ -30,7 +31,7 @@ import axios from 'axios';
 
 const artData = ref<any>(null);
 
-const getData = async (): Promise<{ artist_id: number, title: string, image_id: string }> => {
+const getData = async (): Promise<{ title: string, image_id: string }> => {
   try {
     const response = await axios.get('https://api.artic.edu/api/v1/artworks?limit=100');
     const { data } = response.data;
@@ -57,7 +58,9 @@ onMounted(async () => {
 
 <template>
   <main class="container mx-auto">
-    <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
+    <section class="flex justify-between">
+      <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
+    </section>
     <div class="flex flex-col">
       <section>
         <h2>Pour vous</h2>
@@ -91,6 +94,5 @@ onMounted(async () => {
       </section>
       
     </div>
-    
   </main>
 </template>

@@ -1,0 +1,43 @@
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue'
+import Pocketbase from 'pocketbase'
+import IconLogout from '@/components/icons/IconLogout.vue'
+
+import { RouterLink } from 'vue-router'
+
+let pb = null
+const currentuser = ref()
+onMounted(async () => {
+  pb = new Pocketbase('http://127.0.0.1:8090')
+
+  currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+})
+
+const avatarUrl = ref<string>('')
+
+watch(currentuser, (newVal, oldVal) => {
+  if (newVal) {
+    avatarUrl.value = pb.getFileUrl(newVal,newVal.avatar, {'thumb': '100x250'});
+  }
+});
+
+const doLogout = async () => {
+  pb.authStore.clear()
+  currentuser.value = null
+}
+</script>
+
+<template>
+    <div v-if="currentuser" class="p-4 bg-slate-300 rounded-xl absolute top-20 right-5">
+        <div class="inline-flex justify-between">
+            <section class="inline-flex gap-3 items-center">
+                <img class="rounded-full w-[10%]" :src="avatarUrl" alt="Avatar utilisateur"> 
+                <h4>{{ currentuser.surname }}</h4>
+            </section>
+        </div>
+        <div class="border-t border-gray-500">
+            <IconLogout @click="doLogout" />
+        </div>
+    </div>
+</template>

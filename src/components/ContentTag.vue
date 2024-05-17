@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-    <RouterLink :to="`/search/tags?=${tag}`" class="px-5 py-2 bg-slate-300/30 rounded-xl">
+    <RouterLink :to="`/search?tag=${tag}`" class="px-5 py-2 bg-slate-300/30 rounded-xl">
         <span>{{ tag }}</span>
     </RouterLink>
 </template>
