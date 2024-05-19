@@ -1,4 +1,5 @@
 import './assets/css/style.css'
+import V3ScrollLock from 'v3-scroll-lock'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -12,5 +13,6 @@ app.use(
     history: createWebHistory()
   })
 )
+app.use(V3ScrollLock, {})
 
 app.mount('#app')

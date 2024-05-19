@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import ActionWindow from '../components/ActionWindow.vue'
+import IconGoogle from '../components/icons/IconGoogle.vue'
+import IconCroix from '@/components/icons/IconCroix.vue'
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import { create as createCredential, parseCreationOptionsFromJSON} from "@github/webauthn-json/browser-ponyfill"
-import { deleteUser } from '@/backend'
+import { deleteUser, getAuthMethods } from '@/backend'
+import { get } from 'node_modules/axios/index.cjs'
 
 let pb: Pocketbase | null = null
 const currentuser = ref()
+let authoptions = ref()
 
 onMounted(async () => {
-  let pocketbase_ip = ''
-  if (import.meta.env.MODE === "production")
-    pocketbase_ip = "http://193.168.147.74:8090/"
-  else pocketbase_ip = "http://127.0.0.1:8090/"
-  pb = new Pocketbase(pocketbase_ip)
+    let pocketbase_ip = ''
+    if (import.meta.env.MODE === "production")
+      pocketbase_ip = "http://193.168.147.74:8090/"
+    else pocketbase_ip = "http://127.0.0.1:8090/"
+    pb = new Pocketbase(pocketbase_ip)
   
-  currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
-    console.log(currentuser.value)
+    currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+    
+    authoptions.value = getAuthMethods(currentuser.value.id)
+    console.log(authoptions.value)
 })
 
 
@@ -88,24 +94,47 @@ let ExternalAuthWindow = ref(false)
         </div>
     </div>
     <!-- fenetres modal-->
-    <ActionWindow v-show="changePasswordWindow">
-        <h2>Changer de mot de passe</h2>
-        
+    <ActionWindow v-show="changePasswordWindow" v-scroll-lock="changePasswordWindow">
+        <h1>Changer de mot de passe</h1>
+        <p>Pour changer votre mot de passe, vous devrez vérifier votre mot de passe actuel</p>
     </ActionWindow>
 
-    <ActionWindow v-show="changeEmailWindow">
-        <h2>Changer d'adresse e-mail</h2>
+    <ActionWindow v-show="changeEmailWindow" v-scroll-lock="changeEmailWindow">
+        <h1>Changer d'adresse e-mail</h1>
     </ActionWindow>
 
-    <ActionWindow v-show="ExternalAuthWindow">
-        <h2>Authentificateurs externes</h2>
+    <ActionWindow v-show="ExternalAuthWindow" v-scroll-lock="ExternalAuthWindow">
+        <button @click="ExternalAuthWindow = false"><IconCroix /></button>
+        <h1>Authentificateurs externes</h1>
         <div>
-            <h2>Enregistrer un passkey</h2>
-            <button @click="registerPasskey">Enregistrer</button>
+            <h2>Authentification par Google</h2>
+            <p>Lier votre compte Google pour une connexion plus simple et sécurisée. Assurez-vous d'utiliser le compte Google avec la même adresse e-mail que votre compte Pulse.</p>
+            <div class="p-5">
+                <IconGoogle />
+                <span v-if="authoptions && authoptions.length === 1">Connecté</span>
+                <span v-else>Non connecté</span>
+                <button v-if="authoptions && authoptions.length === 1">Délier</button>
+                <button v-else>Lier</button>
+            </div>
+        </div>
+        <div class="space-y-3">
+            <h2>Clés de sécurité</h2>
+            <div class="flex gap-10 items-start">
+                <section>
+                <p>Uilisez votre appareil et ses informations de connexion (mot de passe, code PIN, empreinte digitale...) pour vous connecter. Les clés de sécurité se passent de votre mot de passe, et sont stockés sur votre appareil uniquement. Vous pouvez supprimer à tout moment une clé de votre compte.</p>
+                <!--TODO: remplacer vers un article blog-->
+                <a class="underline" href="https://fidoalliance.org/passkeys/">En savoir plus sur les clés de sécurité</a>
+                </section>
+                <button class="bg-blue-500 text-white rounded-xl px-5 py-3 shrink grow-0" @click="registerPasskey">Enregistrer</button>
+            </div>
+            <section>
+                <h3>Clés enregistrées</h3>
+                <p v-if="currentuser && currentuser.webauth_id_b64">Vous n'avez pas de clé enregistrée</p>
+            </section>
         </div>
     </ActionWindow>
 
-    <ActionWindow v-show="deleteAccountWindow">
+    <ActionWindow v-show="deleteAccountWindow" v-scroll-lock="deleteAccountWindow">
         <h2>Supprimer mon compte</h2>
         <p>Attention, cette action est irréversible</p>
         <button @click="deleteAccountWindow = false">Annuler</button>

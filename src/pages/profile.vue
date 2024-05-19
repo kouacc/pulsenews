@@ -125,8 +125,8 @@ let editwindow = ref(false)
     <div v-if="currentuser" class="flex gap-28 container items-center mx-auto place-content-center">
         <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar">
         <section class="flex flex-col gap-3 flex-grow-0 items-center">
-            <h2 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h2>
-            <h3 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0 w-fit">{{ currentuser.localisation }}, France</h3>
+            <h1 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
+            <h2 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0 w-fit">{{ currentuser.localisation }}, France</h2>
         </section>
         <button class="absolute right-[28%] z-10 rounded-full p-4 bg-slate-300" @click="editwindow = true"><IconEdit /></button>
     </div>

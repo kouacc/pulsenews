@@ -37,13 +37,17 @@ const resetEmail = async () => {
 </script>
 
 <template>
-    <div class="container mx-auto">
+    <div class="container mx-auto grid h-screen space-y-3">
+      <section class="place-self-center place-content-center">
         <h1>Mot de passe oublié ?</h1>
-        <section class="bg-slate-300 p-3 flex flex-col">
+        <p>Entrez l'adresse e-mail que vous avez utilisé pour créer votre compte.</p>
+        <p>Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.</p>
+        <section class="p-3 flex flex-col h-screen">
                 <label for="">Adresse e-mail / Nom d'utilisateur</label>
                 <input v-model="email" class="px-3 py-3 rounded-lg shadow" type="email" />
                 <button @click="resetEmail()" type="button">Envoyer</button>
         </section>
+      </section>
     </div>
     <AlertWindow bad v-show="ErrorWindow">
       <section class="inline-flex gap-5">

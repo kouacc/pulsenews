@@ -28,3 +28,18 @@ export async function deleteUser(userid) {
   await pb.collection('users').delete(userid)
   return true
 }
+
+export async function getAuthMethods(userid) {
+  const result = await pb.collection('users').listExternalAuths(userid)
+  return result
+}
+
+export async function unlinkOAuth(userid) {
+  await pb.collection('users').unlinkExternalAuth(userid, 'google')
+  return true
+}
+
+export async function unlinkWebauthnKey(userid) {
+  await pb.collection('users').update(userid, { webauthn_id_b64: '', webauthn_credentials: null })
+  return true
+}
