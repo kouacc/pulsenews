@@ -34,7 +34,7 @@ let profileCard = ref(false)
         <RouterLink to="/explore">Explorer</RouterLink>
         <RouterLink to="/search">Rechercher</RouterLink>
       </div>
-      <button @click="profileCard = true" class="w-[3%]"><img :src="avatarUrl" alt="Avatar utilisateur"></button>
+      <button @click="profileCard = ! profileCard" class="w-[3%]"><img :src="avatarUrl" alt="Avatar utilisateur"></button>
       <ProfileCard v-show="profileCard" />
     </nav>
     

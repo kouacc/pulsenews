@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import Pocketbase from 'pocketbase'
-import { create as createCredential, parseCreationOptionsFromJSON, get as getCredential, parseRequestOptionsFromJSON } from "@github/webauthn-json/browser-ponyfill"
-
+import { get as getCredential, parseRequestOptionsFromJSON } from "@github/webauthn-json/browser-ponyfill"
 
 let pb = null
 const currentuser = ref()
@@ -10,13 +9,16 @@ const email = ref('')
 const password = ref('')
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  let pocketbase_ip = ''
+  if (import.meta.env.MODE === "production")
+    pocketbase_ip = "http://193.168.147.74:8090/"
+  else pocketbase_ip = "http://127.0.0.1:8090/"
+  pb = new Pocketbase(pocketbase_ip)
 
   pb.authStore.onChange(() => {
     currentuser.value = pb.authStore.model
   
   }, true)
-
 });
 
 //Connexion standard avec email et mot de passe
@@ -25,6 +27,7 @@ const doLogin = async () => {
 
   currentuser.value = pb.authStore.model
   console.log(currentuser.value)
+  location.reload()
 }
 
 //Connexion avec Google
@@ -32,6 +35,7 @@ const doLoginOauth = async () => {
   const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
 
   currentuser.value = pb.authStore.model
+  location.reload()
 }
 
 //Connexion avec Webauthn
@@ -48,11 +52,13 @@ const doLoginWebauthn = async () => {
     body: assertion
   })
 
-  console.log(finalResult)
   pb.authStore.save(finalResult.token, finalResult.user)
   currentuser.value = finalResult.user
   return finalResult
 }
+
+let step1 = ref(true)
+let step2 = ref(false)
 
 </script>
 
@@ -61,26 +67,39 @@ const doLoginWebauthn = async () => {
     <h1>Connexion</h1>
     <h3>Content de vous revoir !</h3>
     <h4 v-if="currentuser">Bien connecté, bonjour {{ currentuser.surname }}</h4>
-    <button v-if="currentuser" type="button" @click="doLogout">Déconnexion</button>
     <div class="flex flex-col gap-10 mx-1/2">
       <div class="bg-slate-300/20 rounded-lg p-10 shadow">
         <div class="flex flex-col gap-2">
-          <label for="">Adresse e-mail / Nom d'utilisateur</label>
-          <input v-model="email" class="px-3 py-3 rounded-lg shadow" type="email" />
-          <label for="">Mot de passe</label>
-          <input v-model="password" class="px-3 py-3 rounded-lg shadow" type="password" />
-          <div class="flex">
-            <input type="checkbox">
-            <label for="">Rester connecté</label>
-            <RouterLink to="/forgot-password">Mot de passe oublié ?</RouterLink>
+          <div class="flex flex-col gap-2">
+            <h3 v-show="step1">Entrez votre adresse e-mail</h3>
+            <h3 v-show="step2">Entrez votre mot de passe</h3>
+            <label for="email">Adresse e-mail</label>
+            <p v-show="step2">{{ email }}</p>
+            <input v-show="step1" v-model="email" class="px-3 py-3 rounded-lg shadow" id="email" type="text" autocomplete="webauthn" />
+            <button v-show="step1" class="p-3 bg-slate-300/20 rounded-lg shadow" type="submit" @click="step1 = false, step2 = true">Continuer</button>
           </div>
-          <button @click="doLogin">Se connecter</button>
+          <div class="flex flex-col gap-2" v-show="step2">
+            <label for="password">Mot de passe</label>
+            <input v-model="password" class="px-3 py-3 rounded-lg shadow" id="password" type="password" autocomplete="webauthn" />
+            <div class="flex items-center justify-between">
+              <div>
+                <label for="remember">Rester connecté</label>
+                <input type="checkbox" id="remember" name="remember" />
+              </div>
+              <button class="p-3 bg-slate-300/20 rounded-lg shadow" @click="doLogin">Connexion</button>
+            </div>
+            <div class="flex justify-center items-center before:border-b before:border-b-gray-800 before:flex-1 after:border-b after:border-b-gray-800 after:flex-1">
+              <p class="mx-2">ou</p>
+            </div>
+            <button class="p-3 bg-slate-300/20 rounded-lg shadow" @click="doLoginWebauthn">Utiliser une clé de sécurité</button>
+          </div>
         </div>
       </div>
       <div class="flex">
-        <button class="p-3 bg-slate-300/20 rounded-lg shadow" @click="doLoginWebauthn">Connexion en 1-clic</button>
         <button class="p-3 bg-slate-300/20 rounded-lg shadow" type="button" @click="doLoginOauth">Connexion par Google</button>
       </div>
+      <h3>Mot de passe oublié ?</h3>
+        <RouterLink to="/forgot-password" class="p-3 bg-slate-300/20 rounded-lg shadow" @click="">Réinitialiser le mot de passe</RouterLink>
       <section class="text-center">
         <h3>Pas de compte ?</h3>
         <RouterLink to="/register">Créer un compte</RouterLink>
@@ -89,5 +108,4 @@ const doLoginWebauthn = async () => {
   </div>
   
 </template>
-
 

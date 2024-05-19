@@ -14,7 +14,12 @@ const authorizeVerification = async () => {
 }
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  let pocketbase_ip = ''
+  if (import.meta.env.MODE === "production")
+    pocketbase_ip = "http://193.168.147.74:8090/"
+  else pocketbase_ip = "http://127.0.0.1:8090/"
+  pb = new Pocketbase(pocketbase_ip)
+  
   Token.value = route.query.token as string
     authorizeVerification()
 })

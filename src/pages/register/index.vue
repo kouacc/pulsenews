@@ -8,5 +8,4 @@
     <h3>Dites-en plus sur vous !</h3>
     
     </div>
-  </div>
 </template>

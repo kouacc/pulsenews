@@ -1,5 +1,5 @@
 export interface ContentType {
-  id: string;
+  id: number;
   artist_title: string;
   category_titles: string[];
   description: string;

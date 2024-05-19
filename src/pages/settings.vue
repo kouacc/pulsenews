@@ -3,19 +3,25 @@ import ActionWindow from '../components/ActionWindow.vue'
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import { create as createCredential, parseCreationOptionsFromJSON} from "@github/webauthn-json/browser-ponyfill"
+import { deleteUser } from '@/backend'
 
 let pb: Pocketbase | null = null
 const currentuser = ref()
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  let pocketbase_ip = ''
+  if (import.meta.env.MODE === "production")
+    pocketbase_ip = "http://193.168.147.74:8090/"
+  else pocketbase_ip = "http://127.0.0.1:8090/"
+  pb = new Pocketbase(pocketbase_ip)
+  
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
     console.log(currentuser.value)
 })
 
 
 const registerPasskey = async () => {
-  const publicKeyCredentialCreationOptions = await pb.send(`/webauthn-begin-registration/${btoa(email.value)}`, {
+  const publicKeyCredentialCreationOptions = await pb.send(`/webauthn-begin-registration/${btoa(currentuser.value.email)}`, {
     method: "POST"
   })
   console.log("publicKeyCredentialCreationOptions", publicKeyCredentialCreationOptions)
@@ -23,13 +29,21 @@ const registerPasskey = async () => {
   const credential = await createCredential(parseCreationOptionsFromJSON(publicKeyCredentialCreationOptions))
   console.log("finishRegistration: send credential", credential.toJSON())
 
-  const finalResult = await pb.send(`/webauthn-finish-registration/${btoa(email.value)}`, {
+  const finalResult = await pb.send(`/webauthn-finish-registration/${btoa(currentuser.value.email)}`, {
     method: "POST",
     body: credential
   })
   console.log("beginRegistrationAction finalResult", finalResult)
 
   return finalResult
+}
+
+function deleteAccount() {
+    deleteUser(currentuser.value.id)
+    //clear le authStore
+    pb.authStore.clear()
+    //refresh la page
+    location.reload()
 }
 
 let deleteAccountWindow = ref(false)
@@ -93,6 +107,9 @@ let ExternalAuthWindow = ref(false)
 
     <ActionWindow v-show="deleteAccountWindow">
         <h2>Supprimer mon compte</h2>
+        <p>Attention, cette action est irréversible</p>
+        <button @click="deleteAccountWindow = false">Annuler</button>
+        <button @click="deleteAccount()">Supprimer</button>
     </ActionWindow>
 
 
