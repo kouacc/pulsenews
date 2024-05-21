@@ -23,11 +23,10 @@
   li {
   }
   a {
-    
   }
   label {
   }
-  input, textarea {
+  input, textarea, button {
     @apply font-serif
   }
   @layer components {

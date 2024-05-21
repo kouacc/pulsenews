@@ -26,21 +26,33 @@ console.log('getData : ', getData())
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto space-y-3">
     <RouterLink class="inline-flex gap-4 items-center" to="/"><IconChevronLeft class="scale-75"/>Retour</RouterLink>
     <h1>{{ artData.title }}</h1>
     <h2>par {{ artData.artist_title }}</h2>
     <img class="w-full h-auto" :src="'https://www.artic.edu/iiif/2/'+artData.image_id+'/full/843,/0/default.jpg'" :alt="artData.alt_text" />
-    <p v-if="artData.description" v-html="artData.description"></p>
-    <section>
+    <section class="space-y-4">
+      <h3>Description</h3>
+      <p v-if="artData.description" v-html="artData.description"></p>
+      <p v-else>Aucune description disponible</p>
+    </section>
+    <section class="space-y-4">
         <h3>Tags</h3>
-        <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag"/>
+        <ul class="flex gap-3">
+          <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag"/>
+        </ul>
     </section>
     <section>
       <h3>Du même artiste</h3>
+      <ul class="grid grid-cols-3">
+        <!-- TODO: faire une query sur l'artiste et afficher 3 de ses oeuvres (maximum) -->
+      </ul>
     </section>
     <section>
       <h3>Contenus similaires</h3>
+      <ul class="grid grid-cols-3">
+        <!-- TODO: faire une query sur le premier category_title et afficher 3 éléments (maximum) -->
+      </ul>
     </section>
   </div>
 </template>

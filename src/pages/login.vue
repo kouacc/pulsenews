@@ -17,7 +17,6 @@ onMounted(async () => {
 
   pb.authStore.onChange(() => {
     currentuser.value = pb.authStore.model
-  
   }, true)
 });
 
@@ -54,6 +53,7 @@ const doLoginWebauthn = async () => {
 
   pb.authStore.save(finalResult.token, finalResult.user)
   currentuser.value = finalResult.user
+  location.reload()
   return finalResult
 }
 
@@ -99,7 +99,7 @@ let step2 = ref(false)
         <button class="p-3 bg-slate-300/20 rounded-lg shadow" type="button" @click="doLoginOauth">Connexion par Google</button>
       </div>
       <h3>Mot de passe oublié ?</h3>
-        <RouterLink to="/forgot-password" class="p-3 bg-slate-300/20 rounded-lg shadow" @click="">Réinitialiser le mot de passe</RouterLink>
+        <RouterLink to="/forgot-password" class="p-3 bg-slate-300/20 rounded-lg shadow">Réinitialiser le mot de passe</RouterLink>
       <section class="text-center">
         <h3>Pas de compte ?</h3>
         <RouterLink to="/register">Créer un compte</RouterLink>

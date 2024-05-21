@@ -35,6 +35,7 @@ const getData = async (): Promise<{ title: string, image_id: string }> => {
     const response = await axios.get('https://api.artic.edu/api/v1/artworks?limit=100');
     const { data } = response.data;
     artData.value = data;
+    console.log(artData.value);
     return artData.value;
   } catch (error) {
     console.error(error)

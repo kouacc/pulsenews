@@ -1,26 +1,27 @@
 <script setup lang="ts">
-const props = defineProps({
-  to: String,
-  text: String,
-  isLink: Boolean
-})
+import ArrowIcon from '@/components/icons/IconArrow.vue'
+const props = withDefaults(
+  defineProps<{
+    variant?: 'default' | 'dark' | 'outlined'
+    url: string
+    text: string
+  }>(),
+  { variant: 'default' }
+)
+const variantClass = {
+  default: 'border border-pink hover:shadow-[inset_0_0_0_8px_#feaa9b]',
+  dark: 'bg-black text-white',
+  outlined: 'text-white border border-white hover:shadow-[inset_0_0_0_8px_white]'
+}
 </script>
 
 <template>
-  <a
-    v-if="props.isLink"
-    class="flex rounded-lg bg-blue-500 text-white w-full justify-center py-1"
-    v-on="$props"
-    :href="to"
+  <RouterLink
+    :to="`${url}`"
+    class="inline-flex items-center gap-4 px-6 py-4 text-xs font-bold uppercase tracking-wide transition duration-300 ease-in-out lg:px-8 lg:py-6 lg:text-sm"
+    :class="variantClass[props.variant]"
   >
-    {{ props.text }}
-  </a>
-  <button
-    v-else
-    class="flex rounded-lg bg-blue-500 text-white w-full justify-center py-1"
-    v-on="$props"
-    :click="to"
-  >
-    {{ props.text }}
-  </button>
+    <ArrowIcon />
+    {{ text }}
+  </RouterLink>
 </template>
