@@ -26,12 +26,14 @@
   }
   label {
   }
-  input, textarea, button {
-    @apply font-serif
+  input,
+  textarea,
+  button {
+    @apply font-serif;
   }
   @layer components {
-  .container {
-    @apply max-w-screen-xl mx-auto px-28;
+    .container {
+      @apply max-w-screen-xl mx-auto px-28;
+    }
   }
-}
 }

@@ -12,16 +12,15 @@ onMounted(async () => {
   pb = new Pocketbase('http://127.0.0.1:8090')
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
-
 })
 
 const avatarUrl = ref<string>('')
 
 watch(currentuser, (newVal, oldVal) => {
   if (newVal) {
-    avatarUrl.value = pb.getFileUrl(newVal,newVal.avatar, {'thumb': '100x250'});
+    avatarUrl.value = pb.getFileUrl(newVal, newVal.avatar, { thumb: '100x250' })
   }
-});
+})
 
 let profileCard = ref(false)
 </script>
@@ -34,10 +33,11 @@ let profileCard = ref(false)
         <RouterLink to="/explore">Explorer</RouterLink>
         <RouterLink to="/search">Rechercher</RouterLink>
       </div>
-      <button @click="profileCard = ! profileCard" class="w-[3%]"><img :src="avatarUrl" alt="Avatar utilisateur"></button>
+      <button @click="profileCard = !profileCard" class="w-[3%]">
+        <img class="rounded-full" :src="avatarUrl" alt="Avatar utilisateur" />
+      </button>
       <ProfileCard v-show="profileCard" />
     </nav>
-    
   </header>
   <header v-else class="flex flex-row items-center justify-between px-6 py-5">
     <div class="flex items-center gap-4">
@@ -52,5 +52,4 @@ let profileCard = ref(false)
       <RouterLink to="/register">S'inscrire</RouterLink>
     </nav>
   </header>
-  
 </template>

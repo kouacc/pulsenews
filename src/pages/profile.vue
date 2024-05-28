@@ -13,16 +13,11 @@ const currentuser = ref()
 let tempUser = ref(null)
 let keydownHandler = null
 
-
 onMounted(async () => {
-  let pocketbase_ip = ''
-  if (import.meta.env.MODE === "production")
-    pocketbase_ip = "http://193.168.147.74:8090/"
-  else pocketbase_ip = "http://127.0.0.1:8090/"
-  pb = new Pocketbase(pocketbase_ip)
-  
+  pb = new Pocketbase('http://127.0.0.1:8090')
+
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
-  tempUser.value = {...currentuser.value}
+  tempUser.value = { ...currentuser.value }
 
   keydownHandler = (event) => {
     if (event.key === 'Echap') {
@@ -39,13 +34,14 @@ const avatarUrl = ref<string>('')
 
 watch(currentuser, (newVal, oldVal) => {
   if (newVal) {
-    avatarUrl.value = pb.getFileUrl(newVal,newVal.avatar, {'thumb': '100x250'});
+    avatarUrl.value = pb.getFileUrl(newVal, newVal.avatar, { thumb: '100x250' })
   }
-});
+})
 
-function updateProfile() {
+const updateProfile = async () => {
   updateUser(tempUser.value, currentuser.value)
   editwindow.value = false
+  const authData = await pb.collection('users').authRefresh()
   //refresh la page
   location.reload()
 }
@@ -79,16 +75,16 @@ let editwindow = ref(false)
           </div>
           <div class="flex flex-col gap-2">
             <label>Avatar</label>
-            <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar">
+            <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar" />
             <input type="file" @change="tempUser.avatar = $event.target.files[0]" />
           </div>
         </div>
         <div class="flex flex-col gap-2">
-              <label>Biographie</label>
-              <textarea class="rounded-lg px-4 py-2" v-model="tempUser.biographie"></textarea>
-            </div>
-      </section> 
-        <section>
+          <label>Biographie</label>
+          <textarea class="rounded-lg px-4 py-2" v-model="tempUser.biographie"></textarea>
+        </div>
+      </section>
+      <!-- <section>
           <h3 class="mb-2">Réseaux sociaux</h3>
           <div class="grid grid-cols-2 grid-rows-2 gap-5">
             <div class="flex flex-col">
@@ -116,26 +112,45 @@ let editwindow = ref(false)
               <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.siteweb" />
             </div>
           </div>
-        </section>
-        <button @click="updateProfile()" class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit">Enregistrer</button>
-       
+        </section> -->
+      <button
+        @click="updateProfile()"
+        class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit"
+      >
+        Enregistrer
+      </button>
     </ActionWindow>
   </Transition>
   <div class="container mx-auto">
     <div v-if="currentuser" class="flex gap-28 container items-center mx-auto place-content-center">
-        <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar">
-        <section class="flex flex-col gap-3 flex-grow-0 items-center">
-            <h1 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
-            <h2 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0 w-fit">{{ currentuser.localisation }}, France</h2>
-        </section>
-        <button class="absolute right-[28%] z-10 rounded-full p-4 bg-slate-300" @click="editwindow = true"><IconEdit /></button>
+      <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
+      <section class="flex flex-col gap-3 flex-grow-0 items-center">
+        <h1 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
+        <h2 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0 w-fit">
+          {{ currentuser.localisation }}, France
+        </h2>
+      </section>
+      <button
+        class="relative right-[15%] z-10 rounded-full p-4 bg-slate-300"
+        @click="editwindow = true"
+      >
+        <IconEdit />
+      </button>
     </div>
     <nav class="flex gap-5 border-b-2 border-black">
-            <RouterLink to="/profile/collections" activeClass="border-b-2 border-blue-400" class="px-2 transition-all">Collections</RouterLink>
-            <RouterLink to="/profile/about" activeClass="border-b-2 border-blue-400" class="px-2 transition-all">À propos</RouterLink>
+      <RouterLink
+        to="/profile/collections"
+        activeClass="border-b-2 border-blue-400"
+        class="px-2 transition-all"
+        >Collections</RouterLink
+      >
+      <RouterLink
+        to="/profile/about"
+        activeClass="border-b-2 border-blue-400"
+        class="px-2 transition-all"
+        >À propos</RouterLink
+      >
     </nav>
     <RouterView class="p-10" />
   </div>
-  
 </template>
-

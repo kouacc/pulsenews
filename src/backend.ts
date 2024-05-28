@@ -1,12 +1,10 @@
-import PocketBase from 'pocketbase'
-const pb = new PocketBase('http://127.0.0.1:8090')
+import Pocketbase from 'pocketbase'
+const pb = new Pocketbase('https://app-pulsenews.maxencelallemand.fr:443')
 import axios from 'axios'
-import { ref } from 'vue'
-
 
 // Copier ici les fonctions developpées en R214 | Système d'information
 
-export async function getUser(username : string ) {
+export async function getUser(username: string) {
   const record = await pb.collection('users').getOne(username)
   return record
 }
@@ -48,22 +46,22 @@ export async function unlinkWebauthnKey(userid) {
 
 export async function changePasswordLoggedIn(userid, password, passwordConfirm, oldPassword) {
   const userObject = {
-    "password": password,
-    "passwordConfirm": passwordConfirm,
-    "oldPassword": oldPassword
+    password: password,
+    passwordConfirm: passwordConfirm,
+    oldPassword: oldPassword
   }
   await pb.collection('users').update(userid, userObject)
   return true
 }
 
 export async function saveContent(userid, idcontent, category_type) {
-  await pb.collection('content').update(userid, { idcontent: idcontent, category_type: category_type })
+  await pb
+    .collection('content')
+    .update(userid, { idcontent: idcontent, category_type: category_type })
   return true
 }
 
 export async function getContent(contentid) {
-  const content = await axios.get(
-    `https://api.artic.edu/api/v1/artworks/${contentid}`
-  )
+  const content = await axios.get(`https://api.artic.edu/api/v1/artworks/${contentid}`)
   return content.data.data
 }

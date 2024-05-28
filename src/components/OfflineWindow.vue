@@ -4,9 +4,7 @@ import Warning from './icons/IconWarning.vue'
 
 import { ref } from 'vue'
 
-const isOffline = ref(false) 
-
-
+const isOffline = ref(false)
 </script>
 
 <template>
