@@ -1,5 +1,5 @@
 import Pocketbase from 'pocketbase'
-const pb = new Pocketbase('https://app-pulsenews.maxencelallemand.fr:443')
+const pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 import axios from 'axios'
 
 // Copier ici les fonctions developpées en R214 | Système d'information

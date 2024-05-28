@@ -9,16 +9,20 @@ import Pocketbase from 'pocketbase'
 let pb = null
 const currentuser = ref()
 
-onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
-  
+/* onMounted(async () => {
+  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
+
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   if (!currentuser.value && window.location.pathname !== '/login') {
     window.location.href = '/login'
-  } else if (currentuser.value && window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/confirm-verification') {
+  } else if (
+    (currentuser.value && window.location.pathname === '/login') ||
+    window.location.pathname === '/register' ||
+    window.location.pathname === '/confirm-verification'
+  ) {
     window.location.href = '/'
   }
-})
+}) */
 </script>
 
 <template>
@@ -28,4 +32,3 @@ onMounted(async () => {
   </main>
   <Footer />
 </template>
-

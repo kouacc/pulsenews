@@ -6,7 +6,7 @@ import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 })
 
 let pb = null

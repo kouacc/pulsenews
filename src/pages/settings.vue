@@ -21,7 +21,7 @@ const currentuser = ref()
 let authoptions = ref()
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 
@@ -147,16 +147,7 @@ let passwordConfirm = ref('')
       placeholder="Confirmer le nouveau mot de passe"
       required
     />
-    <button
-      @click="
-        if (oldPassword && password && passwordConfirm) {
-          changePasswordLoggedIn(currentuser.id, password, passwordConfirm, oldPassword)
-          changePasswordWindow = false
-        }
-      "
-    >
-      Changer
-    </button>
+    <button @click="if (oldPassword && password && passwordConfirm) { changePasswordLoggedIn(currentuser.id, password, passwordConfirm, oldPassword); changePasswordWindow = false }">Changer</button>
   </ActionWindow>
 
   <ActionWindow v-show="changeEmailWindow" v-scroll-lock="changeEmailWindow">

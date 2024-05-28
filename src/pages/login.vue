@@ -12,7 +12,7 @@ const email = ref('')
 const password = ref('')
 
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   pb.authStore.onChange(() => {
     currentuser.value = pb.authStore.model

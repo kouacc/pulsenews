@@ -49,7 +49,7 @@ console.log(artData.value)
 let pb = null
 const currentuser = ref()
 onMounted(async () => {
-  pb = new Pocketbase('http://127.0.0.1:8090')
+  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 })

@@ -166,9 +166,9 @@ func main() {
 
 	// configure and initialize webauthn
 	wconfig := &webauthn.Config{
-		RPDisplayName: "Felix' PB Webauthn",                                       // Display Name for your site
+		RPDisplayName: "Pulse Digital News",                                       // Display Name for your site
 		RPID:          "localhost",                                                // Generally the FQDN for your site
-		RPOrigins:     []string{"http://localhost:8090", "http://localhost:5173"}, // The origin URLs allowed for WebAuthn requests
+		RPOrigins:     []string{"http://localhost:8090", "http://localhost:5173", "https://app-pulsenews.maxencelallemand.fr", "https://app-pulsenews.maxencelallemand.fr:443"}, // The origin URLs allowed for WebAuthn requests
 	}
 
 	webAuthn, err := webauthn.New(wconfig)
