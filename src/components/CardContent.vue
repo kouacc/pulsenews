@@ -8,7 +8,7 @@ import { saveContent } from '@/backend'
 
 let windowSave = ref(false)
 
-const props = withDefaults(defineProps<ContentCardType & { variant?: 'default' | 'lazyload' }>(), {
+const props = withDefaults(defineProps<ContentCardType & { variant?: 'default' | 'external' | 'lazyload' }>(), {
   variant: 'default'
 })
 </script>

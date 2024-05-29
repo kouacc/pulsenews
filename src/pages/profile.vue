@@ -159,6 +159,6 @@ let editpage = ref(1)
         >À propos</RouterLink
       >
     </nav>
-    <RouterView class="p-10" />
+    <RouterView />
   </div>
 </template>

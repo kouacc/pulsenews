@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCollections } from '@/backend';
+import { getCollections, addContent, addCategory, deleteCategory, deleteContent, searchIndex } from '@/backend';
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 
@@ -8,6 +8,10 @@ const currentuser = ref()
 let collections = ref()
 let categories = ref()
 let contenus = ref([])
+let select_category = ref('')
+let select_content = ref('')
+
+let categoryname = ref('')
 
 interface Item {
     categorie: string;
@@ -25,15 +29,30 @@ onMounted(async () => {
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   collections.value = await getCollections(currentuser.value.id)
-  categories.value = collections.value.expand.contenu.categories.categories
-  contenus.value = collections.value.expand.contenu.contenu.contenu
-  
-  console.log(contenus.value)
+  categories.value = collections.value.expand.contenu.categories
+  contenus.value = collections.value.expand.contenu.contenu
 })
+
 </script>
 
 <template>
   <h1>Mes collections</h1>
+  <div>
+    <h2>Créer une catégorie</h2>
+    <input v-model="categoryname" type="text" placeholder="Nom de la catégorie" />
+    <button @click="addCategory(currentuser.contenu, categoryname)">Ajouter une catégorie</button>
+    <button @click="deleteCategory(currentuser.contenu, 3)">Supprimer une catégorie</button>
+  </div>
+  <div>
+    <h2>Ajouter un contenu</h2>
+    <input v-model="select_content" type="text" placeholder="Lien" />
+    <select v-model="select_category" name="categories">
+      <option disabled selected>Choisissez une catégorie</option>
+      <option v-for="(categorie, index) in categories" :key="index" :value="index">{{ categorie }}</option>
+    </select>
+    <button @click="addContent(currentuser.contenu, select_category, select_content, 'externe')">Ajouter un contenu</button>
+    <button @click="deleteContent(currentuser.contenu, 2)">Supprimer un contenu</button>
+  </div>
   <ul v-if="collections">
     <li v-for="(categorie, index) in categories" :key="index">{{ categorie }}
       <div>
