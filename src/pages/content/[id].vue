@@ -43,6 +43,7 @@ console.log('getData : ', getData())
       :src="'https://www.artic.edu/iiif/2/' + artData.image_id + '/full/843,/0/default.jpg'"
       :alt="artData.thumbnail.alt_text"
     />
+    <button @click="addContentToCollection()" class="bg-blue-500 text-white rounded-lg px-4 py-2">Ajouter à ma collection</button>
     <section class="space-y-4">
       <h3>Description</h3>
       <p v-if="artData.description" v-html="artData.description"></p>

@@ -65,3 +65,14 @@ export async function getContent(contentid) {
   const content = await axios.get(`https://api.artic.edu/api/v1/artworks/${contentid}`)
   return content.data.data
 }
+
+export async function addContentToCollection(userid, contentid, collectionid) {
+  await pb.collection('users').update(userid, {})
+}
+
+export async function getCollections(userid) {
+  const collections = await pb.collection('users').getOne(userid, {
+    expand: 'contenu',
+  })
+  return collections
+}
