@@ -9,7 +9,7 @@ import Pocketbase from 'pocketbase'
 let pb = null
 const currentuser = ref()
 
-/* onMounted(async () => {
+onMounted(async () => {
   pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
@@ -22,7 +22,7 @@ const currentuser = ref()
   ) {
     window.location.href = '/'
   }
-}) */
+})
 </script>
 
 <template>

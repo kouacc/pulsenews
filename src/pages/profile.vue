@@ -6,6 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import IconEdit from '../components/icons/IconEdit.vue'
 import ActionWindow from '../components/ActionWindow.vue'
 import IconCroix from '../components/icons/IconCroix.vue'
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 import { updateUser } from '@/backend'
 
 let pb: Pocketbase | null = null
@@ -32,9 +33,9 @@ onUnmounted(() => {
 
 const avatarUrl = ref<string>('')
 
-watch(currentuser, (newVal, oldVal) => {
+watch(currentuser, (newVal) => {
   if (newVal) {
-    avatarUrl.value = pb.getFileUrl(newVal, newVal.avatar, { thumb: '100x250' })
+    avatarUrl.value = pb.getFileUrl(newVal, newVal.avatar, { thumb: '100x100' })
   }
 })
 
@@ -47,6 +48,7 @@ const updateProfile = async () => {
 }
 
 let editwindow = ref(false)
+let editpage = ref(1)
 </script>
 
 <template>
@@ -56,7 +58,7 @@ let editwindow = ref(false)
         <h2>Modifier votre profil</h2>
         <button @click="editwindow = false"><IconCroix /></button>
       </section>
-      <section>
+      <section v-show="editpage === 1">
         <h3 class="mb-2">Infos globales</h3>
         <div class="flex justify-between gap-10">
           <div class="flex flex-col gap-3 grow">
@@ -84,7 +86,7 @@ let editwindow = ref(false)
           <textarea class="rounded-lg px-4 py-2" v-model="tempUser.biographie"></textarea>
         </div>
       </section>
-      <!-- <section>
+      <section v-show="editpage === 2">
           <h3 class="mb-2">Réseaux sociaux</h3>
           <div class="grid grid-cols-2 grid-rows-2 gap-5">
             <div class="flex flex-col">
@@ -112,13 +114,19 @@ let editwindow = ref(false)
               <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.siteweb" />
             </div>
           </div>
-        </section> -->
-      <button
-        @click="updateProfile()"
-        class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit"
-      >
-        Enregistrer
-      </button>
+        </section>
+        <div class="flex justify-between">
+          <div class="space-x-5">
+            <button @click="editpage = 1"><IconChevronLeft /></button>
+            <button @click="editpage = 2"><IconChevronLeft class="rotate-180" /></button>
+          </div>
+        <button
+          @click="updateProfile()"
+          class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit"
+        >
+          Enregistrer
+        </button>
+        </div>
     </ActionWindow>
   </Transition>
   <div class="container mx-auto">

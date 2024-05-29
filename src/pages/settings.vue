@@ -7,7 +7,7 @@ import IconGoogle from '../components/icons/IconGoogle.vue'
 import IconCroix from '@/components/icons/IconCroix.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 // Fonctions Backend
-import { deleteUser, getAuthMethods, unlinkOAuth, changePasswordLoggedIn } from '@/backend'
+import { deleteUser, getAuthMethods, unlinkOAuth, changePasswordLoggedIn, unlinkWebauthnKey } from '@/backend'
 
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
@@ -63,8 +63,7 @@ const registerPasskey = async () => {
 
 const doLoginOauth = async () => {
   const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' })
-
-  location.reload()
+  await pb.collection('users').authRefresh()
 }
 // fenetres actions
 let deleteAccountWindow = ref(false)
@@ -72,6 +71,7 @@ let changePasswordWindow = ref(false)
 let changeEmailWindow = ref(false)
 let ExternalAuthWindow = ref(false)
 let warningUnlinkOAuth = ref(false)
+let warningUnlinkPasskey = ref(false)
 
 //fenetres alertes
 let alertChangePassword = ref(false)
@@ -225,9 +225,19 @@ let passwordConfirm = ref('')
         </button>
       </div>
       <section>
-        <h3>Clés enregistrées</h3>
-        <p v-if="currentuser && currentuser.webauth_id_b64">Vous n'avez pas de clé enregistrée</p>
-        <!--TODO: afficher la clé enregistré, à voir en prod si c'est possible d'ajouter plusieurs clés-->
+        <h3 v-if="currentuser && currentuser.webauthn_id_b64">Vous avez déjà enregistré une clé.</h3>
+        <button
+          v-if="currentuser && currentuser.webauthn_id_b64"
+          @click="warningUnlinkPasskey = true"
+          class="bg-red-500 text-white rounded-full px-5 py-2">Supprimer</button>
+          <ActionWindow v-show="warningUnlinkPasskey">
+            <h2>Attention</h2>
+            <p>Vous êtes sur le point de supprimer votre clé de sécurité. Vous ne pourrez plus vous connecter en l'utilisant. Pensez à la supprimer de votre côté depuis vos paramètres systèmes.</p>
+            <div class="flex gap-4 justify-center">
+              <button class="px-5 py-2" @click="warningUnlinkPasskey = false">Annuler</button>
+              <button class="px-5 py-2 bg-red-500 text-white rounded-full" @click="unlinkWebauthnKey(currentuser.id)">Supprimer</button>
+            </div>
+          </ActionWindow>
       </section>
     </div>
   </ActionWindow>

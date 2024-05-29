@@ -5,6 +5,7 @@ import IconInstagram from '../../components/icons/IconInstagram.vue'
 import IconLinkedin from '../../components/icons/IconLinkedin.vue'
 import IconGithub from '../../components/icons/IconGithub.vue'
 import IconCalender from '../../components/icons/IconCalender.vue'
+import IconGlobe from '../../components/icons/IconGlobe.vue'
 
 import { formatDate } from '../../helper'
 
@@ -54,7 +55,7 @@ onMounted(async () => {
             <a :href="currentuser.github"><IconGithub /></a>
           </li>
           <li v-if="currentuser.siteweb">
-            <a :href="currentuser.siteweb"><IconGithub /></a>
+            <a :href="currentuser.siteweb"><IconGlobe /></a>
           </li>
         </ul>
       </div>
