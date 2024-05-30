@@ -7,12 +7,12 @@ import IconEdit from '../components/icons/IconEdit.vue'
 import ActionWindow from '../components/ActionWindow.vue'
 import IconCroix from '../components/icons/IconCroix.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
+import AlertWindow from '@/components/AlertWindow.vue'
 import { updateUser } from '@/backend'
 
 let pb: Pocketbase | null = null
 const currentuser = ref()
 let tempUser = ref(null)
-let keydownHandler = null
 
 onMounted(async () => {
   pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
@@ -20,15 +20,6 @@ onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   tempUser.value = { ...currentuser.value }
 
-  keydownHandler = (event) => {
-    if (event.key === 'Echap') {
-      editwindow.value = false
-    }
-  }
-})
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', keydownHandler)
 })
 
 const avatarUrl = ref<string>('')
@@ -39,16 +30,36 @@ watch(currentuser, (newVal) => {
   }
 })
 
+
+const content_title = ref('')
+const content_message = ref('')
+const content_error = ref('')
+
 const updateProfile = async () => {
-  updateUser(tempUser.value, currentuser.value)
-  editwindow.value = false
-  const authData = await pb.collection('users').authRefresh()
-  //refresh la page
-  location.reload()
+  if (tempUser.value === currentuser.value) {
+    content_error.value = 'bad'
+    content_title.value = 'Erreur'
+    content_message.value = 'Aucune modification n\'a été apportée à votre profil.'
+    alert.value = true
+    setTimeout(() => {
+      alert.value = false
+    }, 5000)
+  } else if (tempUser.value !== currentuser.value) {
+    await updateUser(tempUser.value, currentuser.value)
+    editwindow.value = false
+    content_error.value = 'good'
+    content_title.value = 'Profil mis à jour'
+    content_message.value = 'Votre profil a été mis à jour avec succès.'
+    alert.value = true
+    setTimeout(() => {
+      alert.value = false
+    }, 5000)
+  }
 }
 
 let editwindow = ref(false)
 let editpage = ref(1)
+const alert = ref(false)
 </script>
 
 <template>
@@ -161,4 +172,5 @@ let editpage = ref(1)
     </nav>
     <RouterView />
   </div>
+  <AlertWindow v-show="alert" :variant="content_error" :title_text="content_title" :message_text="content_message" />
 </template>

@@ -12,20 +12,30 @@ onMounted(async () => {
 let pb = null
 const currentuser = ref()
 const email = ref('')
-let ErrorWindow = ref(false)
-let SuccessWindow = ref(false)
+
+let window = ref(false)
+const content_title = ref('')
+const content_message = ref('')
+const content_error = ref('')
+
 
 const resetEmail = async () => {
   try {
     await pb.collection('users').requestPasswordReset(email.value)
-    SuccessWindow.value = true
+    content_error.value = 'good'
+    content_title.value = 'E-mail envoyé !'
+    content_message.value = 'Un e-mail contenant un lien pour réinitialiser votre mot de passe vous a été envoyé.'
+    window.value = true
     setTimeout(() => {
-      SuccessWindow.value = false
+      window.value = false
     }, 5000)
   } catch (error) {
-    ErrorWindow.value = true
+    content_error.value = 'bad'
+    content_title.value = "Impossible d'envoyer l'e-mail."
+    content_message.value = 'Veuillez réessayer.'
+    window.value = true
     setTimeout(() => {
-      ErrorWindow.value = false
+      window.value = false
     }, 5000)
   }
 }
@@ -44,15 +54,5 @@ const resetEmail = async () => {
       </section>
     </section>
   </div>
-  <AlertWindow bad v-show="ErrorWindow">
-    <section class="inline-flex gap-5">
-      <IconWarning />
-      <h4>Erreur</h4>
-    </section>
-    <p>Un problème est survenu</p>
-  </AlertWindow>
-  <AlertWindow v-show="SuccessWindow">
-    <h4>E-mail envoyé !</h4>
-    <p>Pensez à vérifier vos spams si l'e-mail n'apparaît pas.</p>
-  </AlertWindow>
+  <AlertWindow v-show="window" :variant="content_error" :title_text="content_title" :message_text="content_message" />
 </template>

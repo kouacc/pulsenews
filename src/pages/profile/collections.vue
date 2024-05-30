@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { getCollections, addContent, addCategory, deleteCategory, deleteContent, searchIndex } from '@/backend';
+import { getCollections, addContent, addCategory, deleteCategory, deleteContent } from '@/collections';
+import { getContent } from '@/backend';
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
+import CardContent from '@/components/CardContent.vue';
 
 let pb = null
 const currentuser = ref()
@@ -22,6 +24,11 @@ interface Item {
 function filterByCategorie(obj: { [key: number]: Item }, categorieNumber: string): Item[] {
     // Convert the object to an array and filter based on the 'categorie' field
     return Object.values(obj).filter(item => item.categorie === categorieNumber);
+}
+
+function filterByType(obj: { [key: number]: Item }, type: string): Item[] {
+    // Convert the object to an array and filter based on the 'type' field
+    return Object.values(obj).filter(item => item.type === type);
 }
 
 onMounted(async () => {
@@ -57,9 +64,17 @@ onMounted(async () => {
     <li v-for="(categorie, index) in categories" :key="index">{{ categorie }}
       <div>
         <h3>Contenus enregistrés</h3>
-        <ul v-for="(contenu, indexContenu) in filterByCategorie(contenus, index.toString())" :key="indexContenu">
-          {{ contenu.content }}
-        </ul>
+        <div v-for="(contenu, indexContenu) in filterByCategorie(contenus, index.toString())" :key="indexContenu">
+          <ul v-if="contenu.type === 'interne'">
+            <CardContent variant="default" />
+          </ul>
+          <ul v-else-if="contenu.type === 'externe'">
+            <li>{{ contenu.content }}</li>
+          </ul>
+          <!-- TODO: créer variant external, réussir à sortir les données meta (embed) et les map sur le composant  -->
+          <!-- <CardContent variant="external" v-else-if="contenu.type === 'externe'" /> -->
+          <li v-else-if="contenu.type === 'externe'">{{ contenu.content }}</li>
+        </div>
       </div>
     </li>
   </ul>
