@@ -35,6 +35,7 @@ export async function deleteCategory(collectionid: string, category_key: number)
 }
 
 export async function addContent(collectionid: string, category: number, content: string, content_type: 'interne' | 'externe') {
+  //TODO: verifier si le contenu est déjà présent dans la catégorie choisie
   const record = await pb.collection('content').getOne(collectionid)
   const contenu = record.contenu
   const content_key = Object.keys(contenu).length.toString()

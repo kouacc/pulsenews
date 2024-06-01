@@ -4,6 +4,7 @@ import { getContent } from '@/backend';
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import CardContent from '@/components/CardContent.vue';
+import IconPlus from '@/components/icons/IconPlus.vue';
 
 let pb = null
 const currentuser = ref()
@@ -46,7 +47,7 @@ onMounted(async () => {
   <h1>Mes collections</h1>
   <div>
     <h2>Créer une catégorie</h2>
-    <input v-model="categoryname" type="text" placeholder="Nom de la catégorie" />
+    <input v-model="categoryname" type="text" placeholder="Nom de la catégorie" minlength="4" maxlength="20" />
     <button @click="addCategory(currentuser.contenu, categoryname)">Ajouter une catégorie</button>
     <button @click="deleteCategory(currentuser.contenu, 3)">Supprimer une catégorie</button>
   </div>
@@ -60,10 +61,10 @@ onMounted(async () => {
     <button @click="addContent(currentuser.contenu, select_category, select_content, 'externe')">Ajouter un contenu</button>
     <button @click="deleteContent(currentuser.contenu, 2)">Supprimer un contenu</button>
   </div>
-  <ul v-if="collections">
-    <li v-for="(categorie, index) in categories" :key="index">{{ categorie }}
+  <button class="inline-flex px-4 py-3 gap-3 bg-slate-300 rounded-xl mb-3"><IconPlus />Ajouter une catégorie</button>
+  <ul class="space-y-4" v-if="collections">
+    <li class="bg-slate-300 p-6 rounded-xl" v-for="(categorie, index) in categories" :key="index">{{ categorie }}
       <div>
-        <h3>Contenus enregistrés</h3>
         <div v-for="(contenu, indexContenu) in filterByCategorie(contenus, index.toString())" :key="indexContenu">
           <ul v-if="contenu.type === 'interne'">
             <CardContent variant="default" />
