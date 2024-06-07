@@ -8,24 +8,28 @@ import { saveContent } from '@/backend'
 
 let windowSave = ref(false)
 
-const props = withDefaults(defineProps<ContentCardType & { variant?: 'default' | 'external' | 'lazyload' }>(), {
-  variant: 'default'
+const props = withDefaults(defineProps<ContentCardType & { 
+  variant?: 'default' | 'external' | 'lazyload',
+  showSave?: boolean }>(),
+  {
+  variant: 'default',
+  showSave: true
 })
 </script>
 
 <template>
-  <li v-if="variant === 'default'" class="flex flex-col gap-2 flex-none flex-shrink-0">
+  <li v-if="variant === 'default'" class="gray p-3 rounded-lg flex flex-col gap-2 flex-none flex-shrink-0">
     <RouterLink :to="`/content/${id}`">
       <div class="bg-gray-800 flex items-center justify-center">
         <img
-          class="w-32 h-full"
+          class="size-48"
           :src="'https://www.artic.edu/iiif/2/' + image_id + '/full/843,/0/default.jpg'"
           :alt="alt_text"
         />
       </div>
       <h3 class="line-clamp-1">{{ title }}</h3>
     </RouterLink>
-    <button class="place-self-end" @click="windowSave = !windowSave">
+    <button v-if="showSave" class="place-self-end" @click="windowSave = !windowSave">
       <IconBookmark class="w-4" />
     </button>
     <div v-show="windowSave" class="absolute top-0 right-0 bg-slate-300"></div>

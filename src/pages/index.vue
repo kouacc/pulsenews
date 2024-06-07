@@ -47,7 +47,6 @@ const getData = async (): Promise<{ title: string; image_id: string }> => {
 getData()
 console.log(artData.value)
 
-let pb = null
 const currentuser = ref()
 onMounted(async () => {
 
@@ -73,7 +72,7 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
                 v-for="art in artData.slice(0, 10)"
                 v-bind="art"
                 :key="artData.title"
-                :alt_text="art.thumbnail.alt_text"
+                
               />
             </ul>
             <!-- indicateur activité-->

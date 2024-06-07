@@ -1,11 +1,12 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { getCollections, addContent, addCategory, deleteCategory, deleteContent } from '@/collections';
 import { getContent } from '@/backend';
-import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import { pb } from '@/backend'
 import CardContent from '@/components/CardContent.vue';
 import IconPlus from '@/components/icons/IconPlus.vue';
+import ExternalContentCard from '@/components/ExternalContentCard.vue';
 
 const currentuser = ref()
 let collections = ref()
@@ -35,21 +36,11 @@ function filterByType(obj: { [key: number]: Item }, type: string): Item[] {
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   collections.value = await getCollections(currentuser.value.id)
-  categories.value = collections.value.expand.contenu.categories
-  contenus.value = collections.value.expand.contenu.contenu
+  categories.value = collections.value.categories
+  contenus.value = collections.value.contenu
 })
 
-import LinkPreview from "@ashwamegh/vue-link-preview";
-
-const handleClick = preview => {
-    console.log(
-        "click",
-        preview.domain,
-        preview.title,
-        preview.description,
-        preview.img
-    );
-};
+// watch si la valeur collections change
 
 </script>
 
@@ -71,23 +62,21 @@ const handleClick = preview => {
     <button @click="addContent(currentuser.contenu, select_category, select_content, 'externe')">Ajouter un contenu</button>
     <button @click="deleteContent(currentuser.contenu, 2)">Supprimer un contenu</button>
   </div>
-  <button class="inline-flex px-4 py-3 gap-3 bg-slate-300 rounded-xl mb-3"><IconPlus />Ajouter une catégorie</button>
+  <button class="gray inline-flex px-4 py-3 gap-3 rounded-xl mb-3"><IconPlus />Ajouter une catégorie</button>
   <ul class="space-y-4" v-if="collections">
-    <li class="bg-slate-300 p-6 rounded-xl" v-for="(categorie, index) in categories" :key="index">{{ categorie }}
-      <div>
-        <div v-for="(contenu, indexContenu) in filterByCategorie(contenus, index.toString())" :key="indexContenu">
+    <li class="gray p-6 rounded-xl" v-for="(categorie, index) in categories" :key="index">
+      <h3>{{ categorie }}</h3>
+      <ul class="grid grid-cols-3 gap-4">
+        <li v-for="(contenu, indexContenu) in filterByCategorie(contenus, index.toString())" :key="indexContenu">
           <ul v-if="contenu.type === 'interne'">
-            <CardContent variant="default" />
+            <CardContent :showSave="false" variant="default" v-bind="contenu"  />
           </ul>
-          <ul v-else-if="contenu.type === 'externe'">
-            <li>{{ contenu.content }}</li>
+          <ul class="" v-else-if="contenu.type === 'externe'">
+            <ExternalContentCard :url="contenu.content"/>
           </ul>
-          <!-- TODO: créer variant external, réussir à sortir les données meta (embed) et les map sur le composant  -->
-          <!-- <CardContent variant="external" v-else-if="contenu.type === 'externe'" /> -->
-          <li v-else-if="contenu.type === 'externe'">{{ contenu.content }}</li>
-        </div>
-      </div>
+        </li>
+      </ul>
+      <RouterLink :to="`/profile/collections/${index}`">Voir plus</RouterLink>
     </li>
   </ul>
-  <LinkPreview customDomain="https://linkpreview-pulsenews.maxencelallemand.fr/parse/link" url="https://www.lemonde.fr/les-decodeurs/article/2024/06/07/elections-europeennes-2024-tout-ce-qu-il-faut-savoir-avant-de-voter-le-9-juin_6237858_4355770.html" @on-click="handleClick"></LinkPreview>
 </template>

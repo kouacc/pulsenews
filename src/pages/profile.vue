@@ -144,13 +144,13 @@ const alert = ref(false)
     <div v-if="currentuser" class="flex gap-28 container items-center mx-auto place-content-center">
       <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
       <section class="flex flex-col gap-3 flex-grow-0 items-center">
-        <h1 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
-        <h2 class="bg-slate-300/30 rounded-xl px-8 py-3 grow-0 w-fit">
+        <h1 class="gray rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
+        <h2 class="gray rounded-xl px-8 py-3 grow-0 w-fit">
           {{ currentuser.localisation }}, France
         </h2>
       </section>
       <button
-        class="relative right-[15%] z-10 rounded-full p-4 bg-slate-300"
+        class="relative right-[15%] z-10 rounded-full p-4 gray"
         @click="editwindow = true"
       >
         <IconEdit />

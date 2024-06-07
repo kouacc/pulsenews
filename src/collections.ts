@@ -67,5 +67,20 @@ export async function getCollections(userid: string) {
   const collections = await pb.collection('users').getOne(userid, {
     expand: 'contenu'
   })
-  return collections
+  return collections.expand.contenu
+}
+
+export async function getContentFromCollection(userid:string, collectionid: string) {
+  const contenu = await getCollections(userid)
+  const content = contenu.contenu
+  const collection_content = {}
+  for (const key in content) {
+    if (content.hasOwnProperty(key)) {
+      const element = content[key]
+      if (element.categorie === collectionid) {
+        collection_content[key] = element
+      }
+    }
+  }
+  return collection_content
 }

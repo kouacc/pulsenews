@@ -38,5 +38,8 @@
     .container {
       @apply max-w-screen-xl mx-auto lg:px-32 md:px-20 sm:px-10;
     }
+    .gray {
+      @apply bg-gray-100 shadow-2xl;
+    }
   }
 }

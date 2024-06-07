@@ -14,3 +14,9 @@ export interface ContentCardType {
   image_id: string
   alt_text?: string
 }
+
+export interface ContentItem {
+  categorie: string
+  content: string
+  type: string
+}
