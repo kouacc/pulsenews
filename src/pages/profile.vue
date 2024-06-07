@@ -2,21 +2,21 @@
 import Pocketbase from 'pocketbase'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-
-import IconEdit from '../components/icons/IconEdit.vue'
-import ActionWindow from '../components/ActionWindow.vue'
-import IconCroix from '../components/icons/IconCroix.vue'
-import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
-import AlertWindow from '@/components/AlertWindow.vue'
+import { pb } from '@/backend'
 import { updateUser } from '@/backend'
 
-let pb: Pocketbase | null = null
+import IconEdit from '@/components/icons/IconEdit.vue'
+import ActionWindow from '@/components/ActionWindow.vue'
+import IconCroix from '@/components/icons/IconCroix.vue'
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
+import AlertWindow from '@/components/AlertWindow.vue'
+
+
+
 const currentuser = ref()
 let tempUser = ref(null)
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   tempUser.value = { ...currentuser.value }
 

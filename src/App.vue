@@ -4,17 +4,20 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import OfflineWindow from './components/OfflineWindow.vue'
 import { onMounted, ref } from 'vue'
-import Pocketbase from 'pocketbase'
+import { useRouter, useRoute } from 'vue-router/auto'
 
-let pb = null
+const router = useRouter()
+const route = useRoute()
+
+import { pb } from '@/backend'
 const currentuser = ref()
+console.log(router.currentRoute.value)
+console.log(route.fullPath)
 
-onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
+/* onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
-  if (!currentuser.value && window.location.pathname !== '/login') {
-    window.location.href = '/login'
+  if (!currentuser.value && route.currentRoute('/login')) {
+    router.replace('/login')
   } else if (
     (currentuser.value && window.location.pathname === '/login') ||
     window.location.pathname === '/register' ||
@@ -22,13 +25,15 @@ onMounted(async () => {
   ) {
     window.location.href = '/'
   }
-})
+}) */
 </script>
 
 <template>
   <Header />
   <main>
-    <RouterView />
+    <Suspense>
+      <RouterView />
+    </Suspense>
   </main>
   <Footer />
 </template>

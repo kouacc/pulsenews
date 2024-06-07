@@ -5,11 +5,8 @@ import IconWarning from '@/components/icons/IconWarning.vue'
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 
-onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-})
+import { pb } from '@/backend'
 
-let pb = null
 const currentuser = ref()
 const email = ref('')
 

@@ -2,6 +2,7 @@
 import OfflineWindow from '@/components/OfflineWindow.vue'
 import { onMounted, ref, defineAsyncComponent } from 'vue'
 import Pocketbase from 'pocketbase'
+import { pb } from '@/backend'
 
 import axios from 'axios'
 
@@ -49,7 +50,6 @@ console.log(artData.value)
 let pb = null
 const currentuser = ref()
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 })

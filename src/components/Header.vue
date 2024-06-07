@@ -5,12 +5,10 @@ import Pocketbase from 'pocketbase'
 import { RouterLink } from 'vue-router'
 import LogoBlack from './icons/LogoBlack.vue'
 import ProfileCard from '@/components/ProfileCard.vue'
+import { pb } from '@/backend'
 
-let pb = null
 const currentuser = ref()
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 })
 

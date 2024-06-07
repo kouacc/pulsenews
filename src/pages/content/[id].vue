@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router/auto'
 import axios from 'axios'
 import { addContent, getCollections } from '@/collections'
 import Pocketbase from 'pocketbase'
+import { pb } from '@/backend'
 
 import ContentTag from '@/components/ContentTag.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
@@ -17,7 +18,6 @@ const artData = ref<any>(null)
 const collections = ref<any>()
 const categories = ref<any>()
 const currentuser = ref<any>()
-let pb = null
 
 const getData = async (): Promise<{
   title: string
@@ -68,8 +68,6 @@ const addContentToCollection = async () => {
 }
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 
   collections.value = await getCollections(currentuser.value.id)

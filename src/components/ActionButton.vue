@@ -1,27 +1,41 @@
 <script setup lang="ts">
-import ArrowIcon from '@/components/icons/IconArrow.vue'
 const props = withDefaults(
   defineProps<{
-    variant?: 'default' | 'dark' | 'outlined'
-    url: string
-    text: string
+    variant?: 'default' | 'warning' | 'outlined'
+    size?: 'small' | 'medium' | 'large'
+    url?: string
+    text?: string
+    icon?: string | object | undefined
   }>(),
-  { variant: 'default' }
+  {
+    variant: 'default',
+    size: 'small'
+  }
 )
 const variantClass = {
-  default: 'border border-pink hover:shadow-[inset_0_0_0_8px_#feaa9b]',
-  dark: 'bg-black text-white',
-  outlined: 'text-white border border-white hover:shadow-[inset_0_0_0_8px_white]'
+  default: 'bg-blue-500 text-white',
+  warning: 'bg-red-500 text-white',
+  outlined: 'border-indigo-200 bg-red'
+}
+const sizeClass = {
+  small: 'px-4 py-1.5 text-base',
+  medium: 'px-6 py-3 text-base',
+  large: 'px-8 py-4 text-base'
 }
 </script>
 
 <template>
   <RouterLink
+    class="inline-flex items-center gap-2 font-serif rounded-xl transition duration-300 ease-in-out"
+    :class="[variantClass[props.variant], sizeClass[props.size]]"
     :to="`${url}`"
-    class="inline-flex items-center gap-4 px-6 py-4 text-xs font-bold uppercase tracking-wide transition duration-300 ease-in-out lg:px-8 lg:py-6 lg:text-sm"
-    :class="variantClass[props.variant]"
   >
-    <ArrowIcon />
+    <component
+      v-if="props.icon"
+      :is="props.icon"
+      :class="props.variant === 'outlined' ? 'fill-black' : 'fill-white'"
+      class="size-5"
+    />
     {{ text }}
   </RouterLink>
 </template>

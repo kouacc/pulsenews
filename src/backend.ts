@@ -1,5 +1,7 @@
 import Pocketbase from 'pocketbase'
-const pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
+import { type TypedPocketBase } from './pocketbase-types'
+export const pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE) as TypedPocketBase
+
 import axios from 'axios'
 
 export async function getUser(username: string) {

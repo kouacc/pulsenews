@@ -3,10 +3,10 @@ import { getCollections, addContent, addCategory, deleteCategory, deleteContent 
 import { getContent } from '@/backend';
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
+import { pb } from '@/backend'
 import CardContent from '@/components/CardContent.vue';
 import IconPlus from '@/components/icons/IconPlus.vue';
 
-let pb = null
 const currentuser = ref()
 let collections = ref()
 let categories = ref()
@@ -33,13 +33,23 @@ function filterByType(obj: { [key: number]: Item }, type: string): Item[] {
 }
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   collections.value = await getCollections(currentuser.value.id)
   categories.value = collections.value.expand.contenu.categories
   contenus.value = collections.value.expand.contenu.contenu
 })
+
+import LinkPreview from "@ashwamegh/vue-link-preview";
+
+const handleClick = preview => {
+    console.log(
+        "click",
+        preview.domain,
+        preview.title,
+        preview.description,
+        preview.img
+    );
+};
 
 </script>
 
@@ -79,4 +89,5 @@ onMounted(async () => {
       </div>
     </li>
   </ul>
+  <LinkPreview customDomain="https://linkpreview-pulsenews.maxencelallemand.fr/parse/link" url="https://www.lemonde.fr/les-decodeurs/article/2024/06/07/elections-europeennes-2024-tout-ce-qu-il-faut-savoir-avant-de-voter-le-9-juin_6237858_4355770.html" @on-click="handleClick"></LinkPreview>
 </template>

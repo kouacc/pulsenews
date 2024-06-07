@@ -4,12 +4,10 @@ import Pocketbase from 'pocketbase'
 import IconLogout from '@/components/icons/IconLogout.vue'
 
 import { RouterLink } from 'vue-router'
+import { pb } from '@/backend'
 
-let pb = null
 const currentuser = ref()
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 })
 

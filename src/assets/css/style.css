@@ -32,8 +32,11 @@
     @apply font-serif;
   }
   @layer components {
+    .grille {
+        @apply lg:grid lg:grid-cols-12 lg:gap-8 lg:justify-center px-6
+    }
     .container {
-      @apply max-w-screen-xl mx-auto px-28;
+      @apply max-w-screen-xl mx-auto lg:px-32 md:px-20 sm:px-10;
     }
   }
 }

@@ -5,14 +5,13 @@ import {
   get as getCredential,
   parseRequestOptionsFromJSON
 } from '@github/webauthn-json/browser-ponyfill'
+import { pb } from '@/backend'
 
-let pb = null
 const currentuser = ref()
 const email = ref('')
 const password = ref('')
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
 
   pb.authStore.onChange(() => {
     currentuser.value = pb.authStore.model

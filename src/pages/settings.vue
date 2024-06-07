@@ -15,14 +15,12 @@ import {
   create as createCredential,
   parseCreationOptionsFromJSON
 } from '@github/webauthn-json/browser-ponyfill'
+import { pb } from '@/backend'
 
-let pb: Pocketbase | null = null
 const currentuser = ref()
 let authoptions = ref()
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 
   try {

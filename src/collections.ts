@@ -1,5 +1,5 @@
 import Pocketbase from 'pocketbase'
-const pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
+import { pb } from '@/backend'
 
 export async function addCategory(collectionid: string, category_name: string) {
   // grab le record associé à la collectionid

@@ -8,16 +8,15 @@ import IconCalender from '../../components/icons/IconCalender.vue'
 import IconGlobe from '../../components/icons/IconGlobe.vue'
 
 import { formatDate } from '../../helper'
+import { pb } from '@/backend'
 
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 
-let pb: Pocketbase | null = null
+
 const currentuser = ref()
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 })
 </script>

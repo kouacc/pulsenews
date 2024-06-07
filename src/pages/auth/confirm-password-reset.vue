@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router/auto'
 
 import AlertWindow from '@/components/AlertWindow.vue'
 import IconWarning from '@/components/icons/IconWarning.vue'
+import { pb } from '@/backend'
 
 const route = useRoute()
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   Token.value = route.query.token as string
   console.log(Token.value)
 

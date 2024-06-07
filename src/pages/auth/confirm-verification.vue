@@ -2,6 +2,7 @@
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { pb } from '@/backend'
 
 const route = useRoute()
 
@@ -14,13 +15,10 @@ const authorizeVerification = async () => {
 }
 
 onMounted(async () => {
-  pb = new Pocketbase(import.meta.env.VITE_URL_POCKETBASE)
-
   Token.value = route.query.token as string
   authorizeVerification()
 })
 
-let pb = null
 let Token = ref<string>('')
 </script>
 
