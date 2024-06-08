@@ -57,3 +57,15 @@ export async function getContent(contentid) {
   const content = await axios.get(`https://api.artic.edu/api/v1/artworks/${contentid}`)
   return content.data.data
 }
+
+export async function renderContent(content:any) {
+  if (content.type === 'externe') {
+    const rendered_content = await axios.post('https://linkpreview-pulsenews.maxencelallemand.fr/parse/link', { url: content.content })
+    return rendered_content.data
+  } else if (content.type === 'interne') {
+    const rendered_content = await axios.get(
+      `https://api.artic.edu/api/v1/artworks/${content.content}?fields=id,title,image_id,thumbnail`
+    )
+    return rendered_content.data.data
+  }
+}

@@ -9,7 +9,7 @@ import { saveContent } from '@/backend'
 let windowSave = ref(false)
 
 const props = withDefaults(defineProps<ContentCardType & { 
-  variant?: 'default' | 'external' | 'lazyload',
+  variant?: 'default' | 'lazyload',
   showSave?: boolean }>(),
   {
   variant: 'default',

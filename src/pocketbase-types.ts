@@ -6,7 +6,9 @@ import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
 export enum Collections {
+	Categories = "categories",
 	Content = "content",
+	Contenus = "contenus",
 	Users = "users",
 }
 
@@ -34,24 +36,36 @@ export type AuthSystemFields<T = never> = {
 
 // Record types for each collection
 
+export type CategoriesRecord = {
+	appartient_a?: RecordIdString
+	nom?: string
+}
+
 export type ContentRecord<Tcat_prefs = unknown, Tcategories = unknown, Tcontenu = unknown> = {
 	cat_prefs?: null | Tcat_prefs
 	categories?: null | Tcategories
 	contenu?: null | Tcontenu
 }
 
+export enum ContenusTypeOptions {
+	"interne" = "interne",
+	"externe" = "externe",
+}
+export type ContenusRecord = {
+	categorie_associe?: RecordIdString
+	content?: string
+	type?: ContenusTypeOptions
+}
+
 export type UsersRecord<Twebauthn_credentials = unknown> = {
 	avatar?: string
 	biographie?: string
-	contenu?: RecordIdString
 	facebook?: string
 	github?: string
 	instagram?: string
 	linkedin?: string
 	localisation?: string
 	name?: string
-	password?: string
-	passwordConfirm: string
 	siteweb?: string
 	surname?: string
 	twitter?: string
@@ -60,18 +74,24 @@ export type UsersRecord<Twebauthn_credentials = unknown> = {
 }
 
 // Response types include system fields and match responses from the PocketBase API
+export type CategoriesResponse<Texpand = unknown> = Required<CategoriesRecord> & BaseSystemFields<Texpand>
 export type ContentResponse<Tcat_prefs = unknown, Tcategories = unknown, Tcontenu = unknown, Texpand = unknown> = Required<ContentRecord<Tcat_prefs, Tcategories, Tcontenu>> & BaseSystemFields<Texpand>
+export type ContenusResponse<Texpand = unknown> = Required<ContenusRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Twebauthn_credentials = unknown, Texpand = unknown> = Required<UsersRecord<Twebauthn_credentials>> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
+	categories: CategoriesRecord
 	content: ContentRecord
+	contenus: ContenusRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
+	categories: CategoriesResponse
 	content: ContentResponse
+	contenus: ContenusResponse
 	users: UsersResponse
 }
 
@@ -79,6 +99,8 @@ export type CollectionResponses = {
 // https://github.com/pocketbase/js-sdk#specify-typescript-definitions
 
 export type TypedPocketBase = PocketBase & {
+	collection(idOrName: 'categories'): RecordService<CategoriesResponse>
 	collection(idOrName: 'content'): RecordService<ContentResponse>
+	collection(idOrName: 'contenus'): RecordService<ContenusResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }
