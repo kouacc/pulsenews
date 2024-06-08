@@ -2,7 +2,9 @@ import Pocketbase from 'pocketbase'
 import { pb } from '@/backend'
 
 export async function addCategory(userid: string, category_name: string) {
-  await pb.collection('categories').create({ nom: category_name, appartient_a: userid})
+  await pb
+    .collection('categories')
+    .create({ nom: category_name, appartient_a: `${userid}` })
 }
 
 export async function deleteCategory(recordid:string) {
@@ -29,4 +31,10 @@ export async function getContents(categoryid: string) {
     filter: `categorie_associe = '${categoryid}'`
   })
   return contents
+}
+
+
+export async function getCategory(categoryid: string) {
+  const category = await pb.collection('categories').getOne(categoryid)
+  return category
 }
