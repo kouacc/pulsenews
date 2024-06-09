@@ -60,7 +60,7 @@ export async function getContent(contentid) {
 
 export async function renderContent(content:any) {
   if (content.type === 'externe') {
-    const rendered_content = await axios.post('https://linkpreview-pulsenews.maxencelallemand.fr/parse/link', { url: content.content })
+    const rendered_content = await axios.post(import.meta.env.VITE_URL_LINKPREVIEW, { url: content.content })
     return rendered_content.data
   } else if (content.type === 'interne') {
     const rendered_content = await axios.get(
