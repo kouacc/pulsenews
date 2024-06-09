@@ -5,6 +5,7 @@ import { renderContent } from '@/backend';
 import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { pb } from '@/backend'
 import IconPlus from '@/components/icons/IconPlus.vue';
+import ActionWindow from '@/components/ActionWindow.vue';
 
 const CardContent = defineAsyncComponent(() => import('@/components/CardContent.vue'))
 const ExternalContentCard = defineAsyncComponent(() => import('@/components/ExternalContentCard.vue'))
@@ -16,6 +17,9 @@ let contenus = ref()
 let select_category = ref('')
 let select_content = ref('')
 let delete_category_select = ref('')
+
+let deletecategory_warning = ref(false)
+let deletecontent_warning = ref(false)
 
 let categoryname = ref('')
 
@@ -58,7 +62,7 @@ onMounted(async () => {
 <template>
   <div class="grille py-10">
     <h1 class="col-start-1 col-span-full">Mes collections</h1>
-    <div class="col-span-full gray p-6 rounded-lg absolute z-10" v-show="popover_addcategory">
+    <div class="col-span-full gray p-6 rounded-lg z-10" v-show="popover_addcategory">
       <h2>Créer une catégorie</h2>
       <input v-model="categoryname" type="text" placeholder="Nom de la catégorie" minlength="4" maxlength="20" />
       <button @click="addCategory(currentuser.id, categoryname)">Ajouter une catégorie</button>
@@ -68,7 +72,7 @@ onMounted(async () => {
       </select>
       <button @click="deleteCategory(delete_category_select)">Supprimer une catégorie</button>
     </div>
-    <div class="col-span-full gray p-6 rounded-lg absolute" v-show="popover_addcontent">
+    <div class="col-span-full gray p-6 rounded-lg" v-show="popover_addcontent">
       <h2>Ajouter un contenu</h2>
       <input v-model="select_content" type="text" placeholder="Lien" />
       <select v-model="select_category" name="categories">
@@ -108,4 +112,15 @@ onMounted(async () => {
     </ul>
     </KeepAlive>
   </div>
+  <ActionWindow v-show="deletecategory_warning">
+    <h2>Attention</h2>
+    <p>Vous êtes sur le point de supprimer {{ delete_category_select }} et ses contenus associés. Voulez-vous vraiment continuer ?</p>
+    <div class="flex">
+      <button @click="deleteCategory(delete_category_select)">Oui</button>
+      <button @click="deletecategory_warning = false">Non</button>
+    </div>
+  </ActionWindow>
+  <ActionWindow v-show="deletecontent_warning">
+
+  </ActionWindow>
 </template>
