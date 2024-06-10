@@ -7,6 +7,7 @@ import IconBookmark from './icons/IconBookmark.vue'
 import { saveContent } from '@/backend'
 
 let windowSave = ref(false)
+let isLoading = ref(true)
 
 const props = withDefaults(defineProps<ContentCardType & { 
   variant?: 'default' | 'lazyload',
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<ContentCardType & {
   variant: 'default',
   showSave: true
 })
+
 </script>
 
 <template>
@@ -35,7 +37,7 @@ const props = withDefaults(defineProps<ContentCardType & {
     <div v-show="windowSave" class="absolute top-0 right-0 bg-slate-300"></div>
   </li>
   <li v-else-if="variant === 'lazyload'">
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 animate-pulse">
       <div class="bg-gray-300 px-32 py-28 w-full h-full rounded-lg"></div>
       <div class="flex justify-between">
         <div class="bg-gray-300 w-36 h-8 rounded-lg"></div>

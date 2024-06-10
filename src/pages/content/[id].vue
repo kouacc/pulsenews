@@ -24,6 +24,8 @@ const collections = ref<any>()
 const categories = ref<any>()
 const currentuser = ref<any>()
 
+const isLoading = ref(true)
+
 const getData = async (): Promise<{
   title: string
   artist_title: string
@@ -107,8 +109,32 @@ const addContentToCollection = async () => {
       error_window.value = false
     }, 5000)
   }
-  
 }
+
+async function fetchData() {
+      try {
+        // Mettre à jour l'état de isLoading à true
+        isLoading.value = true
+
+        const artDataResult = await getData()
+        artData.value = artDataResult
+
+        // Attendre que toutes les promesses soient résolues
+        const [contenusSameArtistResult, contenusSimilairesResult] = await Promise.all([
+          getSameArtist(),
+          getSimilaires()
+        ])
+
+        // Mettre à jour les valeurs des refs avec les résultats des promesses
+        contenusSameArtist.value = contenusSameArtistResult
+        contenusSimilaires.value = contenusSimilairesResult
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error)
+      } finally {
+        // Mettre à jour l'état de isLoading à false
+        isLoading.value = false
+      }
+    }
 
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
@@ -121,9 +147,9 @@ onMounted(async () => {
   categories.value = collections.value.expand.contenu.categories
 })
 
-artData.value = await getData()
-contenusSameArtist.value = await getSameArtist()
-contenusSimilaires.value = await getSimilaires()
+onMounted(() => {
+  fetchData()
+})
 
 
 watch(route, async () => {
@@ -132,10 +158,19 @@ watch(route, async () => {
     contenusSimilaires.value = await getSimilaires()
 });
 
+
+
 </script>
 
 <template>
-  <div class="container mx-auto space-y-3">
+  <div v-if="isLoading === true" class="container mx-auto space-y-3">
+    <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
+      ><IconChevronLeft class="size-5" />Retour</RouterLink
+    >
+    <h1>Chargement</h1>
+    <h2>Chargement</h2>
+  </div>
+  <div v-else-if="isLoading === false" class="container mx-auto space-y-3">
     <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
       ><IconChevronLeft class="size-5" />Retour</RouterLink
     >

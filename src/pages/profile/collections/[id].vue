@@ -40,18 +40,20 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
+    <div class="grille py-10">
         <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
       ><IconChevronLeft class="scale-75" />Retour</RouterLink
     >
-        <section v-if="collection">
+        <section class="col-start-1 col-span-full" v-if="collection">
             <h1>{{ collection.nom }}</h1>
-            <div v-for="contenu in contenus" :key="contenu.id">
-                <ul v-if="contenu.type === 'interne'">
-                    <CardContent v-bind="renderedContenus[contenu.id]" />
-                </ul>
-                <ul v-else-if="contenu.type === 'externe'">
-                    <ExternalContentCard :url="contenu.content" v-bind="renderedContenus[contenu.id]" />
+            <div class="grid grid-cols-3 gap-5">
+                <ul v-for="contenu in contenus" :key="contenu.id">
+                    <li v-if="contenu.type === 'interne'">
+                        <CardContent v-bind="renderedContenus[contenu.id]" />
+                    </li>
+                    <li v-else-if="contenu.type === 'externe'">
+                        <ExternalContentCard :url="contenu.content" v-bind="renderedContenus[contenu.id]" />
+                    </li>
                 </ul>
             </div>
         </section>

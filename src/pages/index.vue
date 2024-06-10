@@ -9,28 +9,8 @@ import axios from 'axios'
 
 const router = useRouter()
 
-//const accessToken = '20e12bb708ba46d3b88f5298d3317e4f7803aa5d33c92ff1297213af0e4f653e'
-//
-//axios.get('https://api.dribbble.com/v2/user?access_token='+accessToken)
-//.then(response =>
-//    console.log(response.data))
-//.catch(error => console.error(error));
-
-//Met Museum, recup tous les objects
-//axios.get('https://collectionapi.metmuseum.org/public/collection/v1/objects')
-//.then(response =>
-//    console.log(response.data))
-//.catch(error => console.error(error));
-
-//Met Museum, recup un object et ses data
-
-//api img
-//const dataChigagoImg = axios.get('https://www.artic.edu/iiif/2/e966799b-97ee-1cc6-bd2f-a94b4b8bb8f9/full/843,/0/default.jpg')
-//.then(response =>
-//    console.log(response.data))
-//.catch(error => console.error(error));
-
 const artData = ref<any>(null)
+const isLoading = ref(true)
 
 const getData = async (): Promise<{ title: string; image_id: string }> => {
   try {
@@ -47,8 +27,18 @@ const getData = async (): Promise<{ title: string; image_id: string }> => {
   }
 }
 
-artData.value = getData()
-console.log(artData.value)
+async function fetchArtData() {
+  try {
+    isLoading.value = true
+
+    const artDataResult = await getData()
+    artData.value = artDataResult
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
+}
+}
 
 const currentuser = ref()
 
@@ -60,17 +50,28 @@ onMounted(async () => {
   }
 })
 
+onMounted(() => {
+  fetchArtData()
+})
+
 const CardContent = defineAsyncComponent(() => import('@/components/CardContent.vue'))
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div v-if="isLoading" class="container mx-auto">
+    <div class="flex flex-col">
+          <section>
+            <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
+            <ul class="grid grid-cols-3 gap-10">
+              <CardContent variant="lazyload" v-for="n in 20" :key="n" />
+            </ul>
+          </section>
+        </div>
+  </div>
+  <div v-else class="container mx-auto">
     <section class="flex justify-between">
       <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
     </section>
-
-    <Suspense>
-      <template #default>
         <div class="flex flex-col">
           <section>
             <h2>Pour vous</h2>
@@ -109,18 +110,6 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
             </ul>
           </section>
         </div>
-      </template>
-      <template #fallback>
-        <div class="flex flex-col">
-          <section>
-            <h2>-</h2>
-            <ul class="grid grid-cols-3 gap-10">
-              <CardContent variant="lazyload" v-for="n in 3" :key="n" />
-            </ul>
-          </section>
-        </div>
-      </template>
-    </Suspense>
   </div>
 
   <div class="bg-amber-400 w-screen h-32 absolute top-10 -z-10 rotate-6"></div>

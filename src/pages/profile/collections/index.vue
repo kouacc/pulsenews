@@ -28,6 +28,30 @@ const renderedContenus = ref()
 const popover_addcategory = ref(false)
 const popover_addcontent = ref(false)
 
+const isLoading = ref(true)
+
+async function fetchData() {
+  contenus.value = []
+try {
+  //boucle pour fetch les données de chaque contenu, soit via l'API artic, soit par le scraper web
+  for (let categorie of collections.value) {
+    let contents = await getContents(categorie.id)
+    contenus.value.push(...contents)
+
+    for (let content of contents) {
+      let renderedContent = await renderContent(content)
+      renderedContenus.value = {
+        ...renderedContenus.value,
+        [content.id]: renderedContent
+      }
+    }
+  }
+} catch (error) {
+  console.error(error)
+} finally {
+  isLoading.value = false
+}}
+
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
   //fetch les collections associés à l'utilisateur
@@ -36,25 +60,9 @@ onMounted(async () => {
   //récuperer les noms des collections
   categories.value = collections.value.map((categorie: { nom: string }) => categorie.nom)
 
-  contenus.value = []
+  fetchData()
+})
 
-  //boucle pour filtrer les contenus associés à chaque collection
-  for (let categorie of collections.value) {
-    let contents = await getContents(categorie.id)
-    contenus.value.push(...contents)
-
-    //boucle pour fetch les données de chaque contenu, soit via l'API artic, soit par le scraper web
-    for (let content of contents) {
-      console.log(content.content)
-      let renderedContent = await renderContent(content)
-      console.log(renderedContent)
-      renderedContenus.value = {
-        ...renderedContenus.value,
-        [content.id]: renderedContent
-      }
-    }
-    console.log(renderedContenus.value)
-}})
 
 
 </script>
@@ -90,21 +98,19 @@ onMounted(async () => {
     <ul class="space-y-10 col-start-1 col-span-full" v-if="collections">
       <li class="gray p-6 rounded-xl space-y-3" v-for="categorie in collections" :key="categorie.id">
         <h3>{{ categorie.nom }}</h3>
-        <div class="grid grid-cols-3 gap-5">
+        <div v-if="isLoading">
+          <ul class="grid grid-cols-3 gap-5">
+            <CardContent variant="lazyload" v-for="n in 3" :key="n" />
+          </ul>
+        </div>
+        <div class="grid grid-cols-3 gap-5" v-else>
           <ul v-for="contenu in contenus.filter(c => c.categorie_associe === categorie.id)" :key="contenu.id">
-            <Suspense>
-              <template #default>
                 <li v-if="contenu.type === 'interne'">
                   <CardContent v-bind="renderedContenus[contenu.id]"  />
                 </li>
                 <li v-else-if="contenu.type === 'externe'">
                   <ExternalContentCard :url="contenu.content" v-bind="renderedContenus[contenu.id]" />
                 </li>
-              </template>
-              <template #fallback>
-                <li>Chargement...</li>
-              </template>
-            </Suspense>
           </ul>
           </div>
         <RouterLink class="mt-10" :to="`/profile/collections/${categorie.id}`">Voir plus</RouterLink>
