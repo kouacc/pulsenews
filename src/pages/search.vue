@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router/auto'
 import { onMounted, ref } from 'vue'
+import { pb } from '@/backend'
 import CardContent from '@/components/CardContent.vue'
 import axios from 'axios'
 
 import { getContent } from '@/backend'
 
 const route = useRoute()
+const router = useRouter()
 let tag = ref<string>('')
 
 onMounted(() => {
   tag.value = route.query.tag as string
+
+  if (!pb.authStore.isValid) {
+    router.replace('/login')
+  }
 
   const getData = async () => {
     try {

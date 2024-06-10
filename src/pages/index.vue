@@ -3,8 +3,11 @@ import OfflineWindow from '@/components/OfflineWindow.vue'
 import { onMounted, ref, defineAsyncComponent } from 'vue'
 import Pocketbase from 'pocketbase'
 import { pb } from '@/backend'
+import { useRouter } from 'vue-router/auto'
 
 import axios from 'axios'
+
+const router = useRouter()
 
 //const accessToken = '20e12bb708ba46d3b88f5298d3317e4f7803aa5d33c92ff1297213af0e4f653e'
 //
@@ -48,9 +51,13 @@ getData()
 console.log(artData.value)
 
 const currentuser = ref()
-onMounted(async () => {
 
+onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+  if (!currentuser.value) {
+    router.replace('/login')
+  }
 })
 
 const CardContent = defineAsyncComponent(() => import('@/components/CardContent.vue'))

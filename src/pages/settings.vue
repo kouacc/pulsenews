@@ -9,6 +9,7 @@ import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 // Fonctions Backend
 import { deleteUser, getAuthMethods, unlinkOAuth, changePasswordLoggedIn, unlinkWebauthnKey } from '@/backend'
 
+import { useRouter } from 'vue-router/auto'
 import Pocketbase from 'pocketbase'
 import { onMounted, ref } from 'vue'
 import {
@@ -17,11 +18,17 @@ import {
 } from '@github/webauthn-json/browser-ponyfill'
 import { pb } from '@/backend'
 
+const router = useRouter()
+
 const currentuser = ref()
 let authoptions = ref()
 
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+  if (!currentuser.value) {
+    router.replace('/login')
+  }
 
   try {
     const array = await getAuthMethods(currentuser.value.id)
@@ -66,7 +73,6 @@ const doLoginOauth = async () => {
 // fenetres actions
 let deleteAccountWindow = ref(false)
 let changePasswordWindow = ref(false)
-let changeEmailWindow = ref(false)
 let ExternalAuthWindow = ref(false)
 let warningUnlinkOAuth = ref(false)
 let warningUnlinkPasskey = ref(false)
@@ -147,12 +153,6 @@ let passwordConfirm = ref('')
     />
     <button @click="if (oldPassword && password && passwordConfirm) { changePasswordLoggedIn(currentuser.id, password, passwordConfirm, oldPassword); changePasswordWindow = false }">Changer</button>
   </ActionWindow>
-
-  <ActionWindow v-show="changeEmailWindow" v-scroll-lock="changeEmailWindow">
-    <button class="place-self-start" @click="changeEmailWindow = false"><IconCroix /></button>
-    <h1>Changer d'adresse e-mail</h1>
-  </ActionWindow>
-
   <ActionWindow v-show="ExternalAuthWindow" v-scroll-lock="ExternalAuthWindow">
     <button class="place-self-start" @click="ExternalAuthWindow = false"><IconCroix /></button>
     <h1>Authentificateurs externes</h1>
@@ -223,7 +223,7 @@ let passwordConfirm = ref('')
         </button>
       </div>
       <section>
-        <h3 v-if="currentuser && currentuser.webauthn_id_b64">Vous avez déjà enregistré une clé.</h3>
+        <h3 v-if="currentuser && currentuser.webauthn_credentials">Vous avez déjà enregistré une clé.</h3>
         <button
           v-if="currentuser && currentuser.webauthn_id_b64"
           @click="warningUnlinkPasskey = true"

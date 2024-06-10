@@ -30,12 +30,12 @@ const sizeClass = {
     :class="[variantClass[props.variant], sizeClass[props.size]]"
     :to="`${url}`"
   >
+    {{ text }}
     <component
       v-if="props.icon"
       :is="props.icon"
       :class="props.variant === 'outlined' ? 'fill-black' : 'fill-white'"
       class="size-5"
     />
-    {{ text }}
   </RouterLink>
 </template>

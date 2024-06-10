@@ -9,10 +9,10 @@ export async function getUser(username: string) {
   return record
 }
 
-export async function createUser(user) {
+export async function createUser(user:any) {
   await pb.collection('users').create(user)
   await pb.collection('users').requestVerification(user.email)
-  return true
+  return true;
 }
 
 export async function updateUser(tempUser, currentuser) {
@@ -27,6 +27,23 @@ export async function deleteUser(userid) {
   await pb.collection('users').delete(userid)
   return true
 }
+
+export async function requestVerification(email) {
+  await pb.collection('users').requestVerification(email)
+  return true
+}
+
+export async function confirmVerification(token) {
+  await pb.collection('users').confirmVerification(token)
+  return true
+}
+
+export async function changePassword(data:any) {
+  await pb.collection('users').confirmPasswordReset(data.token, data.password, data.passwordConfirm)
+  return true
+
+}
+
 
 export async function getAuthMethods(userid) {
   const result = await pb.collection('users').listExternalAuths(userid)

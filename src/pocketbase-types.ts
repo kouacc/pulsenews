@@ -68,6 +68,8 @@ export type UsersRecord<Twebauthn_credentials = unknown> = {
 	name?: string
 	siteweb?: string
 	surname?: string
+	password: string
+	passwordConfirm: string
 	twitter?: string
 	webauthn_credentials?: null | Twebauthn_credentials
 	webauthn_id_b64?: string

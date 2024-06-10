@@ -2,6 +2,7 @@
 import Pocketbase from 'pocketbase'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router/auto'
 import { pb } from '@/backend'
 import { updateUser } from '@/backend'
 
@@ -11,13 +12,18 @@ import IconCroix from '@/components/icons/IconCroix.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 import AlertWindow from '@/components/AlertWindow.vue'
 
-
+const router = useRouter()
 
 const currentuser = ref()
 let tempUser = ref(null)
 
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+  if (!currentuser.value) {
+    router.replace('/login')
+  }
+
   tempUser.value = { ...currentuser.value }
 
 })
@@ -145,7 +151,7 @@ const alert = ref(false)
       <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
       <section class="flex flex-col gap-3 flex-grow-0 items-center">
         <h1 class="gray rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
-        <h2 class="gray rounded-xl px-8 py-3 grow-0 w-fit">
+        <h2 v-if="currentuser.localisation" class="gray rounded-xl px-8 py-3 grow-0 w-fit">
           {{ currentuser.localisation }}, France
         </h2>
       </section>

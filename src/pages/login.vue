@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import Pocketbase from 'pocketbase'
 import {
   get as getCredential,
@@ -7,11 +8,16 @@ import {
 } from '@github/webauthn-json/browser-ponyfill'
 import { pb } from '@/backend'
 
+const router = useRouter()
+
 const currentuser = ref()
 const email = ref('')
 const password = ref('')
 
 onMounted(async () => {
+  if (pb.authStore.isValid) {
+    router.replace('/')
+  }
 
   pb.authStore.onChange(() => {
     currentuser.value = pb.authStore.model

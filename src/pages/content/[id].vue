@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router/auto'
+import { useRoute, useRouter } from 'vue-router/auto'
 import axios from 'axios'
 import { addContent, getCollections } from '@/collections'
 import Pocketbase from 'pocketbase'
@@ -11,6 +11,7 @@ import ActionWindow from '@/components/ActionWindow.vue'
 import AlertWindow from '@/components/AlertWindow.vue'
 
 const route = useRoute('/offres/[id]')
+const router = useRouter()
 console.log('id : ', route.params.id)
 import { onMounted, ref } from 'vue'
 
@@ -69,6 +70,10 @@ const addContentToCollection = async () => {
 
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+
+  if (!currentuser.value) {
+    router.replace('/login')
+  }
 
   collections.value = await getCollections(currentuser.value.id)
   categories.value = collections.value.expand.contenu.categories
