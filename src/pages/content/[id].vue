@@ -2,8 +2,7 @@
 import { useRoute, useRouter } from 'vue-router/auto'
 import axios from 'axios'
 import { addContent, getCollections } from '@/collections'
-import Pocketbase from 'pocketbase'
-import { pb } from '@/backend'
+import { pb, getContent } from '@/backend'
 
 import ContentTag from '@/components/ContentTag.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
@@ -13,9 +12,14 @@ import AlertWindow from '@/components/AlertWindow.vue'
 const route = useRoute('/offres/[id]')
 const router = useRouter()
 console.log('id : ', route.params.id)
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import CardContent from '@/components/CardContent.vue'
+
 
 const artData = ref<any>(null)
+const contenusSameArtist = ref<any>()
+const contenusSimilaires = ref<any>()
+
 const collections = ref<any>()
 const categories = ref<any>()
 const currentuser = ref<any>()
@@ -26,12 +30,50 @@ const getData = async (): Promise<{
   image_id: string
   description: string
   category_titles: string[]
+  term_titles: string[]
 }> => {
   try {
-    const response = await axios.get(`https://api.artic.edu/api/v1/artworks/${route.params.id}`)
-    const { data } = response.data
-    artData.value = data
+    const response = await getContent(route.params.id)
+    artData.value = response
     return artData.value
+  } catch (error) {
+    console.error(error)
+    return Promise.reject(error)
+  }
+}
+
+const getSameArtist = async () => {
+  try {
+    const response = await axios.get(`https://api.artic.edu/api/v1/artworks/search?query[match][artist_title]=${artData.value.artist_title}`)
+    const { data } = response.data
+    contenusSameArtist.value = data
+    // randomiser
+    contenusSameArtist.value = contenusSameArtist.value.sort(() => Math.random() - 0.5)
+    contenusSameArtist.value = contenusSameArtist.value.slice(0, 3)
+    //render
+    for (let i = 0; i < contenusSameArtist.value.length; i++) {
+  contenusSameArtist.value[i] = await getContent(contenusSameArtist.value[i].id)
+}
+    return contenusSameArtist.value
+  } catch (error) {
+    console.error(error)
+    return Promise.reject(error)
+  }
+}
+
+const getSimilaires = async () => {
+  try {
+    const response = await axios.get(`https://api.artic.edu/api/v1/artworks/search?query[match][term_titles]=${artData.value.term_titles[0]}`)
+    const { data } = response.data
+    contenusSimilaires.value = data
+    // randomiser
+    contenusSimilaires.value = contenusSimilaires.value.sort(() => Math.random() - 0.5)
+    contenusSimilaires.value = contenusSimilaires.value.slice(0, 3)
+    //render
+    for (let i = 0; i < contenusSimilaires.value.length; i++) {
+  contenusSimilaires.value[i] = await getContent(contenusSimilaires.value[i].id)
+}
+    return contenusSimilaires.value
   } catch (error) {
     console.error(error)
     return Promise.reject(error)
@@ -77,24 +119,30 @@ onMounted(async () => {
 
   collections.value = await getCollections(currentuser.value.id)
   categories.value = collections.value.expand.contenu.categories
-
-  console.log(categories.value)
-  console.log(collections.value)
-
 })
 
-getData()
+artData.value = await getData()
+contenusSameArtist.value = await getSameArtist()
+contenusSimilaires.value = await getSimilaires()
+
+
+watch(route, async () => {
+    artData.value = await getContent(route.params.id)
+    contenusSameArtist.value = await getSameArtist()
+    contenusSimilaires.value = await getSimilaires()
+});
+
 </script>
 
 <template>
   <div class="container mx-auto space-y-3">
     <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
-      ><IconChevronLeft class="scale-75" />Retour</RouterLink
+      ><IconChevronLeft class="size-5" />Retour</RouterLink
     >
     <h1>{{ artData.title }}</h1>
     <h2>par {{ artData.artist_title || 'Artiste inconnu' }}</h2>
     <img
-      class="w-full h-auto"
+      class="w-auto h-64"
       :src="'https://www.artic.edu/iiif/2/' + artData.image_id + '/full/843,/0/default.jpg'"
       :alt="artData.thumbnail.alt_text"
     />
@@ -112,14 +160,14 @@ getData()
     </section>
     <section>
       <h3>Du même artiste</h3>
-      <ul class="grid grid-cols-3">
-        <!-- TODO: faire une query sur l'artiste et afficher 3 de ses oeuvres (maximum) -->
+      <ul class="grid grid-cols-3 gap-5">
+        <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" />
       </ul>
     </section>
     <section>
       <h3>Contenus similaires</h3>
-      <ul class="grid grid-cols-3">
-        <!-- TODO: faire une query sur le premier category_title et afficher 3 éléments (maximum) -->
+      <ul class="grid grid-cols-3 gap-5">
+        <CardContent v-for="content in contenusSimilaires" :key="content.id" v-bind="content" />
       </ul>
     </section>
   </div>

@@ -94,13 +94,13 @@ let passwordConfirm = ref('')
     <h1>Paramètres</h1>
     <div class="bg-slate-300/20 px-8 py-9 rounded-lg shadow">
       <h2>Informations de compte</h2>
-      <div>
+      <div class="flex flex-col gap-2">
         <label>Nom d'utilisateur</label>
-        <input type="text" v-model="currentuser.username" />
+        <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.username" disabled />
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label>Adresse e-mail</label>
-        <input type="text" v-model="currentuser.email" />
+        <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.email" disabled />
       </div>
     </div>
     <div class="bg-slate-300/20 px-8 py-9 rounded-lg shadow">

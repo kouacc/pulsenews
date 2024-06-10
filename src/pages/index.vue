@@ -39,7 +39,7 @@ const getData = async (): Promise<{ title: string; image_id: string }> => {
     )
     const { data } = response.data
     artData.value = data
-    console.log(artData.value)
+    artData.value = artData.value.sort(() => Math.random() - 0.5)
     return artData.value
   } catch (error) {
     console.error(error)
@@ -47,7 +47,7 @@ const getData = async (): Promise<{ title: string; image_id: string }> => {
   }
 }
 
-getData()
+artData.value = getData()
 console.log(artData.value)
 
 const currentuser = ref()
