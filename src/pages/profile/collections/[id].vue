@@ -17,6 +17,24 @@ const contenus = ref()
 const collection = ref()
 const renderedContenus = ref()
 
+const isLoading = ref(true)
+
+async function fetchData() {
+    try {
+        for (let content of contenus.value) {
+        let renderedContent = await renderContent(content)
+        renderedContenus.value = {
+            ...renderedContenus.value,
+            [content.id]: renderedContent
+        }
+    }
+    } catch (e) {
+        console.error(e)
+    } finally {
+        isLoading.value = false
+    }
+}
+
 onMounted(async () => {
     currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 
@@ -26,15 +44,7 @@ onMounted(async () => {
     contenus.value = await getContents(route.params.id)
 
     //render les contenus
-    for (let content of contenus.value) {
-        console.log(content.content)
-        let renderedContent = await renderContent(content)
-        console.log(renderedContent)
-        renderedContenus.value = {
-            ...renderedContenus.value,
-            [content.id]: renderedContent
-        }
-    }
+    fetchData()
 })
 
 </script>
@@ -46,16 +56,21 @@ onMounted(async () => {
     >
         <section class="col-start-1 col-span-full" v-if="collection">
             <h1>{{ collection.nom }}</h1>
-            <div class="grid grid-cols-3 gap-5">
-                <ul v-for="contenu in contenus" :key="contenu.id">
-                    <li v-if="contenu.type === 'interne'">
-                        <CardContent v-bind="renderedContenus[contenu.id]" />
-                    </li>
-                    <li v-else-if="contenu.type === 'externe'">
-                        <ExternalContentCard :url="contenu.content" v-bind="renderedContenus[contenu.id]" />
-                    </li>
+            <div v-if="isLoading" >
+                <ul class="grid grid-cols-3 gap-5">
+                    <CardContent v-for="i in 6" :key="i" variant="lazyload" />
                 </ul>
             </div>
+            <ul v-else class="grid grid-cols-3 gap-5">
+                <li v-for="contenu in contenus" :key="contenu.id">
+                    <div v-if="contenu.type === 'interne'">
+                        <CardContent v-bind="renderedContenus[contenu.id]" />
+                    </div>
+                    <div v-else-if="contenu.type === 'externe'">
+                        <ExternalContentCard :url="contenu.content" v-bind="renderedContenus[contenu.id]" />
+                    </div>
+                </li>
+            </ul>
         </section>
     </div>
 </template>

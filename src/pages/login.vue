@@ -74,7 +74,6 @@ let step2 = ref(false)
   <div class="container mx-auto">
     <h1>Connexion</h1>
     <h3>Content de vous revoir !</h3>
-    <h4 v-if="currentuser">Bien connecté, bonjour {{ currentuser.surname }}</h4>
     <div class="flex flex-col gap-10 mx-1/2">
       <div class="bg-slate-300/20 rounded-lg p-10 shadow">
         <div class="flex flex-col gap-2">
