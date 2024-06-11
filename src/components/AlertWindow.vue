@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import IconWarning from './icons/IconWarning.vue';
-import IconCroix from './icons/IconCroix.vue';
 import IconCheck from './icons/IconCheck.vue';
 import IconCircleCroix from './icons/IconCircleCroix.vue';
 

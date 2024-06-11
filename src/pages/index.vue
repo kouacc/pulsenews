@@ -80,16 +80,17 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
     <div>
       <section class="flex items-center justify-between pt-4">
         <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
-        <button class="px-3 py-2 gray rounded-[0.75rem] inline-flex items-center gap-4" @click="add_window = ! add_window"><IconPlus />Ajouter un contenu </button>
+        <div class="flex flex-col items-end"><button class="inline-flex items-center gap-4 cursor-pointer px-3 py-2 gray rounded-[0.75rem]" @click="add_window = ! add_window"><IconPlus />Ajouter un contenu</button>
+          <div class="gray px-8 py-2 rounded-lg inline-flex items-center gap-10 top-48 absolute" v-show="add_window">
+            <input class="px-3 py-1 rounded-md w-full" type="text" placeholder="Lien" />
+            <select class="w-96 px-3 py-1 rounded-md" v-model="select_category">
+              <option disabled selected>Choisissez une catégorie</option>
+              <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
+            </select>
+            <ActionButton variant="default" size="medium" text="Ajouter" url="#" @click=""/>
+          </div>
+        </div>
       </section>
-      <div class="gray px-8 py-2 rounded-lg inline-flex items-center gap-10 top-48 absolute right-[27rem]" v-show="add_window">
-        <input class="px-3 py-1 rounded-md w-full" type="text" placeholder="Lien" />
-        <select class="w-96 px-3 py-1 rounded-md" v-model="select_category">
-          <option disabled selected>Choisissez une catégorie</option>
-          <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
-        </select>
-        <ActionButton variant="default" size="medium" text="Ajouter" url="#" @click=""/>
-      </div>
     </div>
         <div class="flex flex-col gap-5">
           <section class="space-y-3">

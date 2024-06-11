@@ -166,25 +166,45 @@ watch(route, async () => {
 </script>
 
 <template>
-  <div v-if="isLoading === true" class="container mx-auto space-y-3">
+  <div v-if="isLoading === true" class="container mx-auto space-y-3 animate-pulse">
     <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
       ><IconChevronLeft class="size-5" />Retour</RouterLink
     >
-    <h1>Chargement</h1>
-    <h2>Chargement</h2>
+    <span class="flex h-5 w-96 bg-gray-300 rounded-lg"></span>
+    <span class="flex h-5 w-80 bg-gray-300 rounded-lg"></span>
+    <span class="flex w-4/5 h-[30rem] mx-auto bg-gray-300 rounded-lg"></span>
+    <div class="flex flex-col gap-3">
+      <span class="flex h-5 w-full bg-gray-300 rounded-lg"></span>
+      <span class="flex h-5 w-full bg-gray-300 rounded-lg"></span>
+      <span class="flex h-5 w-full bg-gray-300 rounded-lg"></span>
+      <span class="flex h-5 w-full bg-gray-300 rounded-lg"></span>
+      <span class="flex h-5 w-full bg-gray-300 rounded-lg"></span>
+    </div>
   </div>
-  <div v-else-if="isLoading === false" class="container mx-auto space-y-3">
+  <div v-else-if="isLoading === false" class="container mx-auto px-48 pt-6 pb-16 space-y-5">
     <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
       ><IconChevronLeft class="size-5" />Retour</RouterLink
     >
-    <h1>{{ artData.title }}</h1>
-    <h2>par {{ artData.artist_title || 'Artiste inconnu' }}</h2>
+    <section class="space-y-2">
+      <h1>{{ artData.title }}</h1>
+      <h2>par {{ artData.artist_title || 'Artiste inconnu' }}</h2>
+    </section>
     <img
-      class="w-auto h-64"
+      class="w-4/5 h-auto mx-auto"
       :src="'https://www.artic.edu/iiif/2/' + artData.image_id + '/full/843,/0/default.jpg'"
       :alt="artData.thumbnail.alt_text"
     />
     <button @click="add_window = ! add_window" class="bg-blue-500 text-white rounded-lg px-4 py-2">Ajouter à ma collection</button>
+    <div class="absolute gray p-10 rounded-lg" v-show="add_window">
+    <h4>Dans quelle catégorie souhaitez vous ajouter {{ artData.title }} ?</h4>
+    <div class="flex gap-5">
+      <select class="px-3 py-1 rounded-md w-full" v-model="select_category" name="categories">
+        <option disabled selected>Choisissez une catégorie</option>
+        <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
+      </select>
+      <button class="bg-blue-500 text-white rounded-lg px-2 py-1" @click="saveContent(), add_window = false" type="button">Ajouter</button>
+    </div>
+  </div>
     <section class="space-y-4">
       <h3>Description</h3>
       <p v-if="artData.description" v-html="artData.description"></p>
@@ -196,26 +216,19 @@ watch(route, async () => {
         <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag" />
       </ul>
     </section>
-    <section>
+    <section class="space-y-3">
       <h3>Du même artiste</h3>
       <ul class="grid grid-cols-3 gap-5">
         <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" :categories="collections" />
       </ul>
     </section>
-    <section>
+    <section class="space-y-3">
       <h3>Contenus similaires</h3>
       <ul class="grid grid-cols-3 gap-5">
         <CardContent v-for="content in contenusSimilaires" :key="content.id" v-bind="content" />
       </ul>
     </section>
-  <div class="absolute gray p-10 rounded-lg top-0" v-show="add_window">
-    <h4>Dans quelle catégorie souhaitez vous ajouter {{ artData.title }} ?</h4>
-    <select v-model="select_category" name="categories">
-      <option disabled selected>Choisissez une catégorie</option>
-      <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
-    </select>
-    <button @click="saveContent(), add_window = false" type="button">Ajouter</button>
-  </div>
+  
   <AlertWindow v-show="error_window" v-bind="add_alert" />
   </div>
 </template>

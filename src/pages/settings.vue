@@ -17,11 +17,50 @@ import {
   parseCreationOptionsFromJSON
 } from '@github/webauthn-json/browser-ponyfill'
 import { pb } from '@/backend'
+import ActionButton from '@/components/ActionButton.vue'
 
 const router = useRouter()
 
 const currentuser = ref()
 let authoptions = ref()
+let alert_message = ref({
+  variant: '',
+  title_text: '',
+  message_text: ''
+})
+
+let delete_flow = ref({
+  password: '',
+  confirm: ''
+})
+
+function deleteUserFlow(id: string) {
+  //check si le champ est rempli
+  if (delete_flow.value.password === currentuser.value.email && delete_flow.value.confirm == 'Je souhaite supprimer mon compte Pulse') {
+    deleteUser(id)
+    router.replace('/login')
+  } else if (delete_flow.value.confirm !== 'Je souhaite supprimer mon compte Pulse') {
+    alert_message.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Veuillez remplir correctement le champ de confirmation'
+    }
+    alertError.value = true
+    setTimeout(() => {
+      alertError.value = false
+    }, 5000)
+  } else if (delete_flow.value.password === '') {
+    alert_message.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Veuillez remplir correctement le champ de mot de passe'
+    }
+    alertError.value = true
+    setTimeout(() => {
+      alertError.value = false
+    }, 5000)
+  }
+}
 
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
@@ -37,7 +76,7 @@ onMounted(async () => {
     console.error('Une erreur est survenue :', error)
     authoptions.value = false
   }
-  console.log(authoptions.value)
+  console.log(currentuser.value)
 })
 
 const registerPasskey = async () => {
@@ -146,7 +185,7 @@ let passwordConfirm = ref('')
       placeholder="Confirmer le nouveau mot de passe"
       required
     />
-    <button @click="if (oldPassword && password && passwordConfirm) { changePasswordLoggedIn(currentuser.id, password, passwordConfirm, oldPassword); changePasswordWindow = false }">Changer</button>
+    <ActionButton class="place-self-end" variant="default" size="medium" url="#" text="Changer" @click="if (oldPassword && password && passwordConfirm) { changePasswordLoggedIn(currentuser.id, password, passwordConfirm, oldPassword); changePasswordWindow = false }" />
   </ActionWindow>
   <ActionWindow v-show="ExternalAuthWindow" v-scroll-lock="ExternalAuthWindow">
     <button class="place-self-start" @click="ExternalAuthWindow = false"><IconCroix /></button>
@@ -217,7 +256,7 @@ let passwordConfirm = ref('')
           Enregistrer
         </button>
       </div>
-      <section>
+      <section class="flex items-center gap-10">
         <h3 v-if="currentuser && currentuser.webauthn_credentials">Vous avez déjà enregistré une clé.</h3>
         <button
           v-if="currentuser && currentuser.webauthn_id_b64"
@@ -238,19 +277,19 @@ let passwordConfirm = ref('')
   <ActionWindow v-show="deleteAccountWindow" v-scroll-lock="deleteAccountWindow">
     <h2>Supprimer mon compte</h2>
     <p>Attention, cette action est irréversible</p>
-    <button @click="deleteAccountWindow = false">Annuler</button>
-    <button
-      class="rounded-full px-5 py-2 bg-red-500 text-white"
-      @click="deleteUser(currentuser.id)"
-    >
-      Supprimer
-    </button>
+    <p>Pour procéder, rentrez votre adresse e-mail et tapez la phrase suivante : <span class="font-sans">Je souhaite supprimer mon compte Pulse</span></p>
+    <input v-model="delete_flow.password" class="rounded-xl py-2 px-5 border" type="email" placeholder="Votre adresse e-mail" />
+    <input v-model="delete_flow.confirm" class="rounded-xl py-2 px-5 border" type="text" placeholder="Remplissez ce champ" />
+    <div class="flex w-full gap-5">
+      <button class="grow border rounded-full" @click="deleteAccountWindow = false">Annuler</button>
+      <button
+        class="rounded-full px-5 py-2 bg-red-500 text-white grow"
+        @click="deleteUserFlow(currentuser.id)"
+      >
+        Supprimer
+      </button>
+    </div>
   </ActionWindow>
   <!-- fenetres alertes -->
-  <AlertWindow v-show="alertChangePassword">
-    <h2>Changement effectué</h2>
-    <p>Votre mot de passe a été changé avec succès</p>
-    <button @click="alertChangePassword = false">Fermer</button>
-  </AlertWindow>
-  <AlertWindow bad v-show="alertError"> </AlertWindow>
+  <AlertWindow v-show="alertError" v-bind="alert_message" />
 </template>

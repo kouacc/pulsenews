@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { pb } from '@/backend'
 import { useRouter } from 'vue-router/auto'
+import CardContent from '@/components/CardContent.vue'
 
 import axios from 'axios'
 
@@ -59,8 +60,13 @@ onMounted(() => {
     <ul v-if="isLoading">
         <CardContent v-for="i in 10" :key="i" variant="lazyload"/>
     </ul>
-    <ul class="flex flex-wrap" v-else>
-        <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+    <ul class="grid grid-cols-3 grid-flow-row-dense gap-5" v-else>
+        <li v-for="art in artData" v-bind="art" :key="art.title">
+          <RouterLink :to="`/content/${art.id}`">
+          <img class="w-auto h-auto" :src="'https://www.artic.edu/iiif/2/' + art.image_id + '/full/843,/0/default.jpg'" :alt="art.thumbnail" />
+          <h3>{{ art.title }}</h3>
+          </RouterLink>
+        </li>
     </ul>
   </div>
 </template>

@@ -29,8 +29,8 @@ onMounted(async () => {
       <h3>Membre depuis : {{ formatDate(currentuser.created) }}</h3>
     </div>
   <div class="col-start-1 col-span-6">
-    <div class="bg-slate-300/30 p-8 rounded-xl w-full">
-      <h2>Biographie</h2>
+    <div class="gray p-8 rounded-lg w-full">
+      <h2 class="text-center">Biographie</h2>
       <p v-if="currentuser.biographie">{{ currentuser.biographie }}</p>
       <p v-else>C'est bien vide... Pourquoi ne pas ajouter une biographie pour votre profil ?</p>
     </div>
@@ -39,22 +39,22 @@ onMounted(async () => {
         <h2>Réseaux sociaux</h2>
         <ul class="flex gap-5">
           <li v-if="currentuser.facebook">
-            <a :href="currentuser.facebook"><IconFacebook /></a>
+            <a :href="currentuser.facebook"><IconFacebook class="transition-all hover:scale-110" /></a>
           </li>
           <li v-if="currentuser.twitter">
-            <a :href="currentuser.twitter"><IconTwitter /></a>
+            <a :href="currentuser.twitter"><IconTwitter class="transition-all hover:scale-110" /></a>
           </li>
           <li v-if="currentuser.instagram">
-            <a :href="currentuser.instagram"><IconInstagram /></a>
+            <a :href="currentuser.instagram"><IconInstagram class="transition-all hover:scale-110" /></a>
           </li>
           <li v-if="currentuser.linkedin">
-            <a :href="currentuser.linkedin"><IconLinkedin /></a>
+            <a :href="currentuser.linkedin"><IconLinkedin class="transition-all hover:scale-110" /></a>
           </li>
           <li v-if="currentuser.github">
-            <a :href="currentuser.github"><IconGithub /></a>
+            <a :href="currentuser.github"><IconGithub class="transition-all hover:scale-110" /></a>
           </li>
           <li v-if="currentuser.siteweb">
-            <a :href="currentuser.siteweb"><IconGlobe /></a>
+            <a :href="currentuser.siteweb"><IconGlobe class="transition-all hover:scale-110" /></a>
           </li>
         </ul>
       </div>

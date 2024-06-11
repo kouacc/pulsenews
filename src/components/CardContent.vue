@@ -48,7 +48,7 @@ onMounted(async () => {
         <IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" />
       </button>
       </section>
-    <div v-show="windowSave" class="absolute -bottom-48 gray p-4 rounded-lg w-80">
+    <div v-show="windowSave" class="absolute gray p-4 rounded-lg w-80">
       <h4 class="line-clamp-2">Dans quelle catégorie voulez-vous ajouter {{ title }} ?</h4>
       <select v-model="select_category">
         <option disabled selected>Choisissez une catégorie</option>

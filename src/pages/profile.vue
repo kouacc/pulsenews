@@ -82,21 +82,21 @@ const alert = ref(false)
           <div class="flex flex-col gap-3 grow">
             <div class="flex flex-col gap-2">
               <label>Prénom</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.surname" />
+              <input class="rounded-lg px-4 py-2 border" type="text" v-model="tempUser.surname" />
             </div>
             <div class="flex flex-col gap-2">
               <label>Nom</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.name" />
+              <input class="rounded-lg px-4 py-2 border" type="text" v-model="tempUser.name" />
             </div>
             <div class="flex flex-col gap-2">
               <label>Localisation</label>
-              <input class="rounded-lg px-4 py-2" type="text" v-model="tempUser.localisation" />
+              <input class="rounded-lg px-4 py-2 border" type="text" v-model="tempUser.localisation" />
             </div>
           </div>
           <div class="flex flex-col gap-2">
             <label>Avatar</label>
             <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar" />
-            <input class="file:border-2 file:border-blue-500 file:bg-blue-100 file:rounded-lg file:px-2 file:py-1 file:font-serif file:text-black" type="file" @change="tempUser.avatar = $event.target.files[0]" />
+            <input class="file:border file:border-solid file:border-gray-200 file:bg-white file:rounded-lg file:px-2 file:py-1 file:font-serif file:text-black" type="file" @change="tempUser.avatar = $event.target.files[0]" />
           </div>
         </div>
         <div class="flex flex-col gap-2">
@@ -135,8 +135,8 @@ const alert = ref(false)
         </section>
         <div class="flex justify-between">
           <div class="space-x-5">
-            <button @click="editpage = 1"><IconChevronLeft /></button>
-            <button @click="editpage = 2"><IconChevronLeft class="rotate-180" /></button>
+            <button @click="editpage = 1" class="transition-all hover:scale-110"><IconChevronLeft /></button>
+            <button @click="editpage = 2" class="transition-all hover:scale-110"><IconChevronLeft class="rotate-180" /></button>
           </div>
         <ActionButton
           @click="updateProfile()"
@@ -147,7 +147,7 @@ const alert = ref(false)
         </div>
     </ActionWindow>
   </Transition>
-  <div class="container mx-auto">
+  <div class="container py-10">
     <div v-if="currentuser" class="flex gap-28 container items-center mx-auto place-content-center">
       <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
       <section class="flex flex-col gap-3 flex-grow-0 items-center">
@@ -157,7 +157,7 @@ const alert = ref(false)
         </h2>
       </section>
       <button
-        class="relative right-[15%] z-10 rounded-full p-4 gray"
+        class="relative right-[15%] z-10 rounded-full p-4 gray transition hover:scale-110"
         @click="editwindow = true"
       >
         <IconEdit />
