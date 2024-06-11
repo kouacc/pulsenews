@@ -1,47 +1,68 @@
 <script setup lang="ts">
 import type { ContentCardType } from '@/types'
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { pb } from '@/backend'
 import IconBookmark from './icons/IconBookmark.vue'
+import ActionButton from './ActionButton.vue'
 
-import { saveContent } from '@/backend'
+import { addContent, getCollections } from '@/collections'
 
 let windowSave = ref(false)
-let isLoading = ref(true)
+let currentuser = ref()
 
 const props = withDefaults(defineProps<ContentCardType & { 
   variant?: 'default' | 'lazyload',
-  showSave?: boolean }>(),
+  showSave?: boolean
+  categories?: any,
+}>(),
   {
   variant: 'default',
   showSave: true
 })
+
+const select_category = ref('')
+const savedConfirm = ref(false)
+
+onMounted(async () => {
+  currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+})
+
 
 </script>
 
 <template>
   <li v-if="variant === 'default'" class="gray p-3 rounded-lg flex flex-col gap-2 flex-none flex-shrink-0">
     <RouterLink :to="`/content/${id}`">
-      <div class="bg-gray-800 flex items-center justify-center">
+      <div class="bg-[F9F9F9] rounded-md flex items-center justify-center">
         <img
           class="size-48"
           :src="'https://www.artic.edu/iiif/2/' + image_id + '/full/843,/0/default.jpg'"
           :alt="alt_text"
         />
       </div>
-      <h3 class="line-clamp-1">{{ title }}</h3>
-    </RouterLink>
-    <button v-if="showSave" class="place-self-end" @click="windowSave = !windowSave">
-      <IconBookmark class="w-4" />
-    </button>
-    <div v-show="windowSave" class="absolute top-0 right-0 bg-slate-300"></div>
+      </RouterLink>
+      <section class="flex justify-between ">
+        <h3 class="line-clamp-1 w-4/5">{{ title }}</h3>
+        <button v-if="showSave" class="place-self-end" @click="windowSave = !windowSave">
+        <IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" />
+      </button>
+      </section>
+    <div v-show="windowSave" class="absolute -bottom-48 gray p-4 rounded-lg w-80">
+      <h4 class="line-clamp-2">Dans quelle catégorie voulez-vous ajouter {{ title }} ?</h4>
+      <select v-model="select_category">
+        <option disabled selected>Choisissez une catégorie</option>
+        <option v-for="categorie in categories" :key="categorie" :value="categorie.id">{{ categorie.nom }}</option>
+      </select>
+      <button class="bg-blue-500 px-2 py-1 text-white rounded-md" @click="addContent(id.toString(), select_category,'interne'), windowSave = false, savedConfirm = true">Ajouter</button>
+    </div>
   </li>
   <li v-else-if="variant === 'lazyload'">
     <div class="flex flex-col gap-2 animate-pulse">
-      <div class="bg-gray-300 px-32 py-28 w-full h-full rounded-lg"></div>
+      <span class="bg-gray-300 px-32 py-28 w-full h-full rounded-lg"></span>
       <div class="flex justify-between">
-        <div class="bg-gray-300 w-36 h-8 rounded-lg"></div>
-        <div class="bg-gray-300 w-14 h-8 rounded-lg"></div>
+        <span class="bg-gray-300 w-36 h-8 rounded-lg"></span>
+        <span class="bg-gray-300 w-14 h-8 rounded-lg"></span>
       </div>
     </div>
   </li>

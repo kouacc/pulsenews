@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import OfflineWindow from '@/components/OfflineWindow.vue'
 import { onMounted, ref, defineAsyncComponent } from 'vue'
-import Pocketbase from 'pocketbase'
 import { pb } from '@/backend'
 import { useRouter } from 'vue-router/auto'
 
 import axios from 'axios'
+import ActionButton from '@/components/ActionButton.vue'
+import { getCollections } from '@/collections'
+import IconPlus from '@/components/icons/IconPlus.vue'
 
 const router = useRouter()
 
@@ -42,12 +44,18 @@ async function fetchArtData() {
 
 const currentuser = ref()
 
+const categories = ref<any>()
+const select_category = ref<any>('')
+const add_window = ref(false)
+
 onMounted(async () => {
   currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
 
   if (!currentuser.value) {
     router.replace('/login')
   }
+
+  categories.value = await getCollections(currentuser.value.id)
 })
 
 onMounted(() => {
@@ -58,7 +66,7 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
 </script>
 
 <template>
-  <div v-if="isLoading" class="container mx-auto">
+  <div v-if="isLoading" class="container mx-auto overflow-x-hidden">
     <div class="flex flex-col">
           <section>
             <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
@@ -68,12 +76,23 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
           </section>
         </div>
   </div>
-  <div v-else class="container mx-auto">
-    <section class="flex justify-between">
-      <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
-    </section>
-        <div class="flex flex-col">
-          <section>
+  <div v-else class="container py-6 space-y-6 overflow-hidden">
+    <div>
+      <section class="flex items-center justify-between pt-4">
+        <h1 v-if="currentuser">Bonjour, {{ currentuser.surname }} !</h1>
+        <button class="px-3 py-2 gray rounded-[0.75rem] inline-flex items-center gap-4" @click="add_window = ! add_window"><IconPlus />Ajouter un contenu </button>
+      </section>
+      <div class="gray px-8 py-2 rounded-lg inline-flex items-center gap-10 top-48 absolute right-[27rem]" v-show="add_window">
+        <input class="px-3 py-1 rounded-md w-full" type="text" placeholder="Lien" />
+        <select class="w-96 px-3 py-1 rounded-md" v-model="select_category">
+          <option disabled selected>Choisissez une catégorie</option>
+          <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
+        </select>
+        <ActionButton variant="default" size="medium" text="Ajouter" url="#" @click=""/>
+      </div>
+    </div>
+        <div class="flex flex-col gap-5">
+          <section class="space-y-3">
             <h2>Pour vous</h2>
             <ul class="flex overflow-x-scroll scroll-smooth snap-mandatory gap-10">
               <CardContent
@@ -110,7 +129,7 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
             </ul>
           </section>
         </div>
-  </div>
-
-  <div class="bg-amber-400 w-screen h-32 absolute top-10 -z-10 rotate-6"></div>
+        </div>
+      <span class="bg-amber-400 w-[100vw] h-32 absolute top-[20rem] -left-5 -z-10 rotate-6"></span>
+      <span class="bg-amber-400 w-[100vw] h-32 absolute top-[40rem] -left-5 -z-10 -rotate-6"></span>
 </template>

@@ -61,6 +61,7 @@ export type UsersRecord<Twebauthn_credentials = unknown> = {
 	avatar?: string
 	biographie?: string
 	facebook?: string
+	logged_once: Boolean
 	github?: string
 	instagram?: string
 	linkedin?: string

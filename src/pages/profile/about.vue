@@ -22,20 +22,20 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="currentuser" class="flex flex-col">
-    <h1>À propos</h1>
-    <div class="inline-flex items-center gap-4">
-      <IconCalender />
+  <div v-if="currentuser" class="py-10 grille">
+    <h1 class="col-start-1 col-span-full">À propos</h1>
+    <div class="inline-flex items-center gap-4 col-start-1 col-span-4">
+      <IconCalender class="size-8" />
       <h3>Membre depuis : {{ formatDate(currentuser.created) }}</h3>
     </div>
-
-    <div class="flex justify-between">
-      <div class="bg-slate-300/30 p-8 rounded-xl w-1/2">
-        <h2>Biographie</h2>
-        <p v-if="currentuser.biographie">{{ currentuser.biographie }}</p>
-        <p v-else>C'est bien vide... Pourquoi ne pas ajouter une biographie pour votre profil ?</p>
-      </div>
-      <div>
+  <div class="col-start-1 col-span-6">
+    <div class="bg-slate-300/30 p-8 rounded-xl w-full">
+      <h2>Biographie</h2>
+      <p v-if="currentuser.biographie">{{ currentuser.biographie }}</p>
+      <p v-else>C'est bien vide... Pourquoi ne pas ajouter une biographie pour votre profil ?</p>
+    </div>
+    </div>
+    <div class="col-start-9 col-span-5">
         <h2>Réseaux sociaux</h2>
         <ul class="flex gap-5">
           <li v-if="currentuser.facebook">
@@ -58,6 +58,5 @@ onMounted(async () => {
           </li>
         </ul>
       </div>
-    </div>
   </div>
 </template>

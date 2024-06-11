@@ -87,42 +87,37 @@ let passwordConfirm = ref('')
 </script>
 
 <template>
-  <div v-if="currentuser" class="container mx-auto space-y-3">
+  <div v-if="currentuser" class="container mx-auto py-10 space-y-4">
     <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
       ><IconChevronLeft class="scale-75" />Retour</RouterLink
     >
     <h1>Paramètres</h1>
-    <div class="bg-slate-300/20 px-8 py-9 rounded-lg shadow">
-      <h2>Informations de compte</h2>
-      <div class="flex flex-col gap-2">
-        <label>Nom d'utilisateur</label>
-        <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.username" disabled />
-      </div>
-      <div class="flex flex-col gap-2">
-        <label>Adresse e-mail</label>
-        <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.email" disabled />
-      </div>
-    </div>
-    <div class="bg-slate-300/20 px-8 py-9 rounded-lg shadow">
-      <h2>Confidentialité</h2>
-    </div>
-    <div class="bg-slate-300/20 px-8 py-9 rounded-lg shadow">
-      <h2>Notifications par e-mail</h2>
-    </div>
-    <div class="bg-slate-300/20 px-8 py-9 rounded-lg space-y-3">
-      <h2 class="border-b border-gray-900 pb-1">Zone de danger</h2>
-      <section>
-        <h3>Authentification</h3>
-        <div class="flex gap-5">
-          <button @click="changePasswordWindow = true">Changer de mot de passe</button>
-          <button @click="changeEmailWindow = true">Changer d'adresse e-mail</button>
-          <button @click="ExternalAuthWindow = true">Authentifications externes</button>
+    <div class="space-y-12">
+      <div class="gray px-8 py-9 rounded-lg">
+        <h2>Informations de compte</h2>
+        <div class="flex flex-col gap-2">
+          <label>Nom d'utilisateur</label>
+          <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.username" disabled />
         </div>
-      </section>
-      <section>
-        <h3>Suppression de compte</h3>
-        <button @click="deleteAccountWindow = true">Supprimer mon compte</button>
-      </section>
+        <div class="flex flex-col gap-2">
+          <label>Adresse e-mail</label>
+          <input class="rounded-full py-1 px-5 border disabled:bg-gray-50" type="text" v-model="currentuser.email" disabled />
+        </div>
+      </div>
+      <div class="gray px-8 py-9 rounded-lg space-y-3">
+        <h2 class="border-b border-gray-900 pb-1">Zone de danger</h2>
+        <section>
+          <h3>Authentification</h3>
+          <div class="flex gap-5">
+            <button @click="changePasswordWindow = true">Changer de mot de passe</button>
+            <button @click="ExternalAuthWindow = true">Authentifications externes</button>
+          </div>
+        </section>
+        <section>
+          <h3>Suppression de compte</h3>
+          <button @click="deleteAccountWindow = true">Supprimer mon compte</button>
+        </section>
+      </div>
     </div>
   </div>
   <!-- fenetres modal-->

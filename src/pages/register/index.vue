@@ -97,7 +97,7 @@ const register_user = async () => {
            <span class="w-2.5 h-2.5 bg-white rounded-full"></span>
            <span class="w-2.5 h-2.5 bg-white rounded-full"></span>
           </div>
-          <div class="relative bottom-3.5 z-0 w-3.5 h-3.5 rounded-full bg-blue-500 transition-all" :class="{ '!w-[50.7%]': progressbar === 1, '!w-full': progressbar === 2}"></div>
+          <div class="relative bottom-3.5 z-0 w-3.5 h-3.5 rounded-full bg-blue-500 transition-all ease-in-out" :class="{ '!w-[50.7%]': progressbar === 1, '!w-full': progressbar === 2}"></div>
         </div>
       <div v-if="progressbar === 0" class="grille col-start-2 col-span-10">
         <div class="col-span-full flex flex-col gap-2">

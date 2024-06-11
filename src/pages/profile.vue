@@ -11,6 +11,7 @@ import ActionWindow from '@/components/ActionWindow.vue'
 import IconCroix from '@/components/icons/IconCroix.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 import AlertWindow from '@/components/AlertWindow.vue'
+import ActionButton from '@/components/ActionButton.vue'
 
 const router = useRouter()
 
@@ -95,7 +96,7 @@ const alert = ref(false)
           <div class="flex flex-col gap-2">
             <label>Avatar</label>
             <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar" />
-            <input type="file" @change="tempUser.avatar = $event.target.files[0]" />
+            <input class="file:border-2 file:border-blue-500 file:bg-blue-100 file:rounded-lg file:px-2 file:py-1 file:font-serif file:text-black" type="file" @change="tempUser.avatar = $event.target.files[0]" />
           </div>
         </div>
         <div class="flex flex-col gap-2">
@@ -137,12 +138,12 @@ const alert = ref(false)
             <button @click="editpage = 1"><IconChevronLeft /></button>
             <button @click="editpage = 2"><IconChevronLeft class="rotate-180" /></button>
           </div>
-        <button
+        <ActionButton
           @click="updateProfile()"
-          class="px-6 py-2 bg-blue-500 rounded-lg text-white place-self-end grow-0 w-fit"
-        >
-          Enregistrer
-        </button>
+          variant="default"
+          size="small"
+          text="Enregistrer"
+        />
         </div>
     </ActionWindow>
   </Transition>

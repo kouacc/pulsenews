@@ -60,7 +60,7 @@ watch(lastRequestTime, () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container py-16">
     <section class="border-b-4 border-black pb-6">
       <h1>Merci !</h1>
       <h2>Une vérification par e-mail vous a été envoyé.</h2>

@@ -15,7 +15,7 @@ export async function addContent(content: string, categorie_associe: string, typ
   await pb.collection('contenus').create({content: content, categorie_associe: categorie_associe, type: type})
 }
 
-export async function deleteContent(contentid) {
+export async function deleteContent(contentid:string) {
   await pb.collection('contenus').delete(contentid)
 }
 

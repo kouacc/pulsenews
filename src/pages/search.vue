@@ -11,14 +11,16 @@ const route = useRoute()
 const router = useRouter()
 let tag = ref<string>('')
 
+
 onMounted(() => {
   tag.value = route.query.tag as string
 
   if (!pb.authStore.isValid) {
     router.replace('/login')
   }
+})
 
-  const getData = async () => {
+const getData = async () => {
     try {
       if (tag.value != '') {
         const response = await axios.get(
@@ -32,27 +34,36 @@ onMounted(() => {
           const content = await getContent(art.id)
           art.content = content // Ajouter le contenu à l'objet art
         }
-      }
-    } catch (error) {
-      console.error(error)
     }
+  } catch (error) {
+    console.error(error)
   }
-  console.log('getData : ', getData())
-  console.log(tag.value)
+}
+
+onMounted(async () => {
+  if (tag.value) {
+    await getData()
+  }
 })
 
-const artData = ref<any[]>([])
+const artData = ref([])
 
 let searchInput = ref<string>('')
-let searchType = ref<string>('')
 
 const searchQuery = async () => {
   try {
     const response = await axios.get(
-      `https://api.artic.edu/api/v1/artworks/search?q=${searchInput.value}&limit=50&fields=id,title,image_id,alt_text`
+      `https://api.artic.edu/api/v1/artworks/search?q=${searchInput.value}`
     )
-    const { data } = response.data
-    artData.value = data
+    const data_content = []
+    for (let item of response.data.data) {
+      console.log(item.id)
+      let content = await getContent(item.id)
+      console.log(content)
+      const rendered = content
+      data_content.push(rendered)
+    }
+    artData.value = data_content
   } catch (error) {
     console.error(error)
   }
@@ -60,33 +71,27 @@ const searchQuery = async () => {
 </script>
 
 <template>
-  <section v-if="tag" class="container">
-    <h1>Recherche pour : {{ tag }}</h1>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
-    </ul>
-  </section>
-  <section v-else class="container">
-    <h1>Recherche</h1>
-    <p>Entrez un tag ou faites une recherche.</p>
-    <input v-model="searchInput" type="text" placeholder="Recherche" />
-    <div>
-      <input
-        v-model="searchType"
-        type="radio"
-        id="contactChoice2"
-        name="contact"
-        value="phone"
-        checked
-      />
-      <label for="contactChoice2">Tag</label>
-
-      <input v-model="searchType" type="radio" id="contactChoice3" name="contact" value="mail" />
-      <label for="contactChoice3">Recherche</label>
+  <div v-if="tag" class="container py-10 grille space-y-5">
+    <section class="col-span-full col-start-1">
+      <h1>Recherche pour : {{ tag }}</h1>
+      </section>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
+          <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+        </ul>
+  </div>
+  <div v-else class="container grille py-10" :class="{ 'h-screen': artData.length === 0}">
+    <div class="col-start-1 col-span-full space-y-5">
+      <section>
+        <h1>Recherche</h1>
+        <p>Entrez un tag ou faites une recherche.</p>
+      </section>
+      <div class="col-start-1 col-span-full flex gap-5 items-center">
+        <input v-model="searchInput" class="w-full px-6 py-3 gray rounded-lg" type="text" placeholder='Cherchez un terme comme "cats"' />
+        <button class="bg-blue-500 px-4 py-3 rounded-lg text-white" @click="searchQuery()">Rechercher</button>
+      </div>
     </div>
-    <button @click="searchQuery">Rechercher</button>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
       <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
     </ul>
-  </section>
+  </div>
 </template>

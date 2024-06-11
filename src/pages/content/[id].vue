@@ -20,7 +20,6 @@ const artData = ref<any>(null)
 const contenusSameArtist = ref<any>()
 const contenusSimilaires = ref<any>()
 
-const collections = ref<any>()
 const categories = ref<any>()
 const currentuser = ref<any>()
 
@@ -82,7 +81,7 @@ const getSimilaires = async () => {
   }
 }
 
-const add_alert = ref('')
+const add_alert = ref({})
 const add_title = ref('')
 const add_message = ref('')
 const add_window = ref(false)
@@ -90,20 +89,24 @@ let error_window = ref(false)
 
 const select_category = ref()
 
-const addContentToCollection = async () => {
+const saveContent = async () => {
   try {
-    await addContent(currentuser.value.contenu, select_category.value, artData.value.id, 'interne')
-    add_alert.value = 'good'
-    add_title.value = 'Contenu ajouté'
-    add_message.value = 'Le contenu a bien été ajouté à la collection'
+    await addContent(route.params.id, select_category.value, 'interne')
+    add_alert.value = {
+      variant: 'good',
+      title_text: 'Contenu ajouté',
+      message_text: 'Le contenu a bien été ajouté à la collection'
+    }
     error_window.value = true
     setTimeout(() => {
       error_window.value = false
     }, 5000)
   } catch (error) {
-    add_alert.value = 'bad'
-    add_title.value = 'Erreur'
-    add_message.value = 'Une erreur est survenue lors de l\'ajout du contenu'
+    add_alert.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Le contenu n\'a pas pu être ajouté à la collection.'
+    }
     error_window.value = true
     setTimeout(() => {
       error_window.value = false
@@ -120,14 +123,17 @@ async function fetchData() {
         artData.value = artDataResult
 
         // Attendre que toutes les promesses soient résolues
-        const [contenusSameArtistResult, contenusSimilairesResult] = await Promise.all([
+        const [contenusSameArtistResult, contenusSimilairesResult, categories_utilisateur] = await Promise.all([
           getSameArtist(),
-          getSimilaires()
+          getSimilaires(),
+          getCollections(currentuser.value.id)
         ])
 
         // Mettre à jour les valeurs des refs avec les résultats des promesses
         contenusSameArtist.value = contenusSameArtistResult
         contenusSimilaires.value = contenusSimilairesResult
+        categories.value = categories_utilisateur
+
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error)
       } finally {
@@ -142,9 +148,6 @@ onMounted(async () => {
   if (!currentuser.value) {
     router.replace('/login')
   }
-
-  collections.value = await getCollections(currentuser.value.id)
-  categories.value = collections.value.expand.contenu.categories
 })
 
 onMounted(() => {
@@ -196,7 +199,7 @@ watch(route, async () => {
     <section>
       <h3>Du même artiste</h3>
       <ul class="grid grid-cols-3 gap-5">
-        <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" />
+        <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" :categories="collections" />
       </ul>
     </section>
     <section>
@@ -205,13 +208,14 @@ watch(route, async () => {
         <CardContent v-for="content in contenusSimilaires" :key="content.id" v-bind="content" />
       </ul>
     </section>
-  </div>
-  <div class="absolute  bg-slate-300 p-10 rounded-xl" v-show="add_window">
+  <div class="absolute gray p-10 rounded-lg top-0" v-show="add_window">
+    <h4>Dans quelle catégorie souhaitez vous ajouter {{ artData.title }} ?</h4>
     <select v-model="select_category" name="categories">
       <option disabled selected>Choisissez une catégorie</option>
-      <option v-for="(categorie, index) in categories" :key="index" :value="index">{{ categorie }}</option>
+      <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
     </select>
-    <button @click="addContentToCollection()" type="button">Ajouter</button>
+    <button @click="saveContent(), add_window = false" type="button">Ajouter</button>
   </div>
-  <AlertWindow v-show="error_window" :variant="add_alert" :title_text="add_title" :message_text="add_message" />
+  <AlertWindow v-show="error_window" v-bind="add_alert" />
+  </div>
 </template>

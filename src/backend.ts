@@ -41,26 +41,35 @@ export async function confirmVerification(token) {
 export async function changePassword(data:any) {
   await pb.collection('users').confirmPasswordReset(data.token, data.password, data.passwordConfirm)
   return true
+}
 
+export async function firstLoginFlow(userid:string, ) {
+  await pb.collection('users').update(userid, { logged_once: true})
+  await pb.collection('tags_prefs').create({ })
 }
 
 
-export async function getAuthMethods(userid) {
+export async function getAuthMethods(userid:string) {
   const result = await pb.collection('users').listExternalAuths(userid)
   return result
 }
 
-export async function unlinkOAuth(userid) {
+export async function unlinkOAuth(userid:string) {
   await pb.collection('users').unlinkExternalAuth(userid, 'google')
   return true
 }
 
-export async function unlinkWebauthnKey(userid) {
+export async function unlinkWebauthnKey(userid:string) {
   await pb.collection('users').update(userid, { webauthn_id_b64: '', webauthn_credentials: null })
   return true
 }
 
-export async function changePasswordLoggedIn(userid, password, passwordConfirm, oldPassword) {
+export async function changePasswordLoggedIn(
+  userid: string,
+  password: string,
+  passwordConfirm: string,
+  oldPassword: string
+) {
   const userObject = {
     password: password,
     passwordConfirm: passwordConfirm,
@@ -70,7 +79,7 @@ export async function changePasswordLoggedIn(userid, password, passwordConfirm, 
   return true
 }
 
-export async function getContent(contentid) {
+export async function getContent(contentid:number) {
   const content = await axios.get(`https://api.artic.edu/api/v1/artworks/${contentid}`)
   return content.data.data
 }

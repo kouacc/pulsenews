@@ -36,6 +36,7 @@ try {
   //boucle pour fetch les données de chaque contenu, soit via l'API artic, soit par le scraper web
   for (let categorie of collections.value) {
     let contents = await getContents(categorie.id)
+    contents = contents.slice(0, 3)
     contenus.value.push(...contents)
 
     for (let content of contents) {
