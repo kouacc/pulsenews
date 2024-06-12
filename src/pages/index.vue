@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import OfflineWindow from '@/components/OfflineWindow.vue'
 import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { pb } from '@/backend'
 import { useRouter } from 'vue-router/auto'
