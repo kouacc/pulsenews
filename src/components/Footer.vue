@@ -22,15 +22,15 @@ import LogoBlack from './icons/LogoBlack.vue'
         <li>
           <p><b>Pulse</b></p>
         </li>
-        <li><a href="team.html">Équipe</a></li>
-        <li><a href="about.html">À propos</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/equipe/">Équipe</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/about/">À propos</a></li>
       </ul>
       <ul class="font-serif">
         <li>
           <p><b>Produit</b></p>
         </li>
-        <li><a href="features.html">Fonctionnalités</a></li>
-        <li><a href="prices.html">Tarifs</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/fonctionnalites/">Fonctionnalités</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/tarifs/">Tarifs</a></li>
       </ul>
       <ul class="font-serif">
         <li>
@@ -38,15 +38,15 @@ import LogoBlack from './icons/LogoBlack.vue'
         </li>
         <li><a href="">Centre d'aide</a></li>
         <li><a href="">FAQ</a></li>
-        <li><a href="">Contacter le support</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/contact/">Contacter le support</a></li>
       </ul>
       <ul class="font-serif">
         <li>
           <p><b>Légal</b></p>
         </li>
-        <li><a href="">Conditions générales d'utilisation</a></li>
-        <li><a href="">Conditions générales de vente</a></li>
-        <li><a href="">Politique de confidentialité</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/cgu/">Conditions générales d'utilisation</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/cgv/">Conditions générales de vente</a></li>
+        <li><a href="https://pulsenews.maxencelallemand.fr/confidentialite/">Politique de confidentialité</a></li>
       </ul>
     </div>
   </footer>

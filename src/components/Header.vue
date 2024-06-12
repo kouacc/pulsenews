@@ -67,8 +67,8 @@ const doLogout = async () => {
     <div class="flex items-center gap-4">
       <RouterLink to="/"><LogoBlack /></RouterLink>
       <nav class="flex gap-2 font-serif">
-        <a href="features.html">Fonctionnalités</a>
-        <a href="prices.html">Tarifs</a>
+        <a href="https://pulsenews.maxencelallemand.fr/fonctionnalites/">Fonctionnalités</a>
+        <a href="https://pulsenews.maxencelallemand.fr/tarifs/">Tarifs</a>
       </nav>
     </div>
     <nav class="flex gap-2 font-serif">
