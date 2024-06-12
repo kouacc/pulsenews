@@ -44,12 +44,14 @@ const doLogout = async () => {
         <RouterLink to="/search">Rechercher</RouterLink>
       </div>
       <button @click="profileCard = !profileCard" class="w-12">
-        <img class="rounded-full" :src="avatarUrl" alt="Avatar utilisateur" />
+        <img v-if="currentuser.avatar" class="rounded-full" :src="avatarUrl" alt="Avatar utilisateur" />
+        <img v-else class="rounded-full" src="/src/assets/account_icon.webp" alt="Avatar" />
       </button>
       <div v-if="currentuser" v-show="profileCard" class="p-4 gray rounded-xl absolute top-20 right-5">
     <div class="inline-flex justify-between gap-14 items-center w-full">
       <section class="inline-flex gap-3 items-center w-fit">
-        <img class="rounded-full w-8" :src="avatarUrl" alt="Avatar utilisateur" />
+        <img v-if="currentuser.avatar" class="rounded-full w-8" :src="avatarUrl" alt="Avatar utilisateur" />
+        <img v-else class="rounded-full w-8" src="/src/assets/account_icon.webp" alt="Avatar" />
         <h4>{{ currentuser.surname }}</h4>
       </section>
       <button class="w-fit h-fit" @click="doLogout"><IconLogout class="w-6 h-auto" /></button>

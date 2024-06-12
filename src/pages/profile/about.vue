@@ -35,7 +35,7 @@ onMounted(async () => {
       <p v-else>C'est bien vide... Pourquoi ne pas ajouter une biographie pour votre profil ?</p>
     </div>
     </div>
-    <div class="col-start-9 col-span-5">
+    <div class="col-start-9 col-span-5" v-if="currentuser.facebook || currentuser.twitter || currentuser.instagram || currentuser.linkedin || currentuser.github || currentuser.siteweb">
         <h2>Réseaux sociaux</h2>
         <ul class="flex gap-5">
           <li v-if="currentuser.facebook">

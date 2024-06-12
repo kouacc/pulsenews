@@ -3,6 +3,7 @@ import { useRoute, useRouter } from 'vue-router/auto'
 import axios from 'axios'
 import { addContent, getCollections } from '@/collections'
 import { pb, getContent } from '@/backend'
+import { getContents } from '@/collections'
 
 import ContentTag from '@/components/ContentTag.vue'
 import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
@@ -81,38 +82,17 @@ const getSimilaires = async () => {
   }
 }
 
-const add_alert = ref({})
+const add_alert = ref({
+  variant: '',
+  title_text: '',
+  message_text: ''
+})
 const add_title = ref('')
 const add_message = ref('')
 const add_window = ref(false)
 let error_window = ref(false)
 
 const select_category = ref()
-
-const saveContent = async () => {
-  try {
-    await addContent(route.params.id, select_category.value, 'interne')
-    add_alert.value = {
-      variant: 'good',
-      title_text: 'Contenu ajouté',
-      message_text: 'Le contenu a bien été ajouté à la collection'
-    }
-    error_window.value = true
-    setTimeout(() => {
-      error_window.value = false
-    }, 5000)
-  } catch (error) {
-    add_alert.value = {
-      variant: 'bad',
-      title_text: 'Erreur',
-      message_text: 'Le contenu n\'a pas pu être ajouté à la collection.'
-    }
-    error_window.value = true
-    setTimeout(() => {
-      error_window.value = false
-    }, 5000)
-  }
-}
 
 async function fetchData() {
       try {
@@ -161,6 +141,44 @@ watch(route, async () => {
     contenusSimilaires.value = await getSimilaires()
 });
 
+async function addContentFlow(content: string, categoryid: string, type: 'interne' | 'externe') {
+  try {
+    const actual_contents = await getContents(categoryid)
+    if (actual_contents.some((contenu: { content: string }) => contenu.content === content)) {
+      error_window.value = true
+      add_alert.value = {
+        variant: 'bad',
+        title_text: 'Erreur',
+        message_text: 'Ce contenu existe déjà dans cette catégorie.'
+      }
+      setTimeout(() => {
+        error_window.value = false
+      }, 5000)
+    } else {
+      await addContent(content, categoryid, type)
+      error_window.value = true
+      add_alert.value = {
+        variant: 'good',
+        title_text: 'Contenu ajouté',
+        message_text: 'Le contenu a bien été ajouté.'
+      }
+      setTimeout(() => {
+        error_window.value = false
+      }, 5000)
+    }
+  } catch (error) {
+    console.error(error)
+    error_window.value = true
+    add_alert.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Une erreur est survenue lors de l\'ajout du contenu. Veuillez réessayer plus tard.'
+    }
+    setTimeout(() => {
+      error_window.value = false
+    }, 5000)
+  }
+}
 
 
 </script>
@@ -202,7 +220,7 @@ watch(route, async () => {
         <option disabled selected>Choisissez une catégorie</option>
         <option v-for="categorie in categories" :key="categorie.nom" :value="categorie.id">{{ categorie.nom }}</option>
       </select>
-      <button class="bg-blue-500 text-white rounded-lg px-2 py-1" @click="saveContent(), add_window = false" type="button">Ajouter</button>
+      <button class="bg-blue-500 text-white rounded-lg px-2 py-1" @click="addContentFlow(artData.id, select_category,'interne'), add_window = false" type="button">Ajouter</button>
     </div>
   </div>
     <section class="space-y-4">
@@ -225,13 +243,13 @@ watch(route, async () => {
     <section class="space-y-3">
       <h3>Du même artiste</h3>
       <ul class="grid grid-cols-3 gap-5">
-        <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" :categories="collections" />
+        <CardContent v-for="content in contenusSameArtist" :key="content.id" v-bind="content" :categories="categories" />
       </ul>
     </section>
     <section class="space-y-3">
       <h3>Contenus similaires</h3>
       <ul class="grid grid-cols-3 gap-5">
-        <CardContent v-for="content in contenusSimilaires" :key="content.id" v-bind="content" />
+        <CardContent v-for="content in contenusSimilaires" :key="content.id" v-bind="content" :categories="categories" />
       </ul>
     </section>
   

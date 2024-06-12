@@ -95,7 +95,8 @@ const alert = ref(false)
           </div>
           <div class="flex flex-col gap-2">
             <label>Avatar</label>
-            <img class="rounded-full w-1/2 h-auto" :src="avatarUrl" alt="Avatar" />
+            <img v-if="currentuser.avatar" class="rounded-full w-24 h-auto" :src="avatarUrl" alt="Avatar" />
+            <img v-else class="rounded-full w-24 h-auto" src="/src/assets/account_icon.webp" alt="Avatar" />
             <input class="file:border file:border-solid file:border-gray-200 file:bg-white file:rounded-lg file:px-2 file:py-1 file:font-serif file:text-black" type="file" @change="tempUser.avatar = $event.target.files[0]" />
           </div>
         </div>
@@ -143,13 +144,15 @@ const alert = ref(false)
           variant="default"
           size="small"
           text="Enregistrer"
+          url="#"
         />
         </div>
     </ActionWindow>
   </Transition>
   <div class="container py-10">
     <div v-if="currentuser" class="flex gap-28 container items-center mx-auto place-content-center">
-      <img class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
+      <img v-if="currentuser.avatar" class="rounded-full w-[15%] h-auto" :src="avatarUrl" alt="Avatar" />
+      <img v-else class="rounded-full w-24 h-auto" src="/src/assets/account_icon.webp" alt="Avatar" />
       <section class="flex flex-col gap-3 flex-grow-0 items-center">
         <h1 class="gray rounded-xl px-8 py-3 grow-0">{{ currentuser.surname }}</h1>
         <h2 v-if="currentuser.localisation" class="gray rounded-xl px-8 py-3 grow-0 w-fit">

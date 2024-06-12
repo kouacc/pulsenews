@@ -45,7 +45,7 @@ onMounted(async () => {
       <section class="flex justify-between ">
         <h3 class="line-clamp-1 w-4/5">{{ title }}</h3>
         <div v-if="showSave" class="place-self-end flex flex-col items-center" >
-        <button @click="windowSave = !windowSave"><IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" /></button>
+        <button @click="windowSave = !windowSave" :disabled="savedConfirm"><IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" /></button>
         <div v-show="windowSave" class="absolute gray p-4 rounded-lg w-80 mt-10">
           <h4 class="line-clamp-2">Dans quelle catégorie voulez-vous ajouter {{ title }} ?</h4>
           <div class="flex gap-5">

@@ -158,7 +158,7 @@ const CardContent = defineAsyncComponent(() => import('@/components/CardContent.
                 v-for="art in artData"
                 v-bind="art"
                 :key="artData.title"
-                
+                :categories="categories"
               />
             </ul>
             <section class="flex flex-col items-center">
