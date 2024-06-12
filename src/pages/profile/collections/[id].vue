@@ -112,8 +112,8 @@ async function deleteContentFlow(id: string) {
 
 <template>
     <div class="grille py-10">
-        <RouterLink class="inline-flex gap-4 items-center" to="#" @click.prevent="$router.go(-1)"
-      ><IconChevronLeft class="scale-75" />Retour</RouterLink
+        <RouterLink class="inline-flex gap-4 items-center col-span-2" to="#" @click.prevent="$router.go(-1)"
+      ><IconChevronLeft class="size-5" />Retour</RouterLink
     >
         <div class="col-start-1 col-span-full space-y-4" v-if="collection">
             <section class="flex items-center justify-between">

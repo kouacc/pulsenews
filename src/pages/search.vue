@@ -10,10 +10,17 @@ import { getContent } from '@/backend'
 const route = useRoute()
 const router = useRouter()
 let tag = ref<string>('')
+let queryType = ref<string>('')
 
 
 onMounted(() => {
-  tag.value = route.query.tag as string
+  if (route.query.tag) {
+    tag.value = route.query.tag as string
+    queryType.value = 'tag'
+  } else if (route.query.category) {
+    tag.value = route.query.category as string
+    queryType.value = 'category'
+  }
 
   if (!pb.authStore.isValid) {
     router.replace('/login')
@@ -22,19 +29,35 @@ onMounted(() => {
 
 const getData = async () => {
     try {
-      if (tag.value != '') {
-        const response = await axios.get(
-          `https://api.artic.edu/api/v1/artworks/search?query[match][category_titles]=${tag.value}&limit=50&fields=id,title,image_id,alt_text`
-        )
-        const { data } = response.data
-        artData.value = data
-
-        // Utiliser getContent sur chaque élément de artData
-        for (let art of artData.value) {
-          const content = await getContent(art.id)
-          art.content = content // Ajouter le contenu à l'objet art
+      if (queryType.value === 'category') {
+        if (tag.value != '') {
+          const response = await axios.get(
+            `https://api.artic.edu/api/v1/artworks/search?query[match][category_titles]=${tag.value}&limit=50&fields=id,title,image_id,alt_text`
+          )
+          const { data } = response.data
+          artData.value = data
+  
+          // Utiliser getContent sur chaque élément de artData
+          for (let art of artData.value) {
+            const content = await getContent(art.id)
+            art.content = content // Ajouter le contenu à l'objet art
+          }
+      }
+      } else if (queryType.value === 'tag') {
+        if (tag.value != '') {
+          const response = await axios.get(
+            `https://api.artic.edu/api/v1/artworks/search?query[match][term_titles]=${tag.value}&limit=50&fields=id,title,image_id,alt_text`
+          )
+          const { data } = response.data
+          artData.value = data
+  
+          // Utiliser getContent sur chaque élément de artData
+          for (let art of artData.value) {
+            const content = await getContent(art.id)
+            art.content = content // Ajouter le contenu à l'objet art
+          }
         }
-    }
+      }
   } catch (error) {
     console.error(error)
   }
@@ -72,6 +95,14 @@ const searchQuery = async () => {
 
 <template>
   <div v-if="tag" class="container py-10 grille space-y-5">
+    <section class="col-span-full col-start-1">
+      <h1>Recherche pour : {{ tag }}</h1>
+      </section>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
+          <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+        </ul>
+  </div>
+  <div v-else-if="category" class="container py-10 grille space-y-5">
     <section class="col-span-full col-start-1">
       <h1>Recherche pour : {{ tag }}</h1>
       </section>

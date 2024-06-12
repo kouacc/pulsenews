@@ -104,18 +104,102 @@ async function deleteCategoryFlow(id: number) {
   }
 }
 
+async function addCategoryFlow (userid: string, category_name: string) {
+  try {
+    const actual_categories = await getCollections(userid)
+    if (actual_categories.some((categorie: { nom: string }) => categorie.nom === category_name)) {
+      alert_error.value = true
+      alert_message.value = {
+        variant: 'bad',
+        title_text: 'Erreur',
+        message_text: 'Cette catégorie existe déjà.'
+      }
+      setTimeout(() => {
+        alert_error.value = false
+      }, 5000)
+    } else {
+      await addCategory(userid, category_name)
+      categoryname.value = ''
+      collections.value = await getCollections(userid)
+      alert_error.value = true
+      alert_message.value = {
+        variant: 'good',
+        title_text: 'Catégorie ajoutée',
+        message_text: 'La catégorie a bien été ajoutée.'
+      }
+      setTimeout(() => {
+        alert_error.value = false
+      }, 5000)
+    }
+  } catch (error) {
+    console.error(error)
+    alert_error.value = true
+    alert_message.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Une erreur est survenue lors de l\'ajout de la catégorie. Veuillez réessayer plus tard.'
+    }
+    setTimeout(() => {
+      alert_error.value = false
+    }, 5000)
+  }
+}
+
+async function addContentFlow(content: string, categoryid: string, type: 'interne' | 'externe') {
+  try {
+    const actual_contents = await getContents(categoryid)
+    if (actual_contents.some((contenu: { content: string }) => contenu.content === content)) {
+      alert_error.value = true
+      alert_message.value = {
+        variant: 'bad',
+        title_text: 'Erreur',
+        message_text: 'Ce contenu existe déjà dans cette catégorie.'
+      }
+      setTimeout(() => {
+        alert_error.value = false
+      }, 5000)
+    } else {
+      await addContent(content, categoryid, type)
+      contenus.value = await getCollections(currentuser.value.id)
+      select_content.value = ''
+      select_category.value = ''
+      fetchData()
+      alert_error.value = true
+      alert_message.value = {
+        variant: 'good',
+        title_text: 'Contenu ajouté',
+        message_text: 'Le contenu a bien été ajouté.'
+      }
+      setTimeout(() => {
+        alert_error.value = false
+      }, 5000)
+    }
+  } catch (error) {
+    console.error(error)
+    alert_error.value = true
+    alert_message.value = {
+      variant: 'bad',
+      title_text: 'Erreur',
+      message_text: 'Une erreur est survenue lors de l\'ajout du contenu. Veuillez réessayer plus tard.'
+    }
+    setTimeout(() => {
+      alert_error.value = false
+    }, 5000)
+  }
+}
+
 </script>
 
 <template>
   <div class="grille py-10">
     <h1 class="col-start-1 col-span-full">Mes collections</h1>
     <div class="col-start-1 col-span-full flex gap-10">
-      <div class="flex flex-col mb-3 grow" ><p class="gray inline-flex gap-3 w-full px-4 py-3 rounded-xl cursor-pointer" @click="popover_addcategory = ! popover_addcategory, popover_addcontent = false"><IconPlus />Ajouter une catégorie</p>
+      <div class="flex flex-col mb-3 grow" ><button class="gray inline-flex gap-3 w-full px-4 py-3 rounded-xl cursor-pointer" @click="popover_addcategory = ! popover_addcategory, popover_addcontent = false"><IconPlus />Ajouter une catégorie</button>
       <div class="gray p-6 rounded-lg z-10 absolute mt-14" v-show="popover_addcategory">
       <h2>Créer une catégorie</h2>
       <div class="inline-flex items-center gap-5">
         <input class="px-5 py-2 rounded-xl" v-model="categoryname" type="text" placeholder="Nom de la catégorie" minlength="4" maxlength="20" />
-        <ActionButton @click="addCategory(currentuser.id, categoryname)" text="Ajouter une catégorie" url="#" />
+        <ActionButton @click="addCategoryFlow(currentuser.id, categoryname), popover_addcategory = false" text="Ajouter une catégorie" url="#" />
       </div>
     </div></div>
       <div class="flex flex-col items-end mb-3 grow shrink-0" ><p class="gray inline-flex gap-3 w-full px-4 py-3 rounded-xl cursor-pointer" @click="popover_addcontent = ! popover_addcontent, popover_addcategory = false"><IconPlus />Ajouter du contenu</p>
@@ -127,7 +211,7 @@ async function deleteCategoryFlow(id: number) {
         <option disabled selected>Choisissez une catégorie</option>
         <option v-for="categorie in collections" :key="categorie.id" :value="categorie.id">{{ categorie.nom }}</option>
       </select>
-      <ActionButton @click="addContent(select_content, select_category, 'externe')" url="#" text="Ajouter un contenu" />
+      <ActionButton @click="addContentFlow(select_content, select_category, 'externe'), popover_addcontent = false" url="#" text="Ajouter un contenu" />
       </div>
     </div></div>
     </div>
@@ -165,7 +249,7 @@ async function deleteCategoryFlow(id: number) {
                 </li>
           </ul>
           </div>
-        <RouterLink class="mt-10" :to="`/profile/collections/${categorie.id}`">Voir plus</RouterLink>
+        <ActionButton text="Voir plus" :to="`/profile/collections/${categorie.id}`" />
       </li>
     </ul>
     </KeepAlive>

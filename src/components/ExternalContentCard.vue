@@ -17,7 +17,7 @@ const props = defineProps({
             <h4 class="line-clamp-1">{{ title }}</h4>
             <p class="line-clamp-2">{{ description }}</p>
         </section>
-        <img class="w-auto h-auto" :src="img" :alt="title" />
+        <img class="w-auto h-32 rounded-xl place-self-center" :src="img" :alt="title" />
         <div class="inline-flex gap-2 items-center">
             <img class="size-4" :src="favicon" :alt="title" />
             <span class="font-serif">{{ domain }}</span>

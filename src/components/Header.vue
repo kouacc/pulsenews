@@ -32,6 +32,7 @@ const doLogout = async () => {
   currentuser.value = null
   router.push('/login')
 }
+
 </script>
 
 <template>

@@ -43,7 +43,8 @@ const doLogin = async () => {
   try {
     await pb.collection('users').authWithPassword(email.value, password.value)
     currentuser.value = pb.authStore.model
-    router.push('/login')
+    router.push('/')
+    window.location.reload()
   } catch (error) {
       checkError(error)
   }
@@ -54,7 +55,8 @@ const doLoginOauth = async () => {
   try {
     await pb.collection('users').authWithOAuth2({ provider: 'google' })
     currentuser.value = pb.authStore.model
-    location.reload()
+    router.push('/')
+    window.location.reload()
   } catch (error) {
       checkError(error)
   }
@@ -82,7 +84,8 @@ const doLoginWebauthn = async () => {
   
     pb.authStore.save(finalResult.token, finalResult.user)
     currentuser.value = finalResult.user
-    router.push('/login')
+    router.push('/')
+    window.location.reload()
   } catch (error) {
     checkError(error)
   }

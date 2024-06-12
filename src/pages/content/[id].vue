@@ -212,8 +212,14 @@ watch(route, async () => {
     </section>
     <section class="space-y-4">
       <h3>Tags</h3>
-      <ul class="flex gap-3">
-        <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag" />
+      <ul class="flex gap-x-5 gap-y-6 flex-wrap">
+        <ContentTag v-for="(tag, index) in artData.term_titles" :key="index" :tag="tag" type="tag" />
+      </ul>
+    </section>
+    <section class="space-y-4">
+      <h3>Catégories</h3>
+      <ul class="flex gap-x-5 gap-y-6 flex-wrap">
+        <ContentTag v-for="(tag, index) in artData.category_titles" :key="index" :tag="tag" type="category" />
       </ul>
     </section>
     <section class="space-y-3">

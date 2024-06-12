@@ -11,11 +11,11 @@ import { addContent, getCollections } from '@/collections'
 let windowSave = ref(false)
 let currentuser = ref()
 
-const props = withDefaults(defineProps<ContentCardType & { 
+const props = withDefaults(defineProps<Partial<ContentCardType & { 
   variant?: 'default' | 'lazyload',
   showSave?: boolean
   categories?: any,
-}>(),
+}>>(),
   {
   variant: 'default',
   showSave: true
@@ -44,18 +44,20 @@ onMounted(async () => {
       </RouterLink>
       <section class="flex justify-between ">
         <h3 class="line-clamp-1 w-4/5">{{ title }}</h3>
-        <button v-if="showSave" class="place-self-end" @click="windowSave = !windowSave">
-        <IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" />
-      </button>
+        <div v-if="showSave" class="place-self-end flex flex-col items-center" >
+        <button @click="windowSave = !windowSave"><IconBookmark class="w-4" :class="{ 'fill-black': savedConfirm}" /></button>
+        <div v-show="windowSave" class="absolute gray p-4 rounded-lg w-80 mt-10">
+          <h4 class="line-clamp-2">Dans quelle catégorie voulez-vous ajouter {{ title }} ?</h4>
+          <div class="flex gap-5">
+            <select v-model="select_category" class="w-full rounded-xl">
+              <option disabled selected>Choisissez une catégorie</option>
+              <option v-for="categorie in categories" :key="categorie" :value="categorie.id">{{ categorie.nom }}</option>
+            </select>
+            <button class="bg-blue-500 px-2 py-1 text-white rounded-xl" @click="addContent(id.toString(), select_category,'interne'), windowSave = false, savedConfirm = true">Ajouter</button>
+          </div>
+        </div>
+      </div>
       </section>
-    <div v-show="windowSave" class="absolute gray p-4 rounded-lg w-80">
-      <h4 class="line-clamp-2">Dans quelle catégorie voulez-vous ajouter {{ title }} ?</h4>
-      <select v-model="select_category">
-        <option disabled selected>Choisissez une catégorie</option>
-        <option v-for="categorie in categories" :key="categorie" :value="categorie.id">{{ categorie.nom }}</option>
-      </select>
-      <button class="bg-blue-500 px-2 py-1 text-white rounded-md" @click="addContent(id.toString(), select_category,'interne'), windowSave = false, savedConfirm = true">Ajouter</button>
-    </div>
   </li>
   <li v-else-if="variant === 'lazyload'">
     <div class="flex flex-col gap-2 animate-pulse">
