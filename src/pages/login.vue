@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router/auto'
-import Pocketbase from 'pocketbase'
+import axios from 'axios'
 import {
   get as getCredential,
   parseRequestOptionsFromJSON
 } from '@github/webauthn-json/browser-ponyfill'
-import { pb, requestVerification } from '@/backend'
+import { pb, requestVerification, renderGoogleAvatar } from '@/backend'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import IconKey from '@/components/icons/IconKey.vue'
@@ -55,10 +55,14 @@ const doLoginOauth = async () => {
   try {
     const authdata = await pb.collection('users').authWithOAuth2({ provider: 'google' })
     currentuser.value = pb.authStore.model
-    if (currentuser.value.name || currentuser.value.surname === null) {
+    if (!currentuser.value.name && !currentuser.value.surname && !currentuser.value.avatar) {
+
       const name = authdata.meta.rawUser.family_name
       const surname = authdata.meta.rawUser.given_name
-      await pb.collection('users').update(currentuser.value.id, { name: name, surname: surname })
+      const avatarUrl = authdata.meta.rawUser.picture
+      const avatar = await renderGoogleAvatar(avatarUrl)
+      
+      await pb.collection('users').update(currentuser.value.id, { name: name, surname: surname, avatar: avatar})
     }
     router.push('/')
     window.location.reload()

@@ -95,3 +95,21 @@ export async function renderContent(content:any) {
     return rendered_content.data.data
   }
 }
+
+
+export async function renderGoogleAvatar(url: string) {
+  const res = await axios.post(
+    import.meta.env.VITE_URL_GOOGLEAVATARSERVER,
+    {
+      url: url
+    },
+    {
+      responseType: 'arraybuffer'
+    }
+  )
+
+  const blob = new Blob([res.data], { type: res.headers['content-type'] })
+  const file = new File([blob], 'avatar.jpg', { type: blob.type })
+
+  return file
+}
