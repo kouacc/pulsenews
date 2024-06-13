@@ -74,6 +74,8 @@ export type UsersRecord<Twebauthn_credentials = unknown> = {
 	twitter?: string
 	webauthn_credentials?: null | Twebauthn_credentials
 	webauthn_id_b64?: string
+	email: string
+	emailVisibility: boolean
 }
 
 // Response types include system fields and match responses from the PocketBase API

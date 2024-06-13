@@ -80,6 +80,10 @@ onMounted(async () => {
 })
 
 const registerPasskey = async () => {
+  if (currentuser.value.webauthn_id_b64 && !currentuser.value.webauthn_credentials)
+    await pb.collection('users').update(currentuser.value.id, {
+      webauthn_id_b64: ''
+    })
   const publicKeyCredentialCreationOptions = await pb.send(
     `/webauthn-begin-registration/${btoa(currentuser.value.email)}`,
     {

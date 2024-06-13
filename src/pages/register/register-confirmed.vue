@@ -64,6 +64,7 @@ watch(lastRequestTime, () => {
     <section class="border-b-4 border-black pb-6">
       <h1>Merci !</h1>
       <h2>Une vérification par e-mail vous a été envoyé.</h2>
+      <p>L'e-mail peut prendre du temps à arriver, soyez patient !</p>
     </section>
     <div class="flex justify-between gap-5 px-5 py-8">
       <section class="px-8 py-8 bg-gray-100 rounded-lg grow shadow-2xl space-y-2">

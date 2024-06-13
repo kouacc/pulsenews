@@ -16,7 +16,9 @@ onMounted(async () => {
 })
 
 const progressbar = ref(0)
-const user_form = ref({} as UsersResponse)
+const user_form = ref({
+  emailVisibility: true,
+} as UsersResponse)
 const error_show = ref(false)
 const form_error = ref({})
 const terms_accepted = ref(false)
