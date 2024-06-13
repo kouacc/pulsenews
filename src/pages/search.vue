@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router/auto'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { pb } from '@/backend'
+import { getCollections } from '@/collections'
 import CardContent from '@/components/CardContent.vue'
 import axios from 'axios'
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 
 import { getContent } from '@/backend'
 
@@ -11,6 +13,24 @@ const route = useRoute()
 const router = useRouter()
 let tag = ref<string>('')
 let queryType = ref<string>('')
+const categories = ref<any>()
+
+const currentuser = ref<any>()
+
+let pages_available = ref<number>()
+let current_page = ref<number>(1)
+
+const prevPage = () => {
+  if (current_page.value > 1) {
+    current_page.value--
+  }
+}
+
+const nextPage = () => {
+  if (current_page.value < pages_available.value) {
+    current_page.value++
+  }
+}
 
 
 onMounted(() => {
@@ -46,7 +66,7 @@ const getData = async () => {
       } else if (queryType.value === 'tag') {
         if (tag.value != '') {
           const response = await axios.get(
-            `https://api.artic.edu/api/v1/artworks/search?query[match][term_titles]=${tag.value}&limit=50&fields=id,title,image_id,alt_text`
+            `https://api.artic.edu/api/v1/artworks/search?query[match][term_titles]=${tag.value}&page=${current_page.value}&limit=50&fields=id,title,image_id,alt_text`
           )
           const { data } = response.data
           artData.value = data
@@ -67,7 +87,19 @@ onMounted(async () => {
   if (tag.value) {
     await getData()
   }
+  currentuser.value = pb.authStore.isValid ? pb.authStore.model : null
+  categories.value = await getCollections(currentuser.value.id)
+  console.log(categories.value)
 })
+
+async function fetchArtData() {
+  try {
+    const artDataResult = await getData()
+    artData.value = artDataResult
+  } catch (error) {
+    console.error(error)
+}
+}
 
 const artData = ref([])
 
@@ -78,6 +110,7 @@ const searchQuery = async () => {
     const response = await axios.get(
       `https://api.artic.edu/api/v1/artworks/search?q=${searchInput.value}`
     )
+    pages_available.value = response.data.pagination.total_pages
     const data_content = []
     for (let item of response.data.data) {
       console.log(item.id)
@@ -91,6 +124,10 @@ const searchQuery = async () => {
     console.error(error)
   }
 }
+
+watch(current_page, () => {
+  fetchArtData()
+})
 </script>
 
 <template>
@@ -99,7 +136,7 @@ const searchQuery = async () => {
       <h1>Recherche pour : {{ tag }}</h1>
       </section>
         <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
-          <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+          <CardContent v-for="art in artData" v-bind="art" :key="art.title" :categories="categories" />
         </ul>
   </div>
   <div v-else-if="category" class="container py-10 grille space-y-5">
@@ -107,7 +144,7 @@ const searchQuery = async () => {
       <h1>Recherche pour : {{ tag }}</h1>
       </section>
         <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
-          <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+          <CardContent v-for="art in artData" v-bind="art" :key="art.title" :categories="categories" />
         </ul>
   </div>
   <div v-else class="container grille py-10" :class="{ 'h-screen': artData.length === 0}">
@@ -122,7 +159,7 @@ const searchQuery = async () => {
       </div>
     </div>
     <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 col-span-full">
-      <CardContent v-for="art in artData" v-bind="art" :key="art.title" />
+      <CardContent v-for="art in artData" v-bind="art" :key="art.title" :categories="categories" />
     </ul>
   </div>
 </template>
