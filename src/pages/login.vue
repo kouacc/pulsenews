@@ -53,12 +53,17 @@ const doLogin = async () => {
 //Connexion avec Google
 const doLoginOauth = async () => {
   try {
-    await pb.collection('users').authWithOAuth2({ provider: 'google' })
+    const authdata = await pb.collection('users').authWithOAuth2({ provider: 'google' })
     currentuser.value = pb.authStore.model
+    if (currentuser.value.name || currentuser.value.surname === null) {
+      const name = authdata.meta.rawUser.family_name
+      const surname = authdata.meta.rawUser.given_name
+      await pb.collection('users').update(currentuser.value.id, { name: name, surname: surname })
+    }
     router.push('/')
     window.location.reload()
   } catch (error) {
-      checkError(error)
+      console.error(error)
   }
 }
 
