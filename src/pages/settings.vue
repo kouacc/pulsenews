@@ -259,7 +259,7 @@ let passwordConfirm = ref('')
       <section class="flex items-center gap-10">
         <h3 v-if="currentuser && currentuser.webauthn_credentials">Vous avez déjà enregistré une clé.</h3>
         <button
-          v-if="currentuser && currentuser.webauthn_id_b64"
+          v-if="currentuser && currentuser.webauthn_credentials"
           @click="warningUnlinkPasskey = true"
           class="bg-red-500 text-white rounded-full px-5 py-2">Supprimer</button>
           <ActionWindow v-show="warningUnlinkPasskey">
